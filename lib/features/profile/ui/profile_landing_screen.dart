@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text_field.dart';
+import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
 
 class ProfileLandingScreen extends StatefulWidget {
   const ProfileLandingScreen({super.key});
@@ -12,6 +13,9 @@ class ProfileLandingScreen extends StatefulWidget {
 
 class _ProfileLandingScreenState extends State<ProfileLandingScreen> {
   var descriptionController = TextEditingController();
+  var telegramController = TextEditingController();
+  var whatsappController = TextEditingController();
+  var signalController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +44,29 @@ class _ProfileLandingScreenState extends State<ProfileLandingScreen> {
             textInputType: TextInputType.text,
             labelText: AppLocalizations.of(context)?.personalDescription,
             hintText: AppLocalizations.of(context)?.personalDescriptionHint,
+            maxLines: 3,
+          ),
+          const USTALevelDropdownSelection(),
+          CustomTextField(
+            controller: telegramController,
+            textInputType: TextInputType.text,
+            labelText:
+                "${AppLocalizations.of(context)?.telegram}${AppLocalizations.of(context)?.optional}",
+            hintText: AppLocalizations.of(context)?.leaveContact,
           ),
           CustomTextField(
-            controller: descriptionController,
+            controller: whatsappController,
             textInputType: TextInputType.text,
-            labelText: AppLocalizations.of(context)?.personalDescription,
-            hintText: AppLocalizations.of(context)?.personalDescriptionHint,
-            maxLines: 3,
+            labelText:
+                "${AppLocalizations.of(context)?.whatsapp}${AppLocalizations.of(context)?.optional}",
+            hintText: AppLocalizations.of(context)?.leaveContact,
+          ),
+          CustomTextField(
+            controller: signalController,
+            textInputType: TextInputType.text,
+            labelText:
+                "${AppLocalizations.of(context)?.signal}${AppLocalizations.of(context)?.optional}",
+            hintText: AppLocalizations.of(context)?.leaveContact,
           ),
         ],
       ),

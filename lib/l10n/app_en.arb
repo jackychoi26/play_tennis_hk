@@ -5,11 +5,12 @@
   "save": "Save",
   "username": "User name",
   "email": "Email",
-  "age": "Age",
   "ustaLevel": "USTA level",
   "telegram": "Telegram",
   "whatsapp": "Whatsapp",
   "signal": "Signal",
   "personalDescription": "Personal description",
-  "personalDescriptionHint": "Introduce yourself!"
+  "personalDescriptionHint": "Introduce yourself!",
+  "optional": "(Optional)",
+  "leaveContact": "Leave your contact"
 }

@@ -3,13 +3,14 @@
   "matchmaking": "比賽配對",
   "editProfile": "編輯個人資料",
   "save": "儲存",
-  "username": "User name",
-  "email": "Email",
-  "age": "Age",
-  "ustaLevel": "USTA level",
+  "username": "用戶名稱",
+  "email": "電郵",
+  "ustaLevel": "USTA等級",
   "telegram": "Telegram",
   "whatsapp": "Whatsapp",
   "signal": "Signal",
   "personalDescription": "個人簡介",
-  "personalDescriptionHint": "介紹一下你自己吧！"
+  "personalDescriptionHint": "介紹一下你自己吧！",
+  "optional": "（非必須）",
+  "leaveContact": "留下聯繫方法"
 }
