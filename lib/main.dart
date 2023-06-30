@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:play_tennis_hk/home/presentation/home.dart';
+import 'package:play_tennis_hk/features/home/ui/home_screen.dart';
 
 void main() {
   runApp(
