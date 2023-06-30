@@ -6,35 +6,19 @@ class PartnerInfoCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(8),
-      color: Colors.green,
-      child: Row(
+      padding: const EdgeInsets.all(14),
+      margin: const EdgeInsets.only(top: 12),
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network("https://picsum.photos/80"),
-          const SizedBox(
-            width: 200,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "30/6 Friday, 7-9pm, Tai Po Ata dsa  sad a das",
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Text(
-                  "Level 3.5 - 4, Double",
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  "Please contact me if you want to",
-                  textAlign: TextAlign.start,
-                ),
-              ],
-            ),
-          ),
+          Text("30/6 Friday, 7-9pm"),
+          Text("Tai Po"),
+          Text("Level 3.5 - 4, Double"),
+          Text("Please contact me if you want to play together"),
         ],
       ),
     );

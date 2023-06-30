@@ -1,4 +1,15 @@
 {
   "playTennisHk": "Play tennis HK",
-  "matchmaking": "Matchmaking"
+  "matchmaking": "Matchmaking",
+  "editProfile": "Edit profile",
+  "save": "Save",
+  "username": "User name",
+  "email": "Email",
+  "age": "Age",
+  "ustaLevel": "USTA level",
+  "telegram": "Telegram",
+  "whatsapp": "Whatsapp",
+  "signal": "Signal",
+  "personalDescription": "Personal description",
+  "personalDescriptionHint": "Introduce yourself!"
 }
