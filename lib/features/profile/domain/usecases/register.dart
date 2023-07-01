@@ -1,12 +1,3 @@
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-
-class Register extends CompletableUseCase<RegisterParam> {
-  @override
-  Future<Stream<void>> buildUseCaseStream(RegisterParam? params) {
-    throw UnimplementedError();
-  }
-}
-
 class RegisterParam {
   final String username;
   final String email;
