@@ -9,11 +9,11 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: [
           UserAccountsDrawerHeader(
-            decoration: const BoxDecoration(color: const Color(0xff764abc)),
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 116, 73, 185)),
             accountName: const Text(
               "JackyChoi",
               style: TextStyle(
@@ -38,11 +38,38 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: CustomText(AppLocalizations.of(context)?.matchmaking),
+            title: Row(
+              children: [
+                CustomText("${AppLocalizations.of(context)?.matchmaking}  "),
+                const Icon(Icons.sports_tennis),
+              ],
+            ),
             onTap: () {
               // Update the state of the app
               // ...
               // Then close the drawer
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                CustomText("${AppLocalizations.of(context)?.findPartner}  "),
+                const Icon(Icons.people)
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                CustomText("${AppLocalizations.of(context)?.systemSetting}  "),
+                const Icon(Icons.settings),
+              ],
+            ),
+            onTap: () {
               Navigator.pop(context);
             },
           ),

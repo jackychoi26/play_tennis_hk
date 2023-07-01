@@ -1,6 +1,7 @@
 {
   "playTennisHk": "香港網球約戰平台",
   "matchmaking": "比賽配對",
+  "findPartner": "搜尋波友",
   "editProfile": "編輯個人資料",
   "save": "儲存",
   "username": "用戶名稱",
@@ -12,5 +13,6 @@
   "personalDescription": "個人簡介",
   "personalDescriptionHint": "介紹一下你自己吧！",
   "optional": "（非必須）",
-  "leaveContact": "留下聯繫方法"
+  "leaveContact": "留下聯繫方法",
+  "systemSetting": "系統設定"
 }
