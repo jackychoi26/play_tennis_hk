@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/features/matchmaking/data/repositories/matches_repository_impl.dart';
+import 'package:play_tennis_hk/features/matchmaking/data/repositories/tennis_matches_repository_impl.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 
 class TennisMatchesNotifier extends StateNotifier<List<TennisMatch>> {

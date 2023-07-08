@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/features/matchmaking/domain/providers/matches_provider.dart';
-import 'package:play_tennis_hk/features/matchmaking/ui/match_info_cell.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/providers/tennis_matches_provider.dart';
+import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_info_cell.dart';
 
-class MatchListScreen extends ConsumerWidget {
-  const MatchListScreen({super.key});
+class TennisMatchListScreen extends ConsumerWidget {
+  const TennisMatchListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -12,7 +12,7 @@ class MatchListScreen extends ConsumerWidget {
 
     return ListView(padding: const EdgeInsets.all(8), children: [
       for (var match in matches)
-        MatchInfoCell(
+        TennisMatchInfoCell(
           startDateTime: match.startDateTime,
           endDateTime: match.endDateTime,
           ustaLevelRange: match.ustaLevelRange,

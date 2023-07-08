@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/region.dart';
 
-class MatchInfoCell extends StatelessWidget {
-  const MatchInfoCell({
+class TennisMatchInfoCell extends StatelessWidget {
+  const TennisMatchInfoCell({
     required this.startDateTime,
     required this.endDateTime,
     required this.district,
@@ -69,13 +70,15 @@ class MatchInfoCell extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
-          Text("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
-          Text(
+          CustomText(
+              "${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
+          CustomText("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
+          CustomText(
               "${AppLocalizations.of(context)?.location}: ${district.toLocalizedName(localName)} $court"),
-          Text(
+          CustomText(
               "${AppLocalizations.of(context)?.ustaLevel}: ${_getUstaLevelRange()}"),
-          Text("${AppLocalizations.of(context)?.remarks}: ${remarks ?? ""}"),
+          CustomText(
+              "${AppLocalizations.of(context)?.remarks}: ${remarks ?? ""}"),
         ],
       ),
     );

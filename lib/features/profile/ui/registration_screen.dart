@@ -1,15 +1,24 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/components/custom_text.dart';
 
-class RegistrationScreen extends StatefulWidget {
+class RegistrationScreen extends ConsumerStatefulWidget {
   const RegistrationScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _RegistrationScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return RegistrationScreenState();
+  }
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class RegistrationScreenState extends ConsumerState<RegistrationScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Text("Hello");
+    return const CustomText("Registration");
   }
 }

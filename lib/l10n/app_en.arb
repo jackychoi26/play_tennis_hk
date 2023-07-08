@@ -18,5 +18,6 @@
   "date": "Date",
   "time": "Time",
   "location": "Location",
-  "remarks": "Remarks"
+  "remarks": "Remarks",
+  "register": "Register"
 }

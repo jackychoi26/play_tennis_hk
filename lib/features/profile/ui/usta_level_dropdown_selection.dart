@@ -35,7 +35,7 @@ class _USTALevelDropdownSelectionState
           items: ustaLevelData.map<DropdownMenuItem<double>>((double value) {
             return DropdownMenuItem<double>(
               value: value,
-              child: Text(value.toString()),
+              child: CustomText(value.toString()),
             );
           }).toList(),
         ),

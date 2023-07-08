@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text_field.dart';
-import 'package:play_tennis_hk/features/matchmaking/data/webservices/matches_webservice.dart';
+import 'package:play_tennis_hk/features/matchmaking/data/webservices/tennis_matches_webservice.dart';
 import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
 
 class ProfileLandingScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _ProfileLandingScreenState extends State<ProfileLandingScreen> {
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
-                MatchesWebservice().performRequest();
+                TennisMatchesWebservice().performRequest();
               },
               child: CustomText(
                 AppLocalizations.of(context)?.save,

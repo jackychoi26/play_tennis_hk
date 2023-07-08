@@ -15,10 +15,10 @@ class PartnerInfoCell extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("30/6 Friday, 7-9pm"),
-          Text("Tai Po"),
-          Text("Level 3.5 - 4, Double"),
-          Text("Please contact me if you want to play together"),
+          CustomText("30/6 Friday, 7-9pm"),
+          CustomText("Tai Po"),
+          CustomText("Level 3.5 - 4, Double"),
+          CustomText("Please contact me if you want to play together"),
         ],
       ),
     );
