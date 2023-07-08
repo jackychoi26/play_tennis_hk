@@ -16,7 +16,8 @@ class MatchListScreen extends ConsumerWidget {
           startDateTime: match.startDateTime,
           endDateTime: match.endDateTime,
           ustaLevelRange: match.ustaLevelRange,
-          location: match.location,
+          district: match.district,
+          court: match.court,
           remarks: match.remarks,
         )
     ]);

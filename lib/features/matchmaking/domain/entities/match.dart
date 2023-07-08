@@ -1,3 +1,6 @@
+import 'package:play_tennis_hk/domain/district.dart';
+import 'package:play_tennis_hk/domain/extensions/string_to_district.dart';
+
 class Match {
   final String id;
   final DateTime createdAt;
@@ -5,7 +8,8 @@ class Match {
   final List<num> ustaLevelRange;
   final DateTime startDateTime;
   final DateTime endDateTime;
-  final String location;
+  final District district;
+  final String court;
   final String? remarks;
 
   Match({
@@ -15,7 +19,8 @@ class Match {
     required this.ustaLevelRange,
     required this.startDateTime,
     required this.endDateTime,
-    required this.location,
+    required this.district,
+    required this.court,
     this.remarks,
   });
 
@@ -28,7 +33,8 @@ class Match {
       ustaLevelRange: json['ustaLevelRange'].cast<num>(),
       startDateTime: DateTime.parse(json['startDateTime'] as String).toLocal(),
       endDateTime: DateTime.parse(json['endDateTime'] as String).toLocal(),
-      location: json['location'],
+      district: (json['district'] as String).toDistrict(),
+      court: json['court'],
       remarks: json['remarks'],
     );
   }

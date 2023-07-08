@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
+import 'package:play_tennis_hk/domain/district.dart';
 
 class MatchInfoCell extends StatelessWidget {
   const MatchInfoCell({
     required this.startDateTime,
     required this.endDateTime,
-    required this.location,
+    required this.district,
+    required this.court,
     required this.ustaLevelRange,
     this.remarks,
     super.key,
@@ -14,13 +16,12 @@ class MatchInfoCell extends StatelessWidget {
 
   final DateTime startDateTime;
   final DateTime endDateTime;
-  final String location;
+  final District district;
+  final String court;
   final List<num> ustaLevelRange;
   final String? remarks;
 
-  String _getDate(BuildContext context) {
-    final localName = AppLocalizations.of(context)?.localeName;
-
+  String _getDate(String? localName) {
     if (localName == "zh") {
       return startDateTime.getChineseMonthDayValue();
     } else {
@@ -29,9 +30,9 @@ class MatchInfoCell extends StatelessWidget {
   }
 
   String _getTime() {
-    final startTime = startDateTime.getTimeIn12HoursFormat();
-    final endTime = endDateTime.getTimeIn12HoursFormat();
-    return "$startTime - $endTime ${endDateTime.isPm() ? "pm" : "am"}";
+    final startHour = startDateTime.getHourIn12HoursFormat();
+    final endHour = endDateTime.getHourIn12HoursFormat();
+    return "$startHour-$endHour ${endDateTime.isPm() ? "pm" : "am"}";
   }
 
   String _getUstaLevelRange() {
@@ -44,6 +45,8 @@ class MatchInfoCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localName = AppLocalizations.of(context)?.localeName;
+
     return Container(
       padding: const EdgeInsets.all(14),
       margin: const EdgeInsets.only(top: 12),
@@ -54,12 +57,13 @@ class MatchInfoCell extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${AppLocalizations.of(context)?.date}: ${_getDate(context)}"),
+          Text("${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
           Text("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
-          Text("${AppLocalizations.of(context)?.location}: $location"),
+          Text(
+              "${AppLocalizations.of(context)?.location}: ${district.toLocalizedName(localName)} $court"),
           Text(
               "${AppLocalizations.of(context)?.ustaLevel}: ${_getUstaLevelRange()}"),
-          Text("${AppLocalizations.of(context)?.remarks}: $remarks"),
+          Text("${AppLocalizations.of(context)?.remarks}: ${remarks ?? ""}"),
         ],
       ),
     );

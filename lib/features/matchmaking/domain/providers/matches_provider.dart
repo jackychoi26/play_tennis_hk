@@ -15,6 +15,9 @@ class MatchesNotifier extends StateNotifier<List<Match>> {
 
   void _getMatches() async {
     state = await repository.getMatches();
+    for (var match in state) {
+      print(match.remarks);
+    }
   }
 }
 

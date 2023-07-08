@@ -12,11 +12,11 @@ extension DateFormatter on DateTime {
     return "$month月$day日";
   }
 
-  String getTimeIn12HoursFormat() {
+  String getHourIn12HoursFormat() {
     if (hour > 12) {
-      return "${hour - 12}:$minute";
+      return "${hour - 12}";
     } else {
-      return "$hour:$minute";
+      return "$hour";
     }
   }
 
