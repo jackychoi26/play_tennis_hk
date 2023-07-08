@@ -1,27 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/features/matchmaking/data/repositories/matches_repository_impl.dart';
-import 'package:play_tennis_hk/features/matchmaking/domain/entities/match.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 
-class MatchesNotifier extends StateNotifier<List<Match>> {
-  MatchesNotifier(this.repository) : super([]) {
+class TennisMatchesNotifier extends StateNotifier<List<TennisMatch>> {
+  TennisMatchesNotifier(this.repository) : super([]) {
     _getMatches();
   }
 
-  MatchesRepositoryImpl repository;
+  TennisMatchesRepositoryImpl repository;
 
   void updateMatches() async {
-    state = await repository.getMatches();
+    state = await repository.getTennisMatches();
   }
 
   void _getMatches() async {
-    state = await repository.getMatches();
-    for (var match in state) {
-      print(match.remarks);
-    }
+    state = await repository.getTennisMatches();
   }
 }
 
 final matchesProvider =
-    StateNotifierProvider<MatchesNotifier, List<Match>>((ref) {
-  return MatchesNotifier(MatchesRepositoryImpl());
+    StateNotifierProvider<TennisMatchesNotifier, List<TennisMatch>>((ref) {
+  return TennisMatchesNotifier(TennisMatchesRepositoryImpl());
 });

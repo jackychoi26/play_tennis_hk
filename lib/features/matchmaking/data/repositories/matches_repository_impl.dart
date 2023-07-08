@@ -1,14 +1,14 @@
-import 'package:play_tennis_hk/features/matchmaking/data/webservices/matches_webservice.dart';
-import 'package:play_tennis_hk/features/matchmaking/domain/entities/match.dart';
-// import 'package:play_tennis_hk/features/matchmaking/domain/repositories/matches_repository.dart';
+import 'package:play_tennis_hk/features/matchmaking/data/webservices/tennis_matches_webservice.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/repositories/tennis_matches_repository.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 
-class MatchesRepositoryImpl {
-  MatchesRepositoryImpl();
+class TennisMatchesRepositoryImpl implements TennisMatchesRepository {
+  TennisMatchesRepositoryImpl();
 
-  final matchesWebservice = MatchesWebservice();
+  final matchesWebservice = TennisMatchesWebservice();
 
-  // TODO: find out why cannot override the abstract class
-  Future<List<Match>> getMatches() async {
+  @override
+  Future<List<TennisMatch>> getTennisMatches() async {
     final matchesResponse = await matchesWebservice.performRequest();
     return matchesResponse.matches;
   }

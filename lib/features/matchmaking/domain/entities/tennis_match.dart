@@ -1,7 +1,7 @@
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/extensions/string_to_district.dart';
 
-class Match {
+class TennisMatch {
   final String id;
   final DateTime createdAt;
   final String poster;
@@ -12,7 +12,7 @@ class Match {
   final String court;
   final String? remarks;
 
-  Match({
+  TennisMatch({
     required this.id,
     required this.createdAt,
     required this.poster,
@@ -25,8 +25,8 @@ class Match {
   });
 
   @override
-  factory Match.fromJson(Map<String, dynamic> json) {
-    return Match(
+  factory TennisMatch.fromJson(Map<String, dynamic> json) {
+    return TennisMatch(
       id: json['id'],
       createdAt: DateTime.parse(json['createdAt'] as String).toLocal(),
       poster: json['poster'],
