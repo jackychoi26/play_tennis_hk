@@ -14,5 +14,9 @@
   "personalDescriptionHint": "Introduce yourself!",
   "optional": "(Optional)",
   "leaveContact": "Leave your contact",
-  "systemSetting": "System setting"
+  "systemSetting": "System setting",
+  "date": "Date",
+  "time": "Time",
+  "location": "Location",
+  "remarks": "Remarks"
 }

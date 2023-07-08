@@ -1,51 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:play_tennis_hk/features/matchmaking/domain/usecases/get_match_list.dart';
-import 'package:play_tennis_hk/features/matchmaking/domain/entities/match.dart';
-import 'package:play_tennis_hk/features/matchmaking/domain/entities/match_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/providers/matches_provider.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/match_info_cell.dart';
 
-class MatchListScreen extends StatefulWidget {
+class MatchListScreen extends ConsumerWidget {
   const MatchListScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _MatchListScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final matches = ref.watch(matchesProvider);
 
-class _MatchListScreenState extends State<MatchListScreen> {
-  final _getMatchList = GetMatchList();
-
-  List<Match> matches = List.empty();
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
-
-  void _init() async {
-    try {
-      print("Hello");
-      MatchList matchList = await _getMatchList.execute();
-      print(matchList.runtimeType);
-      setState(() {
-        matches = matchList.matchList;
-      });
-    } catch (err) {
-      print(err);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: [
-        for (var match in matches)
-          MatchInfoCell(
-              dateTime: match.startDateTime,
-              location: match.location,
-              ustaLevelRange: match.ustaLevelRange,
-              description: "sajdiaoj")
-      ],
-    );
+    return ListView(padding: const EdgeInsets.all(8), children: [
+      for (var match in matches)
+        MatchInfoCell(
+          startDateTime: match.startDateTime,
+          endDateTime: match.endDateTime,
+          ustaLevelRange: match.ustaLevelRange,
+          location: match.location,
+          remarks: match.remarks,
+        )
+    ]);
   }
 }
+
+// class _MatchListScreenState extends State<MatchListScreen> {
+//   List<Match> matches = List.empty();
+//   @override
+//   void initState() {
+//     super.initState();
+
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView(
+//       padding: const EdgeInsets.all(8),
+//       children: [
+//         MatchInfoCell(
+//             dateTime: DateTime.now(),
+//             location: "asjidoas",
+//             ustaLevelRange: const [1, 1.5])
+//         // for (var match in matches)
+//         //   MatchInfoCell(
+//         //       dateTime: match.startDateTime,
+
+//         //       ustaLevelRange: match.ustaLevelRange,
+//         //       description: "sajdiaoj")
+//       ],
+//     );
+//   }
+// }

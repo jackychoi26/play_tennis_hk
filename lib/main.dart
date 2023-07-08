@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/features/home/ui/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
-  runApp(
-    const MaterialApp(
+  runApp(const ProviderScope(
+    child: MaterialApp(
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -35,5 +36,5 @@ void main() {
       ],
       home: HomeScreen(),
     ),
-  );
+  ));
 }

@@ -14,5 +14,9 @@
   "personalDescriptionHint": "介紹一下你自己吧！",
   "optional": "（非必須）",
   "leaveContact": "留下聯繫方法",
-  "systemSetting": "系統設定"
+  "systemSetting": "系統設定",
+  "date": "日期",
+  "time": "時間",
+  "location": "地點",
+  "remarks": "備註"
 }

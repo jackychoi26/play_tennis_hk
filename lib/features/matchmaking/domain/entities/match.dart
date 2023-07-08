@@ -1,15 +1,14 @@
 class Match {
   final String id;
-  final String createdAt;
+  final DateTime createdAt;
   final String poster;
-  final List<double> ustaLevelRange;
-  final String startDateTime;
-  final String endDateTime;
+  final List<num> ustaLevelRange;
+  final DateTime startDateTime;
+  final DateTime endDateTime;
   final String location;
   final String? remarks;
 
-  Match(
-    this.remarks, {
+  Match({
     required this.id,
     required this.createdAt,
     required this.poster,
@@ -17,17 +16,20 @@ class Match {
     required this.startDateTime,
     required this.endDateTime,
     required this.location,
+    this.remarks,
   });
 
   @override
   factory Match.fromJson(Map<String, dynamic> json) {
-    return Match(json['remark'],
-        id: json['id'],
-        createdAt: json['createdAt'],
-        poster: json['poster'],
-        ustaLevelRange: json['ustaLevelRange'].cast<double>(),
-        startDateTime: json['startDateTime'],
-        endDateTime: json['endDateTime'],
-        location: json['location']);
+    return Match(
+      id: json['id'],
+      createdAt: DateTime.parse(json['createdAt'] as String).toLocal(),
+      poster: json['poster'],
+      ustaLevelRange: json['ustaLevelRange'].cast<num>(),
+      startDateTime: DateTime.parse(json['startDateTime'] as String).toLocal(),
+      endDateTime: DateTime.parse(json['endDateTime'] as String).toLocal(),
+      location: json['location'],
+      remarks: json['remarks'],
+    );
   }
 }
