@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
+import 'package:play_tennis_hk/domain/region.dart';
 
 class MatchInfoCell extends StatelessWidget {
   const MatchInfoCell({
@@ -43,6 +44,17 @@ class MatchInfoCell extends StatelessWidget {
     }
   }
 
+  Color _getBackgroundColor() {
+    switch (district.toRegion()) {
+      case Region.hkIsland:
+        return Colors.blue;
+      case Region.kowloon:
+        return Colors.red;
+      case Region.newTerritories:
+        return Colors.green;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final localName = AppLocalizations.of(context)?.localeName;
@@ -51,7 +63,7 @@ class MatchInfoCell extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       margin: const EdgeInsets.only(top: 12),
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: _getBackgroundColor(),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

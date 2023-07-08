@@ -1,3 +1,5 @@
+import 'package:play_tennis_hk/domain/region.dart';
+
 enum District {
   centralAndWestern,
   eastern,
@@ -104,6 +106,35 @@ extension DistrictTranslator on District {
         default:
           return '';
       }
+    }
+  }
+}
+
+extension DistrictMapper on District {
+  Region toRegion() {
+    switch (this) {
+      // HK island region
+      case District.centralAndWestern:
+      case District.wanChai:
+      case District.eastern:
+      case District.southern:
+        return Region.hkIsland;
+      case District.yauTsimMong:
+      case District.shamShuiPo:
+      case District.kowloonCity:
+      case District.wongTaiSin:
+      case District.kwunTong:
+        return Region.kowloon;
+      case District.kwaiTsing:
+      case District.tsuenWan:
+      case District.tuenMun:
+      case District.yuenLong:
+      case District.islands:
+      case District.north:
+      case District.taiPo:
+      case District.shaTin:
+      case District.saiKung:
+        return Region.newTerritories;
     }
   }
 }
