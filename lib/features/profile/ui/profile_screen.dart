@@ -94,20 +94,16 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               textInputType: TextInputType.text,
               labelText: "${AppLocalizations.of(context)?.username}",
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return AppLocalizations.of(context)?.usernameValidationError;
-                }
-                String username = "";
-                try {
-                  username = value as String;
-                } catch (err) {
-                  print(err);
-                }
-                print("Executed and see the length ${username.length}");
-                if (username.length < 4 || username.length > 12) {
-                  return AppLocalizations.of(context)?.usernameValidationError;
-                } else {
+                final username = value as String;
+
+                final RegExp usernameRegex = RegExp(
+                  r'^[a-zA-Z0-9_]{4,12}$',
+                );
+
+                if (usernameRegex.hasMatch(username)) {
                   return null;
+                } else {
+                  return AppLocalizations.of(context)?.usernameValidationError;
                 }
               },
             ),
