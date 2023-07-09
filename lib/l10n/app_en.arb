@@ -37,5 +37,7 @@
   "loginAccount": "Login account",
   "login": "Login",
   "logout": "Logout",
-  "filter": "Filter"
+  "filter": "Filter",
+  "partnerDetail": "Partner detail",
+  "district": "Districts"
 }

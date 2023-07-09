@@ -37,5 +37,7 @@
   "loginAccount": "登入帳號",
   "login": "登入",
   "logout": "登出",
-  "filter": "篩選"
+  "filter": "篩選",
+  "partnerDetail": "波友資料",
+  "district": "地區"
 }

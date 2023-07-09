@@ -4,6 +4,7 @@ import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/region.dart';
+import 'package:play_tennis_hk/features/matchmaking/ui/partner_detail_screen.dart';
 
 class TennisMatchInfoCell extends StatelessWidget {
   const TennisMatchInfoCell({
@@ -60,26 +61,35 @@ class TennisMatchInfoCell extends StatelessWidget {
   Widget build(BuildContext context) {
     final localName = AppLocalizations.of(context)?.localeName;
 
-    return Container(
-      padding: const EdgeInsets.all(14),
-      margin: const EdgeInsets.only(top: 12),
-      decoration: BoxDecoration(
-        color: _getBackgroundColor(),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomText(
-              "${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
-          CustomText("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
-          CustomText(
-              "${AppLocalizations.of(context)?.location}: ${district.toLocalizedName(localName)} $court"),
-          CustomText(
-              "${AppLocalizations.of(context)?.ustaLevel}: ${_getUstaLevelRange()}"),
-          CustomText(
-              "${AppLocalizations.of(context)?.remarks}: ${remarks ?? ""}"),
-        ],
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const PartnerDetailScreen(),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        margin: const EdgeInsets.only(top: 12),
+        decoration: BoxDecoration(
+          color: _getBackgroundColor(),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+                "${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
+            CustomText("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
+            CustomText(
+                "${AppLocalizations.of(context)?.location}: ${district.toLocalizedName(localName)} $court"),
+            CustomText(
+                "${AppLocalizations.of(context)?.ustaLevel}: ${_getUstaLevelRange()}"),
+            CustomText(
+                "${AppLocalizations.of(context)?.remarks}: ${remarks ?? ""}"),
+          ],
+        ),
       ),
     );
   }
