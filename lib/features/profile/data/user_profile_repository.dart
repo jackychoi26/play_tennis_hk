@@ -4,8 +4,4 @@ class UserProfileRepository {
   UserProfileRepository();
 
   final secureStorage = const FlutterSecureStorage();
-
-  Future<String?> getAccessToken() async {
-    return await secureStorage.read(key: "accessToken");
-  }
 }

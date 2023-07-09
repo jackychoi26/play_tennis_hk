@@ -12,6 +12,16 @@ class TokenNotifier extends StateNotifier<String?> {
   void getAccessToken() async {
     state = await repository.getAccessToken();
   }
+
+  void setAccessToken(String token) async {
+    await repository.setAccessToken(token);
+    state = token;
+  }
+
+  void removeAccessToken() async {
+    await repository.removeAccessToken();
+    state = null;
+  }
 }
 
 final tokenProvider = StateNotifierProvider<TokenNotifier, String?>((ref) {

@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
-import 'package:play_tennis_hk/features/profile/ui/profile_landing_screen.dart';
-import 'package:play_tennis_hk/features/profile/ui/registration_screen.dart';
+import 'package:play_tennis_hk/features/profile/ui/profile_screen.dart';
 
 class CustomDrawer extends ConsumerWidget {
   const CustomDrawer({super.key});
@@ -27,9 +26,10 @@ class CustomDrawer extends ConsumerWidget {
                     backgroundImage: NetworkImage("https://picsum.photos/200"),
                   ),
                   onDetailsPressed: () {
+                    Navigator.of(context).pop();
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const ProfileLandingScreen(),
+                        builder: (context) => const ProfileScreen(),
                       ),
                     );
                   },
@@ -44,7 +44,7 @@ class CustomDrawer extends ConsumerWidget {
                   onDetailsPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const RegistrationScreen(),
+                        builder: (context) => const ProfileScreen(),
                       ),
                     );
                   },

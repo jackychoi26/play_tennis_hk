@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_tennis_hk/components/custom_text.dart';
 
 class PartnerInfoCell extends StatelessWidget {
   const PartnerInfoCell({super.key});
