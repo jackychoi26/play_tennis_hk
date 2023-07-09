@@ -91,7 +91,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             CustomTextFormField(
               enabled: isRegistration,
               controller: usernameController,
-              textInputType: TextInputType.text,
+              textInputType: TextInputType.name,
               labelText: "${AppLocalizations.of(context)?.username}",
               validator: (value) {
                 final username = value as String;
@@ -110,7 +110,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             CustomTextFormField(
               enabled: isRegistration,
               controller: emailController,
-              textInputType: TextInputType.text,
+              textInputType: TextInputType.emailAddress,
               labelText: "${AppLocalizations.of(context)?.email}",
               validator: (value) {
                 final email = value as String;
@@ -131,7 +131,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               child: CustomTextFormField(
                 isPassword: true,
                 controller: passwordController,
-                textInputType: TextInputType.text,
+                textInputType: TextInputType.visiblePassword,
                 labelText: "${AppLocalizations.of(context)?.password}",
                 validator: (value) {
                   final password = value as String;
@@ -154,7 +154,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               child: CustomTextFormField(
                 isPassword: true,
                 controller: passwordAgainController,
-                textInputType: TextInputType.text,
+                textInputType: TextInputType.visiblePassword,
                 labelText: "${AppLocalizations.of(context)?.confirmPassword}",
                 validator: (value) {
                   final confirmPassword = value as String;

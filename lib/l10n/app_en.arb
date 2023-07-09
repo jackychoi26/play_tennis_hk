@@ -34,5 +34,7 @@
   "register": "Register",
   "chooseDistricts": "Choose districts",
   "tooManyDistricts": "You can only select up to 5 districts",
+  "loginAccount": "Login account",
+  "login": "Login",
   "logout": "Logout"
 }
