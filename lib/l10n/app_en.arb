@@ -36,5 +36,6 @@
   "tooManyDistricts": "You can only select up to 5 districts",
   "loginAccount": "Login account",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "filter": "Filter"
 }

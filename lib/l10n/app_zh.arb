@@ -36,5 +36,6 @@
   "tooManyDistricts": "你只能選擇最多5個地區",
   "loginAccount": "登入帳號",
   "login": "登入",
-  "logout": "登出"
+  "logout": "登出",
+  "filter": "篩選"
 }

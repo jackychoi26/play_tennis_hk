@@ -17,6 +17,17 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(AppLocalizations.of(context)?.matchmaking),
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () {},
+            child: CustomText(
+              AppLocalizations.of(context)?.filter,
+            ),
+          ),
+        ],
       ),
       body: const Center(
         child: TennisMatchListScreen(),

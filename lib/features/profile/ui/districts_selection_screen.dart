@@ -49,24 +49,28 @@ class DistrictsSelectionScreenState extends State<DistrictsSelectionScreen> {
           AppLocalizations.of(context)?.chooseDistricts,
         ),
         actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-            ),
-            onPressed: () {
-              if (selectedDistricts.length > 5) {
-                CustomSnackBar(
-                  message: AppLocalizations.of(context)?.tooManyDistricts,
-                  type: SnackBarType.error,
-                ).display(context);
-              } else {
-                onSaveSelect(selectedDistricts);
-                Navigator.pop(context);
-              }
-            },
-            child: CustomText(
-              AppLocalizations.of(context)?.save,
-            ),
+          Row(
+            children: [
+              TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () {
+                  if (selectedDistricts.length > 5) {
+                    CustomSnackBar(
+                      message: AppLocalizations.of(context)?.tooManyDistricts,
+                      type: SnackBarType.error,
+                    ).display(context);
+                  } else {
+                    onSaveSelect(selectedDistricts);
+                    Navigator.pop(context);
+                  }
+                },
+                child: CustomText(
+                  AppLocalizations.of(context)?.save,
+                ),
+              ),
+            ],
           ),
         ],
       ),
