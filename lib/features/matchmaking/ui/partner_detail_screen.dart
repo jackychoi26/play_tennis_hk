@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/domain/district.dart';
+import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_detail_card.dart';
 
 class PartnerDetailScreen extends StatelessWidget {
-  const PartnerDetailScreen({super.key});
+  const PartnerDetailScreen({
+    required this.tennisMatchDetailCard,
+    super.key,
+  });
+
+  final TennisMatchDetailCard tennisMatchDetailCard;
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +18,12 @@ class PartnerDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: CustomText(AppLocalizations.of(context)?.partnerDetail),
       ),
-      body: Column(
+      body: ListView(
         children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            child: tennisMatchDetailCard,
+          ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.username),
             subtitle: const Text("JackyChoi"),
