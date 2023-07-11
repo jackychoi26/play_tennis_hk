@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:play_tennis_hk/domain/district.dart';
+import 'package:play_tennis_hk/domain/match_type.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/partner_detail_screen.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_detail_card.dart';
 
 class TennisMatchInfoCell extends StatelessWidget {
   const TennisMatchInfoCell({
-    required this.startDateTime,
-    required this.endDateTime,
-    required this.district,
-    required this.court,
-    required this.ustaLevelRange,
-    this.remarks,
+    required TennisMatch tennisMatch,
     super.key,
-  });
+  }) : _tennisMatch = tennisMatch;
 
-  final DateTime startDateTime;
-  final DateTime endDateTime;
-  final District district;
-  final String court;
-  final List<num> ustaLevelRange;
-  final String? remarks;
+  final TennisMatch _tennisMatch;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +21,7 @@ class TennisMatchInfoCell extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PartnerDetailScreen(
               tennisMatchDetailCard: TennisMatchDetailCard(
-                startDateTime: startDateTime,
-                endDateTime: endDateTime,
-                district: district,
-                court: court,
-                ustaLevelRange: ustaLevelRange,
-                remarks: remarks,
+                tennisMatch: _tennisMatch,
                 shouldShowAllRemarks: true,
               ),
             ),
@@ -42,12 +29,8 @@ class TennisMatchInfoCell extends StatelessWidget {
         );
       },
       child: TennisMatchDetailCard(
-        startDateTime: startDateTime,
-        endDateTime: endDateTime,
-        district: district,
-        court: court,
-        ustaLevelRange: ustaLevelRange,
-        remarks: remarks,
+        tennisMatch: _tennisMatch,
+        shouldShowAllRemarks: false,
       ),
     );
   }

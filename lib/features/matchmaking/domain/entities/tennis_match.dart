@@ -1,5 +1,7 @@
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/extensions/string_to_district.dart';
+import 'package:play_tennis_hk/domain/extensions/string_to_match_type.dart';
+import 'package:play_tennis_hk/domain/match_type.dart';
 
 class TennisMatch {
   final String id;
@@ -10,6 +12,7 @@ class TennisMatch {
   final DateTime endDateTime;
   final District district;
   final String court;
+  final MatchType matchType;
   final String? remarks;
 
   TennisMatch({
@@ -21,6 +24,7 @@ class TennisMatch {
     required this.endDateTime,
     required this.district,
     required this.court,
+    required this.matchType,
     this.remarks,
   });
 
@@ -35,6 +39,7 @@ class TennisMatch {
       endDateTime: DateTime.parse(json['endDateTime'] as String).toLocal(),
       district: (json['district'] as String).toDistrict(),
       court: json['court'],
+      matchType: (json['matchType'] as String).toMatchType(),
       remarks: json['remarks'],
     );
   }

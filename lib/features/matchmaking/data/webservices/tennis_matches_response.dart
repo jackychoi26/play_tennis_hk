@@ -7,7 +7,7 @@ class TennisMatchesResponse extends WebserviceResponse {
   List<TennisMatch> matches;
 
   factory TennisMatchesResponse.fromJson(Map<String, dynamic> json) {
-    final list = json['matches'] as List;
+    final list = json['tennisMatches'] as List;
 
     List<TennisMatch> matches =
         list.map((match) => TennisMatch.fromJson(match)).toList();

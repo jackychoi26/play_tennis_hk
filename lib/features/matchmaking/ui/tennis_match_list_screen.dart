@@ -8,18 +8,11 @@ class TennisMatchListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final matches = ref.watch(matchesProvider);
+    final tennisMatches = ref.watch(matchesProvider);
 
     return ListView(padding: const EdgeInsets.all(8), children: [
-      for (var match in matches)
-        TennisMatchInfoCell(
-          startDateTime: match.startDateTime,
-          endDateTime: match.endDateTime,
-          ustaLevelRange: match.ustaLevelRange,
-          district: match.district,
-          court: match.court,
-          remarks: match.remarks,
-        )
+      for (var tennisMatch in tennisMatches)
+        TennisMatchInfoCell(tennisMatch: tennisMatch)
     ]);
   }
 }
