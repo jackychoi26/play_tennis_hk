@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
+import 'package:play_tennis_hk/components/username_text_field.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
 import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
@@ -70,6 +71,8 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     final isRegistration = ref.watch(tokenProvider) == null;
 
+    var usernameTextField = UsernameTextField(controller: usernameController);
+
     return Scaffold(
       appBar: AppBar(
         title: CustomText(_getAppBarTitle()),
@@ -88,6 +91,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
         key: _formKey,
         child: ListView(
           children: [
+            usernameTextField,
             CustomTextFormField(
               enabled: isRegistration,
               controller: usernameController,
