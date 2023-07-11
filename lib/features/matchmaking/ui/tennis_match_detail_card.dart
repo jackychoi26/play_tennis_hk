@@ -28,7 +28,7 @@ class TennisMatchDetailCard extends StatelessWidget {
   final MatchType _matchType;
   final String? _remarks;
 
-  bool shouldShowAllRemarks;
+  final bool shouldShowAllRemarks;
 
   String _getDate(String? localName) {
     if (localName == "zh") {

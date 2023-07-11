@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/features/partner-finding/ui/partner_info_cell.dart';
 import 'dart:async';
+
+import 'package:play_tennis_hk/components/custom_drawer.dart';
 
 class PartnerListScreen extends ConsumerStatefulWidget {
   const PartnerListScreen({super.key});
@@ -26,6 +27,7 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
         appBar: AppBar(
           title: Text("Flutter Refresh Indicator"),
         ),
+        drawer: const CustomDrawer(),
         body: RefreshIndicator(
           onRefresh: () async {
             await Future.delayed(Duration(seconds: 2));
@@ -53,7 +55,7 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
   }
 
   void updateData() {
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       int i = data.length + 1;
       data.add("Flutter Tutorial $i");
       timer.cancel();

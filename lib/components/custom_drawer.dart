@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:play_tennis_hk/features/matchmaking/ui/matchmaking_screen.dart';
+import 'package:play_tennis_hk/features/partner-finding/ui/partner_list.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/login_screen.dart';
 import 'package:play_tennis_hk/features/profile/ui/profile_screen.dart';
@@ -57,10 +59,15 @@ class CustomDrawer extends ConsumerWidget {
               ],
             ),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+              Navigator.of(context).pushReplacement(
+                PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const MatchmakingScreen(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    }),
+              );
             },
           ),
           ListTile(
@@ -71,8 +78,21 @@ class CustomDrawer extends ConsumerWidget {
               ],
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushReplacement(
+                PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const PartnerListScreen(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    }),
+              );
             },
+            // MaterialPageRoute(
+            //   builder: (context) {
+            //     return const PartnerListScreen();
+            //   },
+            // ),
           ),
           ListTile(
             title: Row(

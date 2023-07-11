@@ -59,11 +59,13 @@
   "partnerDetail": "Partner detail",
   "district": "Districts",
   "matchType": "Match type",
+  "training": "Training",
   "singles": "Singles",
   "doubles": "Doubles",
   "mensSingles": "Men's singles",
   "womensSingles": "Women's singles",
   "mensDoubles": "Men's doubles",
   "womensDoubles": "Women's doubles",
-  "mixedDoubles": "Mixed doubles"
+  "mixedDoubles": "Mixed doubles",
+  "createMatch": "Create Match"
 }

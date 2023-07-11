@@ -59,11 +59,13 @@
   "tuenMun": "屯門區",
   "yuenLong": "元朗區",
   "matchType": "比賽類型",
+  "training": "猜波",
   "singles": "單打",
   "doubles": "雙打",
   "mensSingles": "男單",
   "womensSingles": "女單",
   "mensDoubles": "男雙",
   "womensDoubles": "女雙",
-  "mixedDoubles": "混雙"
+  "mixedDoubles": "混雙",
+  "createMatch": "建立比賽"
 }
