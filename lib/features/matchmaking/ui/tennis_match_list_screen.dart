@@ -16,31 +16,3 @@ class TennisMatchListScreen extends ConsumerWidget {
     ]);
   }
 }
-
-// class _MatchListScreenState extends State<MatchListScreen> {
-//   List<Match> matches = List.empty();
-//   @override
-//   void initState() {
-//     super.initState();
-
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView(
-//       padding: const EdgeInsets.all(8),
-//       children: [
-//         MatchInfoCell(
-//             dateTime: DateTime.now(),
-//             location: "asjidoas",
-//             ustaLevelRange: const [1, 1.5])
-//         // for (var match in matches)
-//         //   MatchInfoCell(
-//         //       dateTime: match.startDateTime,
-
-//         //       ustaLevelRange: match.ustaLevelRange,
-//         //       description: "sajdiaoj")
-//       ],
-//     );
-//   }
-// }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:play_tennis_hk/domain/district.dart';
-import 'package:play_tennis_hk/domain/match_type.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
-import 'package:play_tennis_hk/features/matchmaking/ui/partner_detail_screen.dart';
+import 'package:play_tennis_hk/features/partner-finding/ui/partner_detail_screen.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_detail_card.dart';
 
 class TennisMatchInfoCell extends StatelessWidget {
