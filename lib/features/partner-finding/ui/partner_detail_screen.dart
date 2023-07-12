@@ -10,10 +10,10 @@ class PartnerDetailScreen extends StatelessWidget {
   PartnerDetailScreen({
     this.tennisMatch,
     super.key,
-  }) : _user = tennisMatch.poster;
+  }) : _user = tennisMatch?.poster;
 
   final TennisMatch? tennisMatch;
-  final UserProfile _user;
+  final UserProfile? _user;
 
   @override
   Widget build(BuildContext context) {
@@ -37,30 +37,30 @@ class PartnerDetailScreen extends StatelessWidget {
           ],
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.username),
-            subtitle: CustomText(_user.username),
+            subtitle: CustomText(_user?.username),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.ustaLevel),
-            subtitle: CustomText(_user.ustaLevel.toString()),
+            subtitle: CustomText(_user?.ustaLevel.toString()),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.district),
-            subtitle: CustomText(_user.districts
+            subtitle: CustomText(_user?.districts
                 ?.map((district) => district.toLocalizedName("zh"))
                 .toList()
                 .join(", ")),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.telegram),
-            subtitle: CustomText(AppLocalizations.of(context)?.telegram),
+            subtitle: CustomText(_user?.telegram),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.whatsapp),
-            subtitle: CustomText(AppLocalizations.of(context)?.whatsapp),
+            subtitle: CustomText(_user?.whatsapp),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.signal),
-            subtitle: CustomText(AppLocalizations.of(context)?.signal),
+            subtitle: CustomText(_user?.signal),
           ),
         ],
       ),
