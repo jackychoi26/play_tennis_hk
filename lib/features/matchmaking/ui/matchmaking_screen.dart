@@ -21,17 +21,18 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
           AppLocalizations.of(context)?.matchmaking,
           textType: CustomTextType.subtitle,
         ),
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-            ),
-            onPressed: () {},
-            child: CustomText(
-              AppLocalizations.of(context)?.filter,
-            ),
-          ),
-        ],
+        // TODO: enable
+        // actions: [
+        //   TextButton(
+        //     style: TextButton.styleFrom(
+        //       foregroundColor: Colors.white,
+        //     ),
+        //     onPressed: () {},
+        //     child: CustomText(
+        //       AppLocalizations.of(context)?.filter,
+        //     ),
+        //   ),
+        // ],
       ),
       body: const Center(
         child: TennisMatchList(),

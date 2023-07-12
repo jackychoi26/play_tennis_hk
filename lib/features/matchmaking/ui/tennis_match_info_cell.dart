@@ -18,10 +18,7 @@ class TennisMatchInfoCell extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => PartnerDetailScreen(
-              tennisMatchDetailCard: TennisMatchDetailCard(
-                tennisMatch: _tennisMatch,
-                shouldShowAllRemarks: true,
-              ),
+              tennisMatch: _tennisMatch,
             ),
           ),
         );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:play_tennis_hk/features/about-us/ui/about-us-screen.dart';
+import 'package:play_tennis_hk/features/about_us/ui/about_us_screen.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/matchmaking_screen.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_list.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';

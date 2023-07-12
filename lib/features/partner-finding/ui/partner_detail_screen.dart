@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/domain/district.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_detail_card.dart';
+import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
 class PartnerDetailScreen extends StatelessWidget {
-  const PartnerDetailScreen({
-    required this.tennisMatchDetailCard,
+  PartnerDetailScreen({
+    this.tennisMatch,
     super.key,
-  });
+  }) : _user = tennisMatch.poster;
 
-  final TennisMatchDetailCard tennisMatchDetailCard;
+  final TennisMatch? tennisMatch;
+  final UserProfile _user;
 
   @override
   Widget build(BuildContext context) {
@@ -23,33 +26,41 @@ class PartnerDetailScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            child: tennisMatchDetailCard,
-          ),
+          if (tennisMatch != null) ...[
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: TennisMatchDetailCard(
+                tennisMatch: tennisMatch!,
+                shouldShowAllRemarks: true,
+              ),
+            ),
+          ],
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.username),
-            subtitle: const Text("JackyChoi"),
+            subtitle: CustomText(_user.username),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.ustaLevel),
-            subtitle: const Text("3.5"),
+            subtitle: CustomText(_user.ustaLevel.toString()),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.district),
-            subtitle: CustomText(District.north.toLocalizedName("zh")),
+            subtitle: CustomText(_user.districts
+                ?.map((district) => district.toLocalizedName("zh"))
+                .toList()
+                .join(", ")),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.telegram),
-            subtitle: const Text("clock3"),
+            subtitle: CustomText(AppLocalizations.of(context)?.telegram),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.whatsapp),
-            subtitle: const Text("+852 6769 6351"),
+            subtitle: CustomText(AppLocalizations.of(context)?.whatsapp),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.signal),
-            subtitle: const Text("+852 6769 6351"),
+            subtitle: CustomText(AppLocalizations.of(context)?.signal),
           ),
         ],
       ),
