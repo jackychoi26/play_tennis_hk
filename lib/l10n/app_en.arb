@@ -68,5 +68,7 @@
   "womensDoubles": "Women's doubles",
   "mixedDoubles": "Mixed doubles",
   "createMatch": "Create Match",
-  "aboutUs": "About us"
+  "aboutUs": "About us",
+  "appVersion": "App version",
+  "joinUs": "Join us"
 }
