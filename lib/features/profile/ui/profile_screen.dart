@@ -75,7 +75,10 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(_getAppBarTitle()),
+        title: CustomText(
+          _getAppBarTitle(),
+          textType: CustomTextType.subtitle,
+        ),
         actions: [
           if (!isRegistration) ...[
             TextButton(

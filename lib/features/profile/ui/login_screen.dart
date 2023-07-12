@@ -22,6 +22,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
       appBar: AppBar(
         title: CustomText(
           AppLocalizations.of(context)?.loginAccount,
+          textType: CustomTextType.subtitle,
         ),
       ),
       body: Center(

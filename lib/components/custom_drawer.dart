@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:play_tennis_hk/features/about-us/ui/about-us-screen.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/matchmaking_screen.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_list.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
@@ -97,12 +98,20 @@ class CustomDrawer extends ConsumerWidget {
           ListTile(
             title: Row(
               children: [
-                CustomText("${AppLocalizations.of(context)?.systemSetting}  "),
-                const Icon(Icons.settings),
+                CustomText("${AppLocalizations.of(context)?.aboutUs}  "),
+                const Icon(Icons.info),
               ],
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushReplacement(
+                PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const AboutUsScreen(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    }),
+              );
             },
           ),
         ],

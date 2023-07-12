@@ -17,7 +17,10 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(AppLocalizations.of(context)?.matchmaking),
+        title: CustomText(
+          AppLocalizations.of(context)?.matchmaking,
+          textType: CustomTextType.subtitle,
+        ),
         actions: [
           TextButton(
             style: TextButton.styleFrom(

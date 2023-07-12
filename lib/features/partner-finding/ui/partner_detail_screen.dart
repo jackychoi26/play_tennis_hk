@@ -16,7 +16,10 @@ class PartnerDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(AppLocalizations.of(context)?.partnerDetail),
+        title: CustomText(
+          AppLocalizations.of(context)?.partnerDetail,
+          textType: CustomTextType.subtitle,
+        ),
       ),
       body: ListView(
         children: [
