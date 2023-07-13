@@ -19,6 +19,7 @@ class TennisMatchInfoCell extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PartnerDetailScreen(
               tennisMatch: _tennisMatch,
+              userProfile: _tennisMatch.poster,
             ),
           ),
         );

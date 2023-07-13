@@ -7,13 +7,14 @@ import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_detail_card.
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
 class PartnerDetailScreen extends StatelessWidget {
-  PartnerDetailScreen({
+  const PartnerDetailScreen({
     this.tennisMatch,
+    required this.userProfile,
     super.key,
-  }) : _user = tennisMatch?.poster;
+  });
 
   final TennisMatch? tennisMatch;
-  final UserProfile? _user;
+  final UserProfile userProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -37,30 +38,33 @@ class PartnerDetailScreen extends StatelessWidget {
           ],
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.username),
-            subtitle: CustomText(_user?.username),
+            subtitle: CustomText(userProfile.username),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.ustaLevel),
-            subtitle: CustomText(_user?.ustaLevel.toString()),
+            subtitle: CustomText(userProfile.ustaLevel.toString()),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.district),
-            subtitle: CustomText(_user?.districts
-                ?.map((district) => district.toLocalizedName("zh"))
-                .toList()
-                .join(", ")),
+            subtitle: CustomText(
+              userProfile.districts
+                      ?.map((district) => district.toLocalizedName("zh"))
+                      .toList()
+                      .join(", ") ??
+                  "",
+            ),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.telegram),
-            subtitle: CustomText(_user?.telegram),
+            subtitle: CustomText(userProfile.telegram),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.whatsapp),
-            subtitle: CustomText(_user?.whatsapp),
+            subtitle: CustomText(userProfile.whatsapp),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.signal),
-            subtitle: CustomText(_user?.signal),
+            subtitle: CustomText(userProfile.signal),
           ),
         ],
       ),

@@ -21,7 +21,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
           AppLocalizations.of(context)?.matchmaking,
           textType: CustomTextType.subtitle,
         ),
-        // TODO: enable
+        // TODO: enable when filter function is done
         // actions: [
         //   TextButton(
         //     style: TextButton.styleFrom(
@@ -34,9 +34,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         //   ),
         // ],
       ),
-      body: const Center(
-        child: TennisMatchList(),
-      ),
+      body: const TennisMatchList(),
       drawer: const CustomDrawer(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(
@@ -45,7 +43,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => CreateTennisMatchScreen(),
+              builder: (context) => const CreateTennisMatchScreen(),
             ),
           );
         },
