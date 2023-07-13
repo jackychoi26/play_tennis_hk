@@ -28,35 +28,35 @@ class CreateTennisMatchScreenState
           textType: CustomTextType.subtitle,
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            CustomTextFormField(
-              controller: locationController,
-              textInputType: TextInputType.visiblePassword,
-              isPassword: true,
-              labelText: AppLocalizations.of(context)?.location,
-            ),
-            DropdownButton<double>(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CustomTextFormField(
+            controller: locationController,
+            textInputType: TextInputType.visiblePassword,
+            isPassword: true,
+            labelText: AppLocalizations.of(context)?.location,
+          ),
+          DropdownButton<MatchType>(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               value: dropdownValue,
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
               style: const TextStyle(color: Colors.deepPurple),
-              onChanged: (double? value) {
+              onChanged: (MatchType? value) {
                 setState(() {
                   dropdownValue = value!;
                 });
               },
-              items:
-                  ustaLevelData.map<DropdownMenuItem<double>>((double value) {
-                return DropdownMenuItem<double>(
+              items: MatchType.values
+                  .map<DropdownMenuItem<MatchType>>((MatchType value) {
+                return DropdownMenuItem<MatchType>(
                   value: value,
-                  child: CustomText(value.toString()),
+                  child: Text(value.toLocalizedName(context) ?? ""),
                 );
-              }).toList(),
-            ),
-          ],
-        ),
+              }).toList()),
+        ],
       ),
     );
   }
