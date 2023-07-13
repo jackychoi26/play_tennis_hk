@@ -4,6 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/domain/match_type.dart';
+import 'package:play_tennis_hk/features/matchmaking/ui/remark.dart';
+import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
+import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
 
 class CreateTennisMatchScreen extends ConsumerStatefulWidget {
   const CreateTennisMatchScreen({super.key});
@@ -16,6 +19,8 @@ class CreateTennisMatchScreen extends ConsumerStatefulWidget {
 class CreateTennisMatchScreenState
     extends ConsumerState<CreateTennisMatchScreen> {
   var locationController = TextEditingController();
+
+  var remarksController = TextEditingController();
 
   MatchType dropdownValue = MatchType.singles;
 
@@ -38,6 +43,11 @@ class CreateTennisMatchScreenState
             isPassword: true,
             labelText: AppLocalizations.of(context)?.location,
           ),
+          const USTALevelDropdownSelection(),
+          Container(
+            margin: const EdgeInsets.all(16),
+            child: const DistrictsList(),
+          ),
           DropdownButton<MatchType>(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               value: dropdownValue,
@@ -56,6 +66,13 @@ class CreateTennisMatchScreenState
                   child: Text(value.toLocalizedName(context) ?? ""),
                 );
               }).toList()),
+          SizedBox(
+            height: 200,
+            width: 200,
+            child: Remarks(
+              remarksController: remarksController,
+            ),
+          ),
         ],
       ),
     );
