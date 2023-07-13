@@ -17,22 +17,24 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(AppLocalizations.of(context)?.matchmaking),
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-            ),
-            onPressed: () {},
-            child: CustomText(
-              AppLocalizations.of(context)?.filter,
-            ),
-          ),
-        ],
+        title: CustomText(
+          AppLocalizations.of(context)?.matchmaking,
+          textType: CustomTextType.subtitle,
+        ),
+        // TODO: enable when filter function is done
+        // actions: [
+        //   TextButton(
+        //     style: TextButton.styleFrom(
+        //       foregroundColor: Colors.white,
+        //     ),
+        //     onPressed: () {},
+        //     child: CustomText(
+        //       AppLocalizations.of(context)?.filter,
+        //     ),
+        //   ),
+        // ],
       ),
-      body: const Center(
-        child: TennisMatchList(),
-      ),
+      body: const TennisMatchList(),
       drawer: const CustomDrawer(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(
@@ -41,7 +43,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => CreateTennisMatchScreen(),
+              builder: (context) => const CreateTennisMatchScreen(),
             ),
           );
         },

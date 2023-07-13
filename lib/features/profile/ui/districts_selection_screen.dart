@@ -47,6 +47,7 @@ class DistrictsSelectionScreenState extends State<DistrictsSelectionScreen> {
       appBar: AppBar(
         title: CustomText(
           AppLocalizations.of(context)?.chooseDistricts,
+          textType: CustomTextType.subtitle,
         ),
         actions: [
           Row(

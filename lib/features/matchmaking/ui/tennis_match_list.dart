@@ -6,16 +6,21 @@ import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_info_cell.da
 class TennisMatchList extends ConsumerWidget {
   const TennisMatchList({super.key});
 
+  Future refresh() async {}
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tennisMatches = ref.watch(matchesProvider);
 
-    return ListView(padding: const EdgeInsets.all(8), children: [
-      for (var tennisMatch in tennisMatches)
-        TennisMatchInfoCell(tennisMatch: tennisMatch),
-      const SizedBox(
-        height: 80,
-      )
-    ]);
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: ListView.builder(
+        padding: const EdgeInsets.all(8),
+        itemCount: tennisMatches.length,
+        itemBuilder: (BuildContext context, int index) {
+          return TennisMatchInfoCell(tennisMatch: tennisMatches[index]);
+        },
+      ),
+    );
   }
 }

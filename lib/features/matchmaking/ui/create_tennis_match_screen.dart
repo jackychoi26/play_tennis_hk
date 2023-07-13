@@ -17,7 +17,10 @@ class CreateTennisMatchScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(AppLocalizations.of(context)?.createMatch),
+        title: CustomText(
+          AppLocalizations.of(context)?.createMatch,
+          textType: CustomTextType.subtitle,
+        ),
       ),
       body: const Center(
         child: Text("Hello World"),

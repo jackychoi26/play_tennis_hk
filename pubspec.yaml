@@ -42,6 +42,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   riverpod_annotation: ^2.1.1
   flutter_secure_storage: ^8.0.0
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -71,8 +72,8 @@ flutter:
   generate: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/app_icon/Icon-1024.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
