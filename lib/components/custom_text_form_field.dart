@@ -20,7 +20,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? labelText;
 
   final Function(String)? onChanged;
-  final Function(dynamic)? validator;
+  final String? Function(String?)? validator;
   final bool enabled;
   final int maxLines;
   final Color borderColor;
@@ -34,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         onChanged: onChanged,
         enabled: enabled,
+        validator: validator,
         maxLines: maxLines,
         obscureText: isPassword,
         enableSuggestions: !isPassword,

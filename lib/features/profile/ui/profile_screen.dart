@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
-import 'package:play_tennis_hk/components/username_text_field.dart';
+import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
 import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
@@ -28,12 +29,14 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   var usernameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  var passwordAgainController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
   var ageController = TextEditingController();
   var descriptionController = TextEditingController();
   var telegramController = TextEditingController();
   var whatsappController = TextEditingController();
   var signalController = TextEditingController();
+
+  List<District> selectedDistricts = [];
 
   void onPrimaryButtonPress(BuildContext context) {
     final isRegistration = ref.read(tokenProvider) == null;
@@ -67,11 +70,91 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
   }
 
+  bool _validateForm(BuildContext context) {
+    final isTextFormFieldValid = _formKey.currentState?.validate();
+    final atLeastOneDistrict = selectedDistricts.isNotEmpty;
+
+    // Username not validated
+    if (!RegExp(r'^[a-zA-Z0-9_]{4,12}$').hasMatch(usernameController.text)) {
+      _showSnackBar(
+        AppLocalizations.of(context)?.usernameValidationError,
+        context,
+      );
+      return false;
+    }
+
+    // Email not validated
+    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+        .hasMatch(emailController.text)) {
+      _showSnackBar(
+        AppLocalizations.of(context)?.emailValidationError,
+        context,
+      );
+      return false;
+    }
+
+    // Password not validated
+    if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$')
+        .hasMatch(passwordController.text)) {
+      _showSnackBar(
+        AppLocalizations.of(context)?.passwordValidationError,
+        context,
+      );
+      return false;
+    }
+
+    // Confirm password not validated
+    if (confirmPasswordController.text != passwordController.text) {
+      _showSnackBar(
+        AppLocalizations.of(context)?.confirmPasswordValidationError,
+        context,
+      );
+      return false;
+    }
+
+    // Age is not valid
+    if (!_isValidAge(ageController.text)) {
+      _showSnackBar(AppLocalizations.of(context)?.ageValidationError, context);
+      return false;
+    }
+
+    // At least one district is selected
+    if (!atLeastOneDistrict) {
+      _showSnackBar(AppLocalizations.of(context)?.atLeastOneDistrict, context);
+      return false;
+    }
+
+    return (isTextFormFieldValid == true && atLeastOneDistrict);
+  }
+
+  _showSnackBar(String? message, BuildContext context) {
+    CustomSnackBar(
+      message: message,
+      type: SnackBarType.error,
+    ).display(context);
+  }
+
+  void onSaveSelectDistrict(List<District> newSelectedDistricts) {
+    selectedDistricts = newSelectedDistricts;
+  }
+
+  bool _isValidAge(String? ageInput) {
+    if (ageInput == null) {
+      return false;
+    }
+
+    int? age = int.tryParse(ageInput);
+
+    if (age == null) {
+      return false;
+    }
+
+    return age >= 10 && age <= 100;
+  }
+
   @override
   Widget build(BuildContext context) {
     final isRegistration = ref.watch(tokenProvider) == null;
-
-    var usernameTextField = UsernameTextField(controller: usernameController);
 
     return Scaffold(
       appBar: AppBar(
@@ -94,20 +177,22 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
         key: _formKey,
         child: ListView(
           children: [
-            usernameTextField,
             CustomTextFormField(
               enabled: isRegistration,
               controller: usernameController,
               textInputType: TextInputType.name,
               labelText: "${AppLocalizations.of(context)?.username}",
-              validator: (value) {
-                final username = value as String;
+              validator: (String? value) {
+                if (!isRegistration) return null;
+                if (value == "" || value == null) {
+                  return AppLocalizations.of(context)?.usernameValidationError;
+                }
 
                 final RegExp usernameRegex = RegExp(
                   r'^[a-zA-Z0-9_]{4,12}$',
                 );
 
-                if (usernameRegex.hasMatch(username)) {
+                if (usernameRegex.hasMatch(value)) {
                   return null;
                 } else {
                   return AppLocalizations.of(context)?.usernameValidationError;
@@ -120,13 +205,15 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               textInputType: TextInputType.emailAddress,
               labelText: "${AppLocalizations.of(context)?.email}",
               validator: (value) {
-                final email = value as String;
-
+                if (!isRegistration) return null;
+                if (value == "" || value == null) {
+                  return AppLocalizations.of(context)?.email;
+                }
                 final RegExp emailRegex = RegExp(
                   r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
                 );
 
-                if (emailRegex.hasMatch(email)) {
+                if (emailRegex.hasMatch(value)) {
                   return null;
                 } else {
                   return AppLocalizations.of(context)?.emailValidationError;
@@ -141,13 +228,17 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                 textInputType: TextInputType.visiblePassword,
                 labelText: "${AppLocalizations.of(context)?.password}",
                 validator: (value) {
-                  final password = value as String;
+                  if (!isRegistration) return null;
+                  if (value == "" || value == null) {
+                    return AppLocalizations.of(context)
+                        ?.passwordValidationError;
+                  }
 
                   final RegExp passwordRegex = RegExp(
                     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$',
                   );
 
-                  if (passwordRegex.hasMatch(password)) {
+                  if (passwordRegex.hasMatch(value)) {
                     return null;
                   } else {
                     return AppLocalizations.of(context)
@@ -160,13 +251,16 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               visible: isRegistration,
               child: CustomTextFormField(
                 isPassword: true,
-                controller: passwordAgainController,
+                controller: confirmPasswordController,
                 textInputType: TextInputType.visiblePassword,
                 labelText: "${AppLocalizations.of(context)?.confirmPassword}",
                 validator: (value) {
-                  final confirmPassword = value as String;
+                  if (!isRegistration) return null;
+                  if (value == "" || value == null) {
+                    return AppLocalizations.of(context)?.confirmPassword;
+                  }
 
-                  if (confirmPassword == passwordController.text) {
+                  if (value == passwordController.text) {
                     return null;
                   } else {
                     return AppLocalizations.of(context)
@@ -177,7 +271,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             ),
             Container(
               margin: const EdgeInsets.all(16),
-              child: const DistrictsList(),
+              child: DistrictsList(
+                onSaveSelect: onSaveSelectDistrict,
+              ),
             ),
             CustomTextFormField(
               controller: ageController,
@@ -185,7 +281,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               labelText:
                   "${AppLocalizations.of(context)?.age}${AppLocalizations.of(context)?.optional}",
               validator: (value) {
-                if (value == "") return null;
+                if (value == "" || value == null) return null;
                 num age = 0;
 
                 try {
@@ -204,7 +300,8 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             CustomTextFormField(
               controller: descriptionController,
               textInputType: TextInputType.text,
-              labelText: AppLocalizations.of(context)?.personalDescription,
+              labelText:
+                  "${AppLocalizations.of(context)?.personalDescription}${AppLocalizations.of(context)?.optional}",
               hintText: AppLocalizations.of(context)?.personalDescriptionHint,
               maxLines: 3,
               validator: (value) {
@@ -274,9 +371,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: clean up the mess
+                  _validateForm(context);
                   if (isRegistration) {
-                    if (_formKey.currentState?.validate() == true) {
+                    if (_validateForm(context)) {
                       onPrimaryButtonPress(context);
                     }
                   } else {

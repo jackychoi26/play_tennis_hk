@@ -6,7 +6,12 @@ import 'package:play_tennis_hk/domain/region.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_selection_screen.dart';
 
 class DistrictsList extends StatefulWidget {
-  const DistrictsList({super.key});
+  const DistrictsList({
+    super.key,
+    required this.onSaveSelect,
+  });
+
+  final void Function(List<District> newSelectedDistricts) onSaveSelect;
 
   @override
   State<StatefulWidget> createState() {
@@ -20,11 +25,10 @@ class DistrictsListState extends State<DistrictsList> {
 
   List<District> selectedDistricts = [];
 
-  void onDistrictSelect(District district, bool isSelected) {}
-
-  void onSaveSelect(List<District> newSelectedDistricts) {
+  void _onSaveSelect(List<District> newSelectedDistricts) {
     setState(() {
       selectedDistricts = newSelectedDistricts;
+      widget.onSaveSelect(newSelectedDistricts);
     });
   }
 
@@ -51,7 +55,7 @@ class DistrictsListState extends State<DistrictsList> {
                 builder: (context) => DistrictsSelectionScreen(
                   selectedDistricts: selectedDistricts,
                   districts: districts,
-                  onSaveSelect: onSaveSelect,
+                  onSaveSelect: _onSaveSelect,
                 ),
               ),
             );

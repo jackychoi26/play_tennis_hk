@@ -70,5 +70,6 @@
   "createMatch": "Create match",
   "aboutUs": "About us",
   "appVersion": "App version",
-  "joinUs": "Join us"
+  "joinUs": "Join us",
+  "atLeastOneDistrict": "You must at least choose 1 district"
 }
