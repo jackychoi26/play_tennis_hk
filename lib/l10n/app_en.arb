@@ -29,6 +29,8 @@
   "signalValidationError": "Please enter a valid signal number",
   "date": "Date",
   "time": "Time",
+  "startDateTime": "Start Date Time: ",
+  "endDateTime": "End Date Time: ",
   "location": "Location",
   "centralAndWestern": "Central and Western",
   "eastern": "Eastern",

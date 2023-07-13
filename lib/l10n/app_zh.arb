@@ -29,6 +29,8 @@
   "signalValidationError": "請輸入正確的Signal號碼",
   "date": "日期",
   "time": "時間",
+  "startDateTime": "開始日期時間: ",
+  "endDateTime": "結束日期時間: ",
   "location": "地點",
   "remarks": "備註",
   "register": "註冊帳號",
