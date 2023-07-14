@@ -67,7 +67,7 @@ class CreateTennisMatchScreenState
                   if (selectedDate == null) return;
 
                   setState(() {
-                    endDateTime = selectedDate;
+                    startDateTime = selectedDate;
                   });
                 },
                 child: Row(
