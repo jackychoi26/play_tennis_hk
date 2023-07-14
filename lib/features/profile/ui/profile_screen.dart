@@ -399,7 +399,6 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: ElevatedButton(
                 onPressed: () {
-                  _validateForm(context);
                   if (isRegistration) {
                     if (_validateForm(context)) {
                       onPrimaryButtonPress(context);
