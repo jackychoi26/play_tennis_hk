@@ -75,5 +75,8 @@
   "joinUs": "加入我們",
   "confirmOk": "確定",
   "atLeastOneDistrict": "你必須最少選擇一個地區",
-  "isProfilePublic": "公開你的聯絡方法（不包括電郵）到『搜尋波友』"
+  "isProfilePublic": "公開你的聯絡方法（不包括電郵）到『搜尋波友』",
+  "dateValidationError": "請選擇日期時間",
+  "locationValidationError": "請輸入地點",
+  "submit": "提交"
 }
