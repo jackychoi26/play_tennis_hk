@@ -175,10 +175,16 @@ class CreateTennisMatchScreenState
               ),
             ),
             CustomTextFormField(
-              controller: locationController,
-              textInputType: TextInputType.visiblePassword,
-              labelText: AppLocalizations.of(context)?.location,
-            ),
+                controller: locationController,
+                textInputType: TextInputType.visiblePassword,
+                labelText: AppLocalizations.of(context)?.location,
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return AppLocalizations.of(context)
+                        ?.locationValidationError;
+                  }
+                  return null;
+                }),
             CustomTextFormField(
               controller: remarksController,
               textInputType: TextInputType.visiblePassword,
