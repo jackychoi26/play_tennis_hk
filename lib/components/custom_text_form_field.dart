@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines = 1,
     this.borderColor = Colors.teal,
     this.isPassword = false,
+    this.onTap,
     super.key,
   });
 
@@ -19,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final String? labelText;
 
+  final Function()? onTap;
   final Function(String)? onChanged;
   final Function(dynamic)? validator;
   final bool enabled;
@@ -47,6 +49,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
         controller: controller,
         keyboardType: textInputType,
+        onTap: onTap,
       ),
     );
   }

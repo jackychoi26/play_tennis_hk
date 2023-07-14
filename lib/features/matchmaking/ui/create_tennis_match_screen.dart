@@ -27,8 +27,9 @@ class CreateTennisMatchScreenState
   final _formKey = GlobalKey<FormState>();
 
   var locationController = TextEditingController();
-
   var remarksController = TextEditingController();
+  var startDateController = TextEditingController();
+  var endDateController = TextEditingController();
 
   DateTime? startDateTime;
 
@@ -57,27 +58,20 @@ class CreateTennisMatchScreenState
         child: ListView(
           children: [
             const SizedBox(height: 16),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GestureDetector(
-                onTap: () async {
-                  final DateTime? selectedDate =
-                      await sheetDateTimePicker(context: context);
-                  if (selectedDate == null) return;
+            CustomTextFormField(
+              controller: startDateController,
+              textInputType: TextInputType.datetime,
+              labelText: AppLocalizations.of(context)?.startDateTime,
+              onTap: () async {
+                final DateTime? selectedDate =
+                    await sheetDateTimePicker(context: context);
 
-                  setState(() {
-                    startDateTime = selectedDate;
-                  });
-                },
-                child: Row(
-                  children: [
-                    CustomText(
-                        AppLocalizations.of(context)?.startDateTime ?? ""),
-                    CustomText(_getDateTimeText(startDateTime))
-                  ],
-                ),
-              ),
+                if (selectedDate == null) return;
+
+                setState(() {
+                  startDateTime = selectedDate;
+                });
+              },
             ),
             const SizedBox(height: 16),
             Container(
