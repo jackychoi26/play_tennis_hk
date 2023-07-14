@@ -30,13 +30,18 @@ class CreateTennisMatchScreenState
 
   var remarksController = TextEditingController();
 
-  DateTime startDateTime = DateTime.now();
+  DateTime? startDateTime;
 
-  DateTime endDateTime = DateTime.now();
+  DateTime? endDateTime;
 
   MatchType dropdownValue = MatchType.singles;
 
   DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
+
+  String? _getDateTimeText(DateTime? dateTime) {
+    if (dateTime == null) return dateFormat.format(DateTime.now());
+    return dateFormat.format(dateTime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,60 +56,49 @@ class CreateTennisMatchScreenState
         key: _formKey,
         child: ListView(
           children: [
+            const SizedBox(height: 16),
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  CustomText(AppLocalizations.of(context)?.startDateTime ?? ""),
-                  TextButton(
-                    onPressed: () async {
-                      final DateTime? selectedDate = await showDateTimePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now()
-                            .subtract(const Duration(days: 365 * 100)),
-                        lastDate:
-                            DateTime.now().add(const Duration(days: 365 * 200)),
-                      );
-                      if (selectedDate == null) return;
+              child: GestureDetector(
+                onTap: () async {
+                  final DateTime? selectedDate =
+                      await sheetDateTimePicker(context: context);
+                  if (selectedDate == null) return;
 
-                      setState(() {
-                        startDateTime = selectedDate;
-                      });
-                    },
-                    child: CustomText(
-                      dateFormat.format(startDateTime),
-                    ),
-                  ),
-                ],
+                  setState(() {
+                    endDateTime = selectedDate;
+                  });
+                },
+                child: Row(
+                  children: [
+                    CustomText(
+                        AppLocalizations.of(context)?.startDateTime ?? ""),
+                    CustomText(_getDateTimeText(startDateTime))
+                  ],
+                ),
               ),
             ),
+            const SizedBox(height: 16),
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  CustomText(AppLocalizations.of(context)?.endDateTime ?? ""),
-                  TextButton(
-                    onPressed: () async {
-                      final DateTime? selectedDate = await showDateTimePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now()
-                            .subtract(const Duration(days: 365 * 100)),
-                        lastDate:
-                            DateTime.now().add(const Duration(days: 365 * 200)),
-                      );
-                      if (selectedDate == null) return;
+              child: GestureDetector(
+                onTap: () async {
+                  final DateTime? selectedDate =
+                      await sheetDateTimePicker(context: context);
+                  if (selectedDate == null) return;
 
-                      setState(() {
-                        endDateTime = selectedDate;
-                      });
-                    },
-                    child: CustomText(dateFormat.format(endDateTime)),
-                  ),
-                ],
+                  setState(() {
+                    endDateTime = selectedDate;
+                  });
+                },
+                child: Row(
+                  children: [
+                    CustomText(AppLocalizations.of(context)?.endDateTime ?? ""),
+                    CustomText(_getDateTimeText(endDateTime)),
+                  ],
+                ),
               ),
             ),
             Container(
