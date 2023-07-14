@@ -42,7 +42,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     final isRegistration = ref.read(tokenProvider) == null;
 
     if (isRegistration) {
-      ref.read(tokenProvider.notifier).setAccessToken("Hello");
+      ref.read(tokenProvider.notifier).storeAccessToken("Hello");
     } else {
       ref.read(tokenProvider.notifier).removeAccessToken();
     }

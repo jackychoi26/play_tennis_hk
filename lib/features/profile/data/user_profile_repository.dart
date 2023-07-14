@@ -38,7 +38,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<void> storeUserProfile() {
+  Future<void> storeUserProfile(UserProfile userProfile) {
     // TODO: implement storeUserProfile
     throw UnimplementedError();
   }
