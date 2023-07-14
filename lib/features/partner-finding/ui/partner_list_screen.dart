@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
+import 'package:play_tennis_hk/features/partner-finding/ui/partner_detail_screen.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_info_cell.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
@@ -35,12 +36,29 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
           scrollDirection: Axis.vertical,
           // shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
-            return const PartnerInfoCell(
-              userProfile: UserProfile(
+            return InkWell(
+              child: const PartnerInfoCell(
+                userProfile: UserProfile(
                   username: "Jones",
                   email: "ahha@asdsa.com",
                   imageUrl: "",
-                  ntrpLevel: 3.5),
+                  ntrpLevel: 3.5,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PartnerDetailScreen(
+                      userProfile: UserProfile(
+                        username: "Jones",
+                        email: "ahha@asdsa.com",
+                        imageUrl: "",
+                        ntrpLevel: 3.5,
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
         ),
