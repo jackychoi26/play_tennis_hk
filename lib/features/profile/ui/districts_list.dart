@@ -9,9 +9,11 @@ class DistrictsList extends StatefulWidget {
   const DistrictsList({
     super.key,
     required this.onSaveSelect,
+    required this.maxSelection,
   });
 
   final void Function(List<District> newSelectedDistricts) onSaveSelect;
+  final int maxSelection;
 
   @override
   State<StatefulWidget> createState() {
@@ -56,6 +58,7 @@ class DistrictsListState extends State<DistrictsList> {
                   selectedDistricts: selectedDistricts,
                   districts: districts,
                   onSaveSelect: _onSaveSelect,
+                  maxSelection: widget.maxSelection,
                 ),
               ),
             );

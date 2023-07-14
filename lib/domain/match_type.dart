@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum MatchType {
+  training,
   singles,
   doubles,
   mensSingles,
@@ -18,6 +19,8 @@ extension MatchTypeTranslator on MatchType {
     if (localeName == null) return null;
 
     switch (this) {
+      case MatchType.training:
+        return AppLocalizations.of(context)?.training;
       case MatchType.singles:
         return AppLocalizations.of(context)?.singles;
       case MatchType.doubles:

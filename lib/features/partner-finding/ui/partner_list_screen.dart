@@ -40,7 +40,7 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
                   username: "Jones",
                   email: "ahha@asdsa.com",
                   imageUrl: "",
-                  ustaLevel: 3.5),
+                  ntrpLevel: 3.5),
             );
           },
         ),

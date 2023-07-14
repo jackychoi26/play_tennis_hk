@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class USTALevelDropdownSelection extends StatefulWidget {
-  const USTALevelDropdownSelection({super.key});
+class NTRPLevelDropdownSelection extends StatefulWidget {
+  const NTRPLevelDropdownSelection({super.key});
 
   @override
-  State<StatefulWidget> createState() => _USTALevelDropdownSelectionState();
+  State<StatefulWidget> createState() => _NTRPLevelDropdownSelectionState();
 }
 
-class _USTALevelDropdownSelectionState
-    extends State<USTALevelDropdownSelection> {
-  double dropdownValue = ustaLevelData.first;
+class _NTRPLevelDropdownSelectionState
+    extends State<NTRPLevelDropdownSelection> {
+  double dropdownValue = ntrpLevelData.first;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _USTALevelDropdownSelectionState
       child: Row(children: [
         Container(
           padding: const EdgeInsets.only(right: 30),
-          child: CustomText(AppLocalizations.of(context)?.ustaLevel),
+          child: CustomText(AppLocalizations.of(context)?.ntrpLevel),
         ),
         DropdownButton<double>(
           value: dropdownValue,
@@ -32,7 +32,7 @@ class _USTALevelDropdownSelectionState
               dropdownValue = value!;
             });
           },
-          items: ustaLevelData.map<DropdownMenuItem<double>>((double value) {
+          items: ntrpLevelData.map<DropdownMenuItem<double>>((double value) {
             return DropdownMenuItem<double>(
               value: value,
               child: CustomText(value.toString()),
@@ -44,7 +44,7 @@ class _USTALevelDropdownSelectionState
   }
 }
 
-const List<double> ustaLevelData = <double>[
+const List<double> ntrpLevelData = <double>[
   1.0,
   1.5,
   2.0,

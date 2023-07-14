@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/components/show_date_time_picker.dart';
+import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/match_type.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
-import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
+import 'package:play_tennis_hk/features/profile/ui/ntrp_level_dropdown_selection.dart';
 
 class CreateTennisMatchScreen extends ConsumerStatefulWidget {
   const CreateTennisMatchScreen({super.key});
@@ -37,28 +37,50 @@ class CreateTennisMatchScreenState
 
   MatchType dropdownValue = MatchType.singles;
 
-  DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
-
   List<District> selectedDistricts = [];
 
   void onSaveSelectDistrict(List<District> newSelectedDistricts) {
     selectedDistricts = newSelectedDistricts;
   }
 
-  String? _getDateTimeText(DateTime? dateTime) {
+  String? _getDateTimeText(String? localeName, DateTime? dateTime) {
     if (dateTime == null) {
-      return AppLocalizations.of(context)?.dateValidationError;
+      return AppLocalizations.of(context)?.dateTimeEmptyError;
     }
-    return dateFormat.format(dateTime);
+
+    return "${dateTime.getLocalizedMonthDayValue(localeName)} ${dateTime.getHourIn12HoursFormat()}${dateTime.getAmOrPm()}";
+  }
+
+  // Returns true if they are valid
+  // For this to be true, the start and end time must be
+  // 1. On the same day, because no match will last to the next day
+  // 2. End time must be later than start time by at least 1 hour
+  bool _validateStartEndDateTime(
+    DateTime? startDateTime,
+    DateTime? endDateTime,
+  ) {
+    if (startDateTime == null || endDateTime == null) return false;
+
+    final isSameDay = startDateTime.year == endDateTime.year &&
+        startDateTime.month == endDateTime.month &&
+        startDateTime.day == endDateTime.day;
+
+    if (!isSameDay) return false;
+
+    Duration minimumDuration = const Duration(hours: 1);
+    Duration durationDifference = endDateTime.difference(startDateTime);
+
+    return durationDifference >= minimumDuration;
   }
 
   bool _validateForm(BuildContext context) {
     final isTextFormFieldValid = _formKey.currentState?.validate();
     final atLeastOneDistrict = selectedDistricts.isNotEmpty;
 
-    // Start date and end date are selected
-    if (startDateTime == null || endDateTime == null) {
-      _showSnackBar(AppLocalizations.of(context)?.dateValidationError, context);
+    // Start and end time are invalid
+    if (!_validateStartEndDateTime(startDateTime, endDateTime)) {
+      _showSnackBar(
+          AppLocalizations.of(context)?.dateTimeValidationError, context);
       return false;
     }
 
@@ -90,6 +112,8 @@ class CreateTennisMatchScreenState
 
   @override
   Widget build(BuildContext context) {
+    final localeName = AppLocalizations.of(context)?.localeName;
+
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -118,8 +142,8 @@ class CreateTennisMatchScreenState
                 child: Row(
                   children: [
                     CustomText(
-                        AppLocalizations.of(context)?.startDateTime ?? ""),
-                    CustomText(_getDateTimeText(startDateTime))
+                        "${AppLocalizations.of(context)?.startDateTime}: "),
+                    CustomText(_getDateTimeText(localeName, startDateTime))
                   ],
                 ),
               ),
@@ -140,8 +164,9 @@ class CreateTennisMatchScreenState
                 },
                 child: Row(
                   children: [
-                    CustomText(AppLocalizations.of(context)?.endDateTime ?? ""),
-                    CustomText(_getDateTimeText(endDateTime)),
+                    CustomText(
+                        "${AppLocalizations.of(context)?.endDateTime}: "),
+                    CustomText(_getDateTimeText(localeName, endDateTime)),
                   ],
                 ),
               ),
@@ -163,15 +188,16 @@ class CreateTennisMatchScreenState
                       .map<DropdownMenuItem<MatchType>>((MatchType value) {
                     return DropdownMenuItem<MatchType>(
                       value: value,
-                      child: Text(value.toLocalizedName(context) ?? ""),
+                      child: CustomText(value.toLocalizedName(context)),
                     );
                   }).toList()),
             ),
-            const USTALevelDropdownSelection(),
+            const NTRPLevelDropdownSelection(),
             Container(
               margin: const EdgeInsets.all(20),
               child: DistrictsList(
                 onSaveSelect: onSaveSelectDistrict,
+                maxSelection: 1,
               ),
             ),
             CustomTextFormField(
@@ -206,7 +232,7 @@ class CreateTennisMatchScreenState
                     EdgeInsets.symmetric(vertical: 20),
                   ),
                 ),
-                child: CustomText(AppLocalizations.of(context)?.submit ?? ""),
+                child: CustomText(AppLocalizations.of(context)?.submit),
               ),
             ),
             const SizedBox(height: 40),

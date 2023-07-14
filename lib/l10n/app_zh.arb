@@ -9,7 +9,7 @@
   "password": "密碼",
   "confirmPassword": "確認密碼",
   "age": "年齡",
-  "ustaLevel": "USTA等級",
+  "ntrpLevel": "NTRP等級",
   "telegram": "Telegram",
   "whatsapp": "Whatsapp",
   "signal": "Signal",
@@ -29,13 +29,22 @@
   "signalValidationError": "請輸入正確的Signal號碼",
   "date": "日期",
   "time": "時間",
-  "startDateTime": "開始日期時間: ",
-  "endDateTime": "結束日期時間: ",
+  "startDateTime": "開始時間",
+  "endDateTime": "結束時間",
   "location": "地點",
   "remarks": "備註",
   "register": "註冊帳號",
   "chooseDistricts": "選擇地區",
-  "tooManyDistricts": "你只能選擇最多5個地區",
+  "tooManyDistricts": "你只能選擇最多{number}個地區",
+    "@tooManyDistricts": {
+    "description": "When user chooses too many districts",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "5"
+      }
+    }
+  },
   "loginAccount": "登入帳號",
   "login": "登入",
   "logout": "登出",
@@ -76,7 +85,8 @@
   "confirmOk": "確定",
   "atLeastOneDistrict": "你必須最少選擇一個地區",
   "isProfilePublic": "公開你的聯絡方法（不包括電郵）到『搜尋波友』",
-  "dateValidationError": "請選擇日期時間",
+  "dateTimeValidationError": "請選擇正確的比賽時間",
+  "dateTimeEmptyError": "請選擇比賽時間",
   "locationValidationError": "請輸入地點",
   "submit": "提交"
 }

@@ -9,7 +9,7 @@
   "password": "Password",
   "confirmPassword": "Enter password again",
   "age": "Age",
-  "ustaLevel": "USTA level",
+  "ntrpLevel": "NTRP level",
   "telegram": "Telegram",
   "whatsapp": "Whatsapp",
   "signal": "Signal",
@@ -29,8 +29,8 @@
   "signalValidationError": "Please enter a valid signal number",
   "date": "Date",
   "time": "Time",
-  "startDateTime": "Start Date Time: ",
-  "endDateTime": "End Date Time: ",
+  "startDateTime": "Start Time",
+  "endDateTime": "End Time",
   "location": "Location",
   "centralAndWestern": "Central and Western",
   "eastern": "Eastern",
@@ -53,7 +53,16 @@
   "remarks": "Remarks",
   "register": "Register",
   "chooseDistricts": "Choose districts",
-  "tooManyDistricts": "You can only select up to 5 districts",
+  "tooManyDistricts": "You can only select up to {number} districts",
+  "@tooManyDistricts": {
+    "description": "When user chooses too many districts",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "5"
+      }
+    }
+  },
   "loginAccount": "Login account",
   "login": "Login",
   "logout": "Logout",
@@ -76,7 +85,8 @@
   "confirmOk": "OK",
   "atLeastOneDistrict": "You must at least choose 1 district",
   "isProfilePublic": "Set your contact (not including email) public to \"Find tennis partner\" section",
-  "dateValidationError": "Please select a date and time",
+  "dateTimeValidationError": "Please select match time correctly",
+  "dateTimeEmptyError": "Please select match time",
   "locationValidationError": "Please enter a location",
   "submit": "Submit"
 }

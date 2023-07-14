@@ -41,8 +41,8 @@ class PartnerDetailScreen extends StatelessWidget {
             subtitle: CustomText(userProfile.username),
           ),
           ListTile(
-            title: CustomText(AppLocalizations.of(context)?.ustaLevel),
-            subtitle: CustomText(userProfile.ustaLevel.toString()),
+            title: CustomText(AppLocalizations.of(context)?.ntrpLevel),
+            subtitle: CustomText(userProfile.ntrpLevel.toString()),
           ),
           ListTile(
             title: CustomText(AppLocalizations.of(context)?.district),

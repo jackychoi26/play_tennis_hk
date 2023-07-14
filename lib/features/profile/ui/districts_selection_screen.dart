@@ -9,6 +9,7 @@ class DistrictsSelectionScreen extends StatefulWidget {
     required this.districts,
     required this.onSaveSelect,
     required this.selectedDistricts,
+    required this.maxSelection,
     super.key,
   });
 
@@ -16,6 +17,8 @@ class DistrictsSelectionScreen extends StatefulWidget {
   final void Function(List<District>) onSaveSelect;
 
   final List<District> selectedDistricts;
+
+  final int maxSelection;
 
   @override
   State<StatefulWidget> createState() => DistrictsSelectionScreenState();
@@ -27,12 +30,15 @@ class DistrictsSelectionScreenState extends State<DistrictsSelectionScreen> {
 
   List<District> selectedDistricts = [];
 
+  int maxSelection = 1;
+
   @override
   void initState() {
     super.initState();
     districts = widget.districts;
     onSaveSelect = widget.onSaveSelect;
     selectedDistricts = widget.selectedDistricts;
+    maxSelection = widget.maxSelection;
   }
 
   bool _isSelected(District district) {
@@ -57,9 +63,10 @@ class DistrictsSelectionScreenState extends State<DistrictsSelectionScreen> {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  if (selectedDistricts.length > 5) {
+                  if (selectedDistricts.length > maxSelection) {
                     CustomSnackBar(
-                      message: AppLocalizations.of(context)?.tooManyDistricts,
+                      message: AppLocalizations.of(context)
+                          ?.tooManyDistricts("$maxSelection"),
                       type: SnackBarType.error,
                     ).display(context);
                   } else {

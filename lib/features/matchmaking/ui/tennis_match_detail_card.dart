@@ -16,7 +16,7 @@ class TennisMatchDetailCard extends StatelessWidget {
         _endDateTime = tennisMatch.endDateTime,
         _district = tennisMatch.district,
         _court = tennisMatch.court,
-        _ustaLevelRange = tennisMatch.ustaLevelRange,
+        _ntrpLevelRange = tennisMatch.ntrpLevelRange,
         _matchType = tennisMatch.matchType,
         _remarks = tennisMatch.remarks;
 
@@ -24,18 +24,14 @@ class TennisMatchDetailCard extends StatelessWidget {
   final DateTime _endDateTime;
   final District _district;
   final String _court;
-  final List<num> _ustaLevelRange;
+  final List<num> _ntrpLevelRange;
   final MatchType _matchType;
   final String? _remarks;
 
   final bool shouldShowAllRemarks;
 
   String _getDate(String? localName) {
-    if (localName == "zh") {
-      return _startDateTime.getChineseMonthDayValue();
-    } else {
-      return _startDateTime.getEnglishMonthDayValue();
-    }
+    return _startDateTime.getLocalizedMonthDayValue(localName);
   }
 
   String _getTime() {
@@ -44,11 +40,11 @@ class TennisMatchDetailCard extends StatelessWidget {
     return "$startHour-$endHour ${_endDateTime.isPm() ? "pm" : "am"}";
   }
 
-  String _getUstaLevelRange() {
-    if (_ustaLevelRange.length == 1) {
-      return _ustaLevelRange.first.toString();
+  String _getNtrpLevelRange() {
+    if (_ntrpLevelRange.length == 1) {
+      return _ntrpLevelRange.first.toString();
     } else {
-      return "${_ustaLevelRange.first.toString()} - ${_ustaLevelRange.last.toString()}";
+      return "${_ntrpLevelRange.first.toString()} - ${_ntrpLevelRange.last.toString()}";
     }
   }
 
@@ -85,7 +81,7 @@ class TennisMatchDetailCard extends StatelessWidget {
           CustomText(
               "${AppLocalizations.of(context)?.matchType}: ${_matchType.toLocalizedName(context)}"),
           CustomText(
-              "${AppLocalizations.of(context)?.ustaLevel}: ${_getUstaLevelRange()}"),
+              "${AppLocalizations.of(context)?.ntrpLevel}: ${_getNtrpLevelRange()}"),
           CustomText(
             "${AppLocalizations.of(context)?.remarks}: ${_remarks ?? ""}",
             maxLines: shouldShowAllRemarks ? 10 : 1,

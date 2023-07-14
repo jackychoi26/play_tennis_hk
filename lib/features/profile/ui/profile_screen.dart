@@ -7,7 +7,7 @@ import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
-import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
+import 'package:play_tennis_hk/features/profile/ui/ntrp_level_dropdown_selection.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -276,6 +276,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               margin: const EdgeInsets.all(16),
               child: DistrictsList(
                 onSaveSelect: onSaveSelectDistrict,
+                maxSelection: 5,
               ),
             ),
             Container(
@@ -343,7 +344,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                 }
               },
             ),
-            const USTALevelDropdownSelection(),
+            const NTRPLevelDropdownSelection(),
             CustomTextFormField(
               controller: telegramController,
               textInputType: TextInputType.text,

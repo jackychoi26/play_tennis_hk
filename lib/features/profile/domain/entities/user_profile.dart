@@ -5,7 +5,7 @@ class UserProfile {
   final String username;
   final String email;
   final String imageUrl;
-  final double ustaLevel;
+  final double ntrpLevel;
   final int? age;
   final String? description;
   final List<District>? districts;
@@ -17,7 +17,7 @@ class UserProfile {
     required this.username,
     required this.email,
     required this.imageUrl,
-    required this.ustaLevel,
+    required this.ntrpLevel,
     this.age,
     this.districts,
     this.description,
@@ -35,7 +35,7 @@ class UserProfile {
       username: json['username'],
       email: json['email'],
       imageUrl: json['imageUrl'],
-      ustaLevel: json['ustaLevel'],
+      ntrpLevel: json['ntrpLevel'],
       age: json['age'],
       districts: districts,
       description: json['description'],

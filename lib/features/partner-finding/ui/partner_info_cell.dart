@@ -35,7 +35,7 @@ class PartnerInfoCell extends StatelessWidget {
                 ).toList().join(", ") ?? ""}",
           ),
           CustomText(
-              "${AppLocalizations.of(context)?.ustaLevel}: ${userProfile.ustaLevel.toString()}"),
+              "${AppLocalizations.of(context)?.ntrpLevel}: ${userProfile.ntrpLevel.toString()}"),
           CustomText(
             "${AppLocalizations.of(context)?.personalDescription}: ${userProfile.description ?? ""}",
             maxLines: 1,
