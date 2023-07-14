@@ -1,0 +1,7 @@
+import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
+
+abstract class UserProfileRepository {
+  Future<void> storeUserProfile(UserProfile userProfile);
+  Future<void> register(UserProfile userProfile);
+  Future<(UserProfile, String)> login(String username, String password);
+}

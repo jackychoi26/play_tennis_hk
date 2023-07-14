@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/features/profile/ui/profile_screen.dart';
+import 'package:play_tennis_hk/features/profile/domain/providers/user_profile_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -62,7 +63,11 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
               height: 40,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                ref
+                    .read(userProfileProvider.notifier)
+                    .login("username", "password");
+              },
               style: const ButtonStyle(
                 padding: MaterialStatePropertyAll(
                   EdgeInsets.symmetric(

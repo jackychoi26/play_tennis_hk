@@ -73,5 +73,7 @@
   "aboutUs": "About us",
   "appVersion": "App version",
   "joinUs": "Join us",
-  "confirmOk": "OK"
+  "confirmOk": "OK",
+  "atLeastOneDistrict": "You must at least choose 1 district",
+  "isProfilePublic": "Set your contact (not including email) public to \"Find tennis partner\" section"
 }

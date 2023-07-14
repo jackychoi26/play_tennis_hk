@@ -73,6 +73,7 @@
   "aboutUs": "關於我們",
   "appVersion": "程式版本",
   "joinUs": "加入我們",
-  "confirmOk": "確定"
-
+  "confirmOk": "確定",
+  "atLeastOneDistrict": "你必須最少選擇一個地區",
+  "isProfilePublic": "公開你的聯絡方法（不包括電郵）到『搜尋波友』"
 }

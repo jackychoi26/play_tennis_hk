@@ -27,7 +27,13 @@ class PartnerInfoCell extends StatelessWidget {
           CustomText(
               "${AppLocalizations.of(context)?.username}: ${userProfile.username}"),
           CustomText(
-              "${AppLocalizations.of(context)?.district}: ${userProfile.districts?.map((district) => district.toLocalizedName("zh")).toList().join(", ") ?? ""}"),
+            "${AppLocalizations.of(context)?.district}: ${userProfile.districts?.map(
+                  (district) {
+                    return district.toLocalizedName(
+                        AppLocalizations.of(context)?.localeName);
+                  },
+                ).toList().join(", ") ?? ""}",
+          ),
           CustomText(
               "${AppLocalizations.of(context)?.ustaLevel}: ${userProfile.ustaLevel.toString()}"),
           CustomText(

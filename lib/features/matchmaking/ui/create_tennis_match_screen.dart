@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/components/show_date_time_picker.dart';
+import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/match_type.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
 import 'package:play_tennis_hk/features/profile/ui/usta_level_dropdown_selection.dart';
@@ -39,9 +40,15 @@ class CreateTennisMatchScreenState
 
   DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
 
+  List<District> selectedDistricts = [];
+
   String? _getDateTimeText(DateTime? dateTime) {
     if (dateTime == null) return dateFormat.format(DateTime.now());
     return dateFormat.format(dateTime);
+  }
+
+  void onSaveSelectDistrict(List<District> newSelectedDistricts) {
+    selectedDistricts = newSelectedDistricts;
   }
 
   @override
@@ -119,7 +126,9 @@ class CreateTennisMatchScreenState
             const USTALevelDropdownSelection(),
             Container(
               margin: const EdgeInsets.all(20),
-              child: const DistrictsList(),
+              child: DistrictsList(
+                onSaveSelect: onSaveSelectDistrict,
+              ),
             ),
             CustomTextFormField(
               controller: locationController,
