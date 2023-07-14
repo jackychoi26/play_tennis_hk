@@ -44,6 +44,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     final isRegistration = ref.read(tokenProvider) == null;
 
     if (isRegistration) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
       ref.read(tokenProvider.notifier).storeAccessToken("Hello");
     } else {
       ref.read(tokenProvider.notifier).removeAccessToken();
@@ -141,8 +142,8 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   bool _isValidAge(String? ageInput) {
-    if (ageInput == null) {
-      return false;
+    if (ageInput == null || ageInput == "") {
+      return true;
     }
 
     int? age = int.tryParse(ageInput);

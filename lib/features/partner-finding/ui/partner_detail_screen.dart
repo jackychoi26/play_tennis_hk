@@ -48,7 +48,10 @@ class PartnerDetailScreen extends StatelessWidget {
             title: CustomText(AppLocalizations.of(context)?.district),
             subtitle: CustomText(
               userProfile.districts
-                      ?.map((district) => district.toLocalizedName("zh"))
+                      ?.map(
+                        (district) => district.toLocalizedName(
+                            AppLocalizations.of(context)?.localeName),
+                      )
                       .toList()
                       .join(", ") ??
                   "",
