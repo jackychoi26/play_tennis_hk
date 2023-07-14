@@ -71,5 +71,6 @@
   "aboutUs": "About us",
   "appVersion": "App version",
   "joinUs": "Join us",
-  "atLeastOneDistrict": "You must at least choose 1 district"
+  "atLeastOneDistrict": "You must at least choose 1 district",
+  "isProfilePublic": "Set your contact (not including email) public to \"Find tennis partner\" section"
 }

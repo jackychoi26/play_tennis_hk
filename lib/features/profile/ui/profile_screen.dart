@@ -36,6 +36,8 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   var whatsappController = TextEditingController();
   var signalController = TextEditingController();
 
+  bool isProfilePublic = true;
+
   List<District> selectedDistricts = [];
 
   void onPrimaryButtonPress(BuildContext context) {
@@ -273,6 +275,31 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
               margin: const EdgeInsets.all(16),
               child: DistrictsList(
                 onSaveSelect: onSaveSelectDistrict,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: CustomText(
+                      AppLocalizations.of(context)?.isProfilePublic,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Switch(
+                    // This bool value toggles the switch.
+                    value: isProfilePublic,
+                    activeColor: Colors.red,
+                    onChanged: (bool value) {
+                      // This is called when the user toggles the switch.
+                      setState(() {
+                        isProfilePublic = value;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
             CustomTextFormField(
