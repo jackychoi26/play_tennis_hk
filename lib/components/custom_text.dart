@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -30,7 +28,7 @@ class CustomText extends StatelessWidget {
       style: textType.toTextStyle(
         textColor: textColor,
         fontWeight: fontWeight,
-        ),
+      ),
       maxLines: maxLines,
       overflow: overflow,
     );
@@ -57,22 +55,22 @@ extension CustomTextTypeStyle on CustomTextType {
     switch (this) {
       case CustomTextType.title:
         return GoogleFonts.notoSans(
-            fontSize: 28, 
-            color: getColor(), 
-            fontWeight: getFontWeight(),
-            );
+          fontSize: 28,
+          color: getColor(),
+          fontWeight: getFontWeight(),
+        );
       case CustomTextType.subtitle:
         return GoogleFonts.notoSans(
-            fontSize: 20, 
-            color: getColor(), 
-            fontWeight: getFontWeight(),
-            );
+          fontSize: 20,
+          color: getColor(),
+          fontWeight: getFontWeight(),
+        );
       case CustomTextType.content:
         return GoogleFonts.notoSans(
-            fontSize: 16, 
-            color: getColor(), 
-            fontWeight: getFontWeight(),
-            );
+          fontSize: 16,
+          color: getColor(),
+          fontWeight: getFontWeight(),
+        );
     }
   }
 }
