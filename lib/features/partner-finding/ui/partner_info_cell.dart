@@ -15,30 +15,63 @@ class PartnerInfoCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
       margin: const EdgeInsets.only(top: 12),
       decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(
-              "${AppLocalizations.of(context)?.username}: ${userProfile.username}"),
-          CustomText(
-            "${AppLocalizations.of(context)?.district}: ${userProfile.districts?.map(
-                  (district) {
-                    return district.toLocalizedName(
-                        AppLocalizations.of(context)?.localeName);
-                  },
-                ).toList().join(", ") ?? ""}",
+          Container(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  "${AppLocalizations.of(context)?.username}:  ${userProfile.username}",
+                  textColor: Colors.black,
+                ),
+                CustomText(
+                  "${AppLocalizations.of(context)?.district}:  ${userProfile.districts?.map(
+                        (district) {
+                          return district.toLocalizedName(
+                              AppLocalizations.of(context)?.localeName);
+                        },
+                      ).toList().join(", ") ?? ""}",
+                  textColor: Colors.black,
+                ),
+                CustomText(
+                  "${AppLocalizations.of(context)?.ntrpLevel}:  ${userProfile.ntrpLevel.toString()}",
+                  textColor: Colors.black,
+                ),
+                if (userProfile.description?.isNotEmpty == true) ...[
+                  CustomText(
+                    "${AppLocalizations.of(context)?.personalDescription}: ${userProfile.description ?? ""}",
+                    textColor: Colors.black,
+                    maxLines: 1,
+                  ),
+                ]
+              ],
+            ),
           ),
-          CustomText(
-              "${AppLocalizations.of(context)?.ntrpLevel}: ${userProfile.ntrpLevel.toString()}"),
-          CustomText(
-            "${AppLocalizations.of(context)?.personalDescription}: ${userProfile.description ?? ""}",
-            maxLines: 1,
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.blueAccent,
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+            ),
+            padding: const EdgeInsets.all(12),
           ),
         ],
       ),

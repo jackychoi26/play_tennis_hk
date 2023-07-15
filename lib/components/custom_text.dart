@@ -6,6 +6,8 @@ class CustomText extends StatelessWidget {
     this.text, {
     this.textType = CustomTextType.content,
     this.style,
+    this.textColor,
+    this.fontWeight,
     this.maxLines = 3,
     this.overflow = TextOverflow.ellipsis,
     super.key,
@@ -14,6 +16,8 @@ class CustomText extends StatelessWidget {
   final String? text;
   final CustomTextType textType;
   final TextStyle? style;
+  final Color? textColor;
+  final FontWeight? fontWeight;
   final int maxLines;
   final TextOverflow overflow;
 
@@ -21,7 +25,10 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text ?? "",
-      style: textType.toTextStyle(),
+      style: textType.toTextStyle(
+        textColor: textColor,
+        fontWeight: fontWeight,
+      ),
       maxLines: maxLines,
       overflow: overflow,
     );
@@ -31,14 +38,39 @@ class CustomText extends StatelessWidget {
 enum CustomTextType { title, subtitle, content }
 
 extension CustomTextTypeStyle on CustomTextType {
-  TextStyle toTextStyle() {
+  TextStyle toTextStyle({
+    Color? textColor,
+    FontWeight? fontWeight,
+  }) {
+    getColor() {
+      const defaultColor = Colors.black;
+      return textColor ?? defaultColor;
+    }
+
+    getFontWeight() {
+      const defaultFontWeight = FontWeight.normal;
+      return fontWeight ?? defaultFontWeight;
+    }
+
     switch (this) {
       case CustomTextType.title:
-        return GoogleFonts.notoSans(fontSize: 28);
+        return GoogleFonts.notoSans(
+          fontSize: 28,
+          color: getColor(),
+          fontWeight: getFontWeight(),
+        );
       case CustomTextType.subtitle:
-        return GoogleFonts.notoSans(fontSize: 20);
+        return GoogleFonts.notoSans(
+          fontSize: 20,
+          color: getColor(),
+          fontWeight: getFontWeight(),
+        );
       case CustomTextType.content:
-        return GoogleFonts.notoSans(fontSize: 16);
+        return GoogleFonts.notoSans(
+          fontSize: 16,
+          color: getColor(),
+          fontWeight: getFontWeight(),
+        );
     }
   }
 }
