@@ -37,11 +37,11 @@ class PartnerInfoCell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
-                  "${AppLocalizations.of(context)?.username}: ${userProfile.username}",
+                  "${AppLocalizations.of(context)?.username}:  ${userProfile.username}",
                   textColor: Colors.black,
                 ),
                 CustomText(
-                  "${AppLocalizations.of(context)?.district}: ${userProfile.districts?.map(
+                  "${AppLocalizations.of(context)?.district}:  ${userProfile.districts?.map(
                         (district) {
                           return district.toLocalizedName(
                               AppLocalizations.of(context)?.localeName);
@@ -50,14 +50,16 @@ class PartnerInfoCell extends StatelessWidget {
                   textColor: Colors.black,
                 ),
                 CustomText(
-                  "${AppLocalizations.of(context)?.ntrpLevel}: ${userProfile.ntrpLevel.toString()}",
+                  "${AppLocalizations.of(context)?.ntrpLevel}:  ${userProfile.ntrpLevel.toString()}",
                   textColor: Colors.black,
                 ),
-                CustomText(
-                  "${AppLocalizations.of(context)?.personalDescription}: ${userProfile.description ?? ""}",
-                  textColor: Colors.black,
-                  maxLines: 1,
-                ),
+                if (userProfile.description?.isNotEmpty == true) ...[
+                  CustomText(
+                    "${AppLocalizations.of(context)?.personalDescription}: ${userProfile.description ?? ""}",
+                    textColor: Colors.black,
+                    maxLines: 1,
+                  ),
+                ]
               ],
             ),
           ),
