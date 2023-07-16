@@ -46,7 +46,6 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
                     District.eastern,
                   ],
                   email: "ahha@asdsa.com",
-                  imageUrl: "",
                   ntrpLevel: 3.5,
                 ),
               ),
@@ -61,7 +60,6 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
                           District.eastern
                         ],
                         email: "ahha@asdsa.com",
-                        imageUrl: "",
                         ntrpLevel: 3.5,
                       ),
                     ),

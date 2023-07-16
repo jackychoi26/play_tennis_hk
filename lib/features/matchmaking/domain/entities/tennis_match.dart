@@ -5,10 +5,10 @@ import 'package:play_tennis_hk/domain/match_type.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
 class TennisMatch {
-  final String id;
+  final int id;
   final DateTime createdAt;
   final UserProfile poster;
-  final List<num> ntrpLevelRange;
+  final num ntrpLevel;
   final DateTime startDateTime;
   final DateTime endDateTime;
   final District district;
@@ -20,7 +20,7 @@ class TennisMatch {
     required this.id,
     required this.createdAt,
     required this.poster,
-    required this.ntrpLevelRange,
+    required this.ntrpLevel,
     required this.startDateTime,
     required this.endDateTime,
     required this.district,
@@ -36,7 +36,7 @@ class TennisMatch {
       id: json['id'],
       createdAt: DateTime.parse(json['createdAt'] as String).toLocal(),
       poster: UserProfile.fromJson(json['poster']),
-      ntrpLevelRange: json['ntrpLevelRange'].cast<num>(),
+      ntrpLevel: json['ntrpLevel'],
       startDateTime: DateTime.parse(json['startDateTime'] as String).toLocal(),
       endDateTime: DateTime.parse(json['endDateTime'] as String).toLocal(),
       district: (json['district'] as String).toDistrict(),
