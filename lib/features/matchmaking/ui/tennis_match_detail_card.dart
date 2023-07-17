@@ -16,7 +16,7 @@ class TennisMatchDetailCard extends StatelessWidget {
         _endDateTime = tennisMatch.endDateTime,
         _district = tennisMatch.district,
         _court = tennisMatch.court,
-        _ntrpLevelRange = tennisMatch.ntrpLevelRange,
+        _ntrpLevel = tennisMatch.ntrpLevel,
         _matchType = tennisMatch.matchType,
         _remarks = tennisMatch.remarks;
 
@@ -24,7 +24,7 @@ class TennisMatchDetailCard extends StatelessWidget {
   final DateTime _endDateTime;
   final District _district;
   final String _court;
-  final List<num> _ntrpLevelRange;
+  final num _ntrpLevel;
   final MatchType _matchType;
   final String? _remarks;
 
@@ -41,11 +41,7 @@ class TennisMatchDetailCard extends StatelessWidget {
   }
 
   String _getNtrpLevelRange() {
-    if (_ntrpLevelRange.length == 1) {
-      return _ntrpLevelRange.first.toString();
-    } else {
-      return "${_ntrpLevelRange.first.toString()} - ${_ntrpLevelRange.last.toString()}";
-    }
+    return _ntrpLevel.toString();
   }
 
   Color _getBackgroundColor() {

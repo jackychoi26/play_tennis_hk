@@ -2,10 +2,11 @@ import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/extensions/string_to_district.dart';
 
 class UserProfile {
+  final int? id;
   final String username;
   final String email;
   final String? imageUrl;
-  final double ntrpLevel;
+  final num ntrpLevel;
   final int? age;
   final String? description;
   final List<District>? districts;
@@ -17,6 +18,7 @@ class UserProfile {
     required this.username,
     required this.email,
     required this.ntrpLevel,
+    this.id,
     this.imageUrl,
     this.age,
     this.districts,
@@ -32,6 +34,7 @@ class UserProfile {
     final districts = districtsList.map((e) => e.toDistrict()).toList();
 
     return UserProfile(
+      id: json['id'],
       username: json['username'],
       email: json['email'],
       imageUrl: json['imageUrl'],
