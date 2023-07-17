@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
@@ -59,30 +60,29 @@ class TennisMatchDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final localName = AppLocalizations.of(context)?.localeName;
 
-    return Container(
-      padding: const EdgeInsets.all(14),
-      margin: const EdgeInsets.only(top: 12),
-      decoration: BoxDecoration(
-        color: _getBackgroundColor(),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomText(
-              "${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
-          CustomText("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
-          CustomText(
-              "${AppLocalizations.of(context)?.location}: ${_district.toLocalizedName(localName)} $_court"),
-          CustomText(
-              "${AppLocalizations.of(context)?.matchType}: ${_matchType.toLocalizedName(context)}"),
-          CustomText(
-              "${AppLocalizations.of(context)?.ntrpLevel}: ${_getNtrpLevelRange()}"),
-          CustomText(
-            "${AppLocalizations.of(context)?.remarks}: ${_remarks ?? ""}",
-            maxLines: shouldShowAllRemarks ? 10 : 1,
-          ),
-        ],
+    return CustomCard(
+      color: _getBackgroundColor(),
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        margin: const EdgeInsets.only(top: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+                "${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
+            CustomText("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
+            CustomText(
+                "${AppLocalizations.of(context)?.location}: ${_district.toLocalizedName(localName)} $_court"),
+            CustomText(
+                "${AppLocalizations.of(context)?.matchType}: ${_matchType.toLocalizedName(context)}"),
+            CustomText(
+                "${AppLocalizations.of(context)?.ntrpLevel}: ${_getNtrpLevelRange()}"),
+            CustomText(
+              "${AppLocalizations.of(context)?.remarks}: ${_remarks ?? ""}",
+              maxLines: shouldShowAllRemarks ? 10 : 1,
+            ),
+          ],
+        ),
       ),
     );
   }

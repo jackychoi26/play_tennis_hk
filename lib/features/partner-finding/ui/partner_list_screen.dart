@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
@@ -38,15 +39,17 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
           // shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
-              child: const PartnerInfoCell(
-                userProfile: UserProfile(
-                  username: "Jones",
-                  districts: [
-                    District.centralAndWestern,
-                    District.eastern,
-                  ],
-                  email: "ahha@asdsa.com",
-                  ntrpLevel: 3.5,
+              child: const CustomCard(
+                child: PartnerInfoCell(
+                  userProfile: UserProfile(
+                    username: "Jones",
+                    districts: [
+                      District.centralAndWestern,
+                      District.eastern,
+                    ],
+                    email: "ahha@asdsa.com",
+                    ntrpLevel: 3.5,
+                  ),
                 ),
               ),
               onTap: () {
