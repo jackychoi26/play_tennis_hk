@@ -88,5 +88,6 @@
   "dateTimeValidationError": "Please select match time correctly",
   "dateTimeEmptyError": "Please select match time",
   "locationValidationError": "Please enter a location",
-  "submit": "Submit"
+  "submit": "Submit",
+  "somethingWentWrong": "Something went wrong, please try again later"
 }
