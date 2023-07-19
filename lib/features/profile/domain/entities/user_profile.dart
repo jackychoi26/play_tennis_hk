@@ -28,6 +28,26 @@ class UserProfile {
     this.whatsapp,
   });
 
+  Map<String, dynamic> toJson() {
+    final districtsList = districts
+        ?.map((district) => district.toString().split('.').last)
+        .toList();
+
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'imageUrl': imageUrl,
+      'ntrpLevel': ntrpLevel,
+      'age': age,
+      'districts': districtsList,
+      'description': description,
+      'telegram': telegram,
+      'signal': signal,
+      'whatsapp': whatsapp,
+    };
+  }
+
   @override
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     final districtsList = (json['districts'] as List<dynamic>).cast<String>();
