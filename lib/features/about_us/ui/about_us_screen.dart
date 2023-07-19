@@ -38,7 +38,10 @@ class AboutUsScreen extends StatelessWidget {
                     textType: CustomTextType.title,
                   ),
                   CustomText(
-                    "${AppLocalizations.of(context)?.appVersion}: 0.1 Beta",
+                    "${AppLocalizations.of(context)?.appVersion}: 1.0",
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   RichText(
                     text: TextSpan(children: [

@@ -6,8 +6,8 @@ class TennisMatchesWebservice extends Webservice {
     final response = await dio.get('/matchmaking');
 
     try {
-      final matches = TennisMatchesResponse.fromJson(response.data);
-      return matches;
+      final tennisMatches = TennisMatchesResponse.fromJson(response.data);
+      return tennisMatches;
     } catch (err) {
       rethrow;
     }

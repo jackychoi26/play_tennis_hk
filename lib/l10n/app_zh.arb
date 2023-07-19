@@ -88,5 +88,6 @@
   "dateTimeValidationError": "請選擇正確的比賽時間",
   "dateTimeEmptyError": "請選擇比賽時間",
   "locationValidationError": "請輸入地點",
-  "submit": "提交"
+  "submit": "提交",
+  "somethingWentWrong": "發生錯誤，請稍後再試"
 }
