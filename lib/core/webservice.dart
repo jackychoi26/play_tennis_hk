@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:play_tennis_hk/core/dio.dart';
 
 class Webservice {
   Dio dio;
 
-  Webservice() : dio = Dio(BaseOptions(baseUrl: "http://localhost:3000"));
+  Webservice() : dio = DioSingleton().client;
 
   Future<Response> getRequest(String endPoint) async {
     Response response;
@@ -17,3 +18,7 @@ class Webservice {
     return response;
   }
 }
+
+
+
+
