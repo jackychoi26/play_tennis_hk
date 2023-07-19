@@ -5,11 +5,12 @@ import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match
 class TennisMatchesRepositoryImpl implements TennisMatchesRepository {
   TennisMatchesRepositoryImpl();
 
-  final matchesWebservice = TennisMatchesWebservice();
+  final tennisMatchesWebservice = TennisMatchesWebservice();
 
   @override
   Future<List<TennisMatch>> getTennisMatches() async {
-    final matchesResponse = await matchesWebservice.performRequest();
-    return matchesResponse.matches;
+    final tennisMatchesResponse =
+        await tennisMatchesWebservice.performRequest();
+    return tennisMatchesResponse.tennisMatches;
   }
 }
