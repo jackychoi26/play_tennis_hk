@@ -17,8 +17,8 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
   void register(UserProfile userProfile) {}
 
   void login(String username, String password) async {
-    final (userProfile, accessToken) =
-        await userProfileRepository.login(username, password);
+    final (userProfile, accessToken) = await userProfileRepository
+        .getAuthenticationSession(username, password);
 
     tokenRepository.storeAccessToken(accessToken);
     userProfileRepository.storeUserProfile(userProfile);
