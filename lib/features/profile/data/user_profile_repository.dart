@@ -4,11 +4,7 @@ import 'package:play_tennis_hk/features/profile/domain/repositories/user_profile
 
 class UserProfileRepositoryImpl implements UserProfileRepository {
   UserProfileRepositoryImpl();
-
-  // final _dio = Dio(BaseOptions(baseUrl: "http://localhost:3000", headers: {
-  //   HttpHeaders.contentTypeHeader: "application/json",
-  // }));
-
+  
   @override
   Future<(UserProfile, String)> getAuthenticationSession(
       String username, String password) async {
