@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/features/partner-finding/data/partner_repository_impl.dart';
+import 'package:play_tennis_hk/features/partner-finding/data/repositories/partner_repository_impl.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
 final partnersRepositoryProvider = Provider((ref) => PartnersRepositoryImpl());
