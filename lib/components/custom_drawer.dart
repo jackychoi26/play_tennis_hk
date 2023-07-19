@@ -6,6 +6,7 @@ import 'package:play_tennis_hk/features/about_us/ui/about_us_screen.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/matchmaking_screen.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_list_screen.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
+import 'package:play_tennis_hk/features/profile/domain/providers/user_profile_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/login_screen.dart';
 import 'package:play_tennis_hk/features/profile/ui/profile_screen.dart';
 
@@ -15,17 +16,18 @@ class CustomDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoggedIn = ref.watch(tokenProvider) != null;
+    final userProfile = ref.watch(userProfileProvider);
 
     return Drawer(
       child: ListView(
         padding: const EdgeInsets.only(top: 0.0),
         children: [
-          isLoggedIn
+          isLoggedIn && userProfile != null
               ? UserAccountsDrawerHeader(
                   decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 116, 73, 185)),
-                  accountName: const CustomText("JackyChoi"),
-                  accountEmail: const CustomText("jackychoi@gmail.com"),
+                  accountName: CustomText(userProfile.username),
+                  accountEmail: CustomText(userProfile.email),
                   currentAccountPicture: const CircleAvatar(
                     backgroundImage: NetworkImage("https://picsum.photos/200"),
                   ),
