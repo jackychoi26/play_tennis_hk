@@ -11,7 +11,7 @@ class TokenRepositoryImpl implements TokenRepository {
 
   @override
   Future<void> storeAccessToken(String token) async {
-    return await secureStorage.write(key: "acessToken", value: token);
+    return await secureStorage.write(key: "accessToken", value: token);
   }
 
   @override
