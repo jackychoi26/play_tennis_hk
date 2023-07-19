@@ -4,11 +4,9 @@ import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
-import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/features/partner-finding/domain/providers/partners_provider.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_detail_screen.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_info_cell.dart';
-import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
 class PartnerListScreen extends ConsumerStatefulWidget {
   const PartnerListScreen({super.key});
