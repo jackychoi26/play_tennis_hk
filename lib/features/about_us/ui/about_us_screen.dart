@@ -26,7 +26,7 @@ class AboutUsScreen extends StatelessWidget {
               height: 100,
               width: 100,
               child: Image(
-                image: AssetImage('assets/app_icon/Icon-1024.png'),
+                image: AssetImage('assets/app_icon/app-icon.png'),
               ),
             ),
             Container(
