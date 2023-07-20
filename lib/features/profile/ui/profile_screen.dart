@@ -405,6 +405,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                       onPrimaryButtonPress(context);
                     }
                   } else {
+                    ref.read(tokenProvider.notifier).removeAccessToken();
                     onPrimaryButtonPress(context);
                   }
                 },

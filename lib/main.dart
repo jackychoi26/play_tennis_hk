@@ -7,36 +7,47 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() {
   runApp(
     const ProviderScope(
-      child: MaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [
-          Locale('en'),
-          Locale.fromSubtags(
-              languageCode: 'zh',
-              scriptCode: 'Hans'), // generic simplified Chinese 'zh_Hans'
-          Locale.fromSubtags(
-              languageCode: 'zh',
-              scriptCode: 'Hant'), // generic traditional Chinese 'zh_Hant'
-          Locale.fromSubtags(
-              languageCode: 'zh',
-              scriptCode: 'Hans',
-              countryCode: 'CN'), // 'zh_Hans_CN'
-          Locale.fromSubtags(
-              languageCode: 'zh',
-              scriptCode: 'Hant',
-              countryCode: 'TW'), // 'zh_Hant_TW'
-          Locale.fromSubtags(
-              languageCode: 'zh',
-              scriptCode: 'Hant',
-              countryCode: 'HK'), // 'zh_Hant_HK'
-        ],
-        home: HomeScreen(),
-      ),
+      child: MyApp(),
     ),
   );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'),
+        Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hans'), // generic simplified Chinese 'zh_Hans'
+        Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hant'), // generic traditional Chinese 'zh_Hant'
+        Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hans',
+            countryCode: 'CN'), // 'zh_Hans_CN'
+        Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hant',
+            countryCode: 'TW'), // 'zh_Hant_TW'
+        Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hant',
+            countryCode: 'HK'), // 'zh_Hant_HK'
+      ],
+      home: HomeScreen(),
+    );
+  }
 }
