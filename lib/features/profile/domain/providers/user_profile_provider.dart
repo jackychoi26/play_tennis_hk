@@ -26,8 +26,6 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
 
     tokenNotifier.storeAccessToken(bearerAccessToken);
 
-    tokenNotifier.loadAccessToken();
-
     userProfileRepository.storeUserProfile(userProfile);
 
     state = userProfile;

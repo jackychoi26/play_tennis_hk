@@ -15,8 +15,8 @@ class DioSingleton {
 
     _client.interceptors
         .add(InterceptorsWrapper(onRequest: (options, handler) async {
-      final token = await tokenRepository.getAccessToken();
-      _client.options.headers["Authorization"] = token;
+      // final token = await tokenRepository.getAccessToken();
+      // _client.options.headers["Authorization"] = token;
 
       return handler.next(options); //continue
       // If you want to resolve the request with some custom data，
