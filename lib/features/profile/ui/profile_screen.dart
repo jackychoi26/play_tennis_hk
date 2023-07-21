@@ -162,6 +162,10 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final isRegistration = ref.watch(tokenProvider) == null;
+    final userProfile = ref.watch(userProfileProvider);
+
+    usernameController.text = userProfile?.username ?? "";
+    emailController.text = userProfile?.email ?? "";
 
     return Scaffold(
       appBar: AppBar(
