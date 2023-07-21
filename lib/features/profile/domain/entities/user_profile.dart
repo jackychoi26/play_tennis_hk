@@ -13,6 +13,7 @@ class UserProfile {
   final String? telegram;
   final String? signal;
   final String? whatsapp;
+  final bool? isProfilePublic;
 
   const UserProfile({
     required this.username,
@@ -26,6 +27,7 @@ class UserProfile {
     this.telegram,
     this.signal,
     this.whatsapp,
+    this.isProfilePublic,
   });
 
   Map<String, dynamic> toJson() {
@@ -43,6 +45,7 @@ class UserProfile {
       'telegram': telegram,
       'signal': signal,
       'whatsapp': whatsapp,
+      'isProfilePublic': isProfilePublic,
     };
   }
 
@@ -63,6 +66,7 @@ class UserProfile {
       telegram: json['telegram'],
       signal: json['signal'],
       whatsapp: json['whatsapp'],
+      isProfilePublic: json['isProfilePublic'],
     );
   }
 }

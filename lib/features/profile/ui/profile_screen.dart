@@ -185,6 +185,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                           telegram: telegramController.text,
                           signal: signalController.text,
                           whatsapp: whatsappController.text,
+                          isProfilePublic: isProfilePublic,
                         ),
                       );
                 },
