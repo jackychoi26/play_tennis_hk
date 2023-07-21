@@ -49,9 +49,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
     if (isRegistration) {
       Navigator.of(context).popUntil((route) => route.isFirst);
-      ref.read(tokenProvider.notifier).storeAccessToken("Hello");
+      ref.read(userProfileProvider.notifier).register;
     } else {
-      ref.read(tokenProvider.notifier).removeAccessToken();
+      ref.read(userProfileProvider.notifier).logout();
     }
 
     Navigator.pop(context);
