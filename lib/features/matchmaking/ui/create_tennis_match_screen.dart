@@ -192,7 +192,11 @@ class CreateTennisMatchScreenState
                     );
                   }).toList()),
             ),
-            const NTRPLevelDropdownSelection(),
+            NTRPLevelDropdownSelection(
+              onValueChanged: (double value) {
+                print(value);
+              },
+            ),
             Container(
               margin: const EdgeInsets.all(20),
               child: DistrictsList(

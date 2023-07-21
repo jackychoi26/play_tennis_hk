@@ -9,7 +9,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(tokenProvider.notifier).getAccessToken();
+    ref.read(tokenProvider.notifier).loadAccessToken();
     ref.read(userProfileProvider.notifier).loadUserProfile();
 
     return const MatchmakingScreen();

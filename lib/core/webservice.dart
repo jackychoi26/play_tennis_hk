@@ -18,7 +18,3 @@ class Webservice {
     return response;
   }
 }
-
-
-
-

@@ -29,9 +29,7 @@ class UserProfile {
   });
 
   Map<String, dynamic> toJson() {
-    final districtsList = districts
-        ?.map((district) => district.toString().split('.').last)
-        .toList();
+    final districtsList = districts?.map((e) => e.toJson()).toList();
 
     return {
       'id': id,

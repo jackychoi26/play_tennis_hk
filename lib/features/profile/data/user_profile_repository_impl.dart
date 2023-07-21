@@ -1,12 +1,21 @@
 import 'dart:convert';
 
+import 'package:play_tennis_hk/features/profile/data/webservices/edit_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/login_webservice.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 import 'package:play_tennis_hk/features/profile/domain/repositories/user_profile_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileRepositoryImpl implements UserProfileRepository {
-  UserProfileRepositoryImpl();
+  LoginWebservice loginWebservice;
+  EditWebservice editWebservice;
+
+  UserProfileRepositoryImpl({
+    LoginWebservice? loginWebservice,
+    EditWebservice? editWebservice,
+  })  : loginWebservice = loginWebservice ?? LoginWebservice(),
+        editWebservice = editWebservice ?? EditWebservice();
+
   @override
   Future<(UserProfile, String)> getAuthenticationSession(
       String username, String password) async {
@@ -14,8 +23,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       "username": username,
       "password": password,
     };
-
-    final loginWebservice = LoginWebservice();
 
     final loginResponse = await loginWebservice.performRequest(loginData);
     final userProfile = loginResponse.userProfile;
@@ -55,6 +62,14 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     }
 
     return userProfile;
+  }
+
+  @override
+  Future<UserProfile> updateUserProfile(UserProfile userProfile) async {
+    final editResponse =
+        await editWebservice.performRequest(userProfile.toJson());
+
+    return editResponse.userProfile;
   }
 
   @override

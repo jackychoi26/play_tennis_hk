@@ -3,7 +3,10 @@ import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NTRPLevelDropdownSelection extends StatefulWidget {
-  const NTRPLevelDropdownSelection({super.key});
+  final ValueChanged<double> onValueChanged;
+
+  const NTRPLevelDropdownSelection({Key? key, required this.onValueChanged})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _NTRPLevelDropdownSelectionState();
@@ -31,6 +34,8 @@ class _NTRPLevelDropdownSelectionState
             setState(() {
               dropdownValue = value!;
             });
+
+            widget.onValueChanged(value!);
           },
           items: ntrpLevelData.map<DropdownMenuItem<double>>((double value) {
             return DropdownMenuItem<double>(
