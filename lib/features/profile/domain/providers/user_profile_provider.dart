@@ -36,6 +36,9 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
   }
 
   void loadUserProfile() async {
+    if (tokenNotifier.state == null) {
+      return;
+    }
     final userProfile = await userProfileRepository.getUserProfile();
     state = userProfile;
   }
