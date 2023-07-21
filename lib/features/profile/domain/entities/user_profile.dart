@@ -4,7 +4,7 @@ import 'package:play_tennis_hk/domain/extensions/string_to_district.dart';
 class UserProfile {
   final int? id;
   final String username;
-  final String email;
+  final String? email;
   final String? imageUrl;
   final num ntrpLevel;
   final int? age;
@@ -16,8 +16,8 @@ class UserProfile {
 
   const UserProfile({
     required this.username,
-    required this.email,
     required this.ntrpLevel,
+    this.email,
     this.id,
     this.imageUrl,
     this.age,
