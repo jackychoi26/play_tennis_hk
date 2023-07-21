@@ -16,6 +16,11 @@ class TennisMatchesNotifier extends StateNotifier<List<TennisMatch>> {
   void _getMatches() async {
     state = await repository.getTennisMatches();
   }
+
+  void createMatch(TennisMatch tennisMatch) async {
+    await repository.createTennisMatch(tennisMatch);
+    state = await repository.getTennisMatches();
+  }
 }
 
 final matchesProvider =

@@ -5,9 +5,9 @@ import 'package:play_tennis_hk/domain/match_type.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
 class TennisMatch {
-  final int id;
-  final DateTime createdAt;
-  final UserProfile poster;
+  final int? id;
+  final DateTime? createdAt;
+  final UserProfile? poster;
   final num ntrpLevel;
   final DateTime startDateTime;
   final DateTime endDateTime;
@@ -17,9 +17,9 @@ class TennisMatch {
   final String? remarks;
 
   TennisMatch({
-    required this.id,
-    required this.createdAt,
-    required this.poster,
+    this.id,
+    this.createdAt,
+    this.poster,
     required this.ntrpLevel,
     required this.startDateTime,
     required this.endDateTime,
@@ -28,6 +28,8 @@ class TennisMatch {
     required this.matchType,
     this.remarks,
   });
+
+
 
   @override
   factory TennisMatch.fromJson(Map<String, dynamic> json) {
@@ -43,5 +45,17 @@ class TennisMatch {
       matchType: (json['matchType'] as String).toMatchType(),
       remarks: json['remarks'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'startDateTime': startDateTime.toString(),
+      'endDateTime': endDateTime.toString(),
+      'matchType': matchType.toJson(),
+      'ntrpLevel': ntrpLevel,
+      'district': district.toJson(),
+      'court': court,
+      'remarks': remarks,
+    };
   }
 }

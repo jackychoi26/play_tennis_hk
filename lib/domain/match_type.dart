@@ -38,3 +38,26 @@ extension MatchTypeTranslator on MatchType {
     }
   }
 }
+
+extension MatchTypeMapper on MatchType {
+  String toJson() {
+    switch (this) {
+      case MatchType.training:
+        return 'TRAINING';
+      case MatchType.singles:
+        return 'SINGLES';
+      case MatchType.doubles:
+        return 'DOUBLES';
+      case MatchType.mensSingles:
+        return 'MENS_SINGLES';
+      case MatchType.womensSingles:
+        return 'WOMENS_SINGLES';
+      case MatchType.mensDoubles:
+        return 'MENS_DOUBLES';
+      case MatchType.womensDoubles:
+        return 'WOMENS_DOUBLES';
+      case MatchType.mixedDoubles:
+        return 'MIXED_DOUBLES';
+    }
+  }
+}

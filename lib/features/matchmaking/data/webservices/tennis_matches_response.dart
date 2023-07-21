@@ -2,7 +2,10 @@ import 'package:play_tennis_hk/core/webservice_response.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 
 class TennisMatchesResponse extends WebserviceResponse {
-  TennisMatchesResponse(String message, this.tennisMatches) : super(message);
+  TennisMatchesResponse(
+    String message,
+    this.tennisMatches,
+  ) : super(message);
 
   List<TennisMatch> tennisMatches;
 

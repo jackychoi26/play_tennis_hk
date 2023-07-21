@@ -8,6 +8,8 @@ import 'package:play_tennis_hk/components/show_date_time_picker.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/match_type.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
+import 'package:play_tennis_hk/features/matchmaking/domain/providers/tennis_matches_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
 import 'package:play_tennis_hk/features/profile/ui/ntrp_level_dropdown_selection.dart';
 
@@ -28,7 +30,7 @@ class CreateTennisMatchScreenState
 
   final _formKey = GlobalKey<FormState>();
 
-  var locationController = TextEditingController();
+  var courtController = TextEditingController();
   var remarksController = TextEditingController();
 
   DateTime? startDateTime;
@@ -91,8 +93,7 @@ class CreateTennisMatchScreenState
     }
 
     // Location not validated
-    if (locationController.text.isEmpty ||
-        locationController.text.length > 30) {
+    if (courtController.text.isEmpty || courtController.text.length > 30) {
       _showSnackBar(
         AppLocalizations.of(context)?.locationValidationError,
         context,
@@ -205,7 +206,7 @@ class CreateTennisMatchScreenState
               ),
             ),
             CustomTextFormField(
-                controller: locationController,
+                controller: courtController,
                 textInputType: TextInputType.visiblePassword,
                 labelText: AppLocalizations.of(context)?.location,
                 validator: (String? value) {
@@ -226,9 +227,19 @@ class CreateTennisMatchScreenState
               child: ElevatedButton(
                 onPressed: () {
                   if (_validateForm(context)) {
-                    print("submit");
-                  } else {
-                    print("not valid");
+                    ref.read(matchesProvider.notifier).createMatch(
+                          TennisMatch(
+                            startDateTime: startDateTime!,
+                            endDateTime: endDateTime!,
+                            matchType: dropdownValue,
+                            ntrpLevel: 1,
+                            court: courtController.text,
+                            remarks: remarksController.text,
+                            district: selectedDistricts.first,
+                          ),
+                        );
+
+                    Navigator.of(context).pop();
                   }
                 },
                 style: const ButtonStyle(

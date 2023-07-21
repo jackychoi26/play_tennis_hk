@@ -2,4 +2,5 @@ import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match
 
 abstract class TennisMatchesRepository {
   Future<List<TennisMatch>> getTennisMatches();
+  Future<TennisMatch> createTennisMatch(TennisMatch tennisMatch);
 }
