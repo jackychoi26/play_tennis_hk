@@ -16,6 +16,7 @@ class CustomDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoggedIn = ref.watch(tokenProvider) != null;
+    ref.watch(userProfileProvider.notifier).loadUserProfile();
     final userProfile = ref.watch(userProfileProvider);
 
     return Drawer(

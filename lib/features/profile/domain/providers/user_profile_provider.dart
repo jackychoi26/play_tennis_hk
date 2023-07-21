@@ -43,9 +43,10 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
   }
 
   void editProfile(UserProfile userProfile) async {
-    await userProfileRepository.updateUserProfile(userProfile);
+    final updatedUserProfile =
+        await userProfileRepository.updateUserProfile(userProfile);
 
-    userProfileRepository.storeUserProfile(userProfile);
+    userProfileRepository.storeUserProfile(updatedUserProfile);
 
     state = userProfile;
   }

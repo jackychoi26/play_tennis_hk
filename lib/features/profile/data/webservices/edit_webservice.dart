@@ -3,10 +3,9 @@ import 'package:play_tennis_hk/features/profile/data/webservices/edit_response.d
 
 class EditWebservice extends Webservice {
   Future<EditResponse> performRequest(Object data) async {
-
-    final response = await dio.patch(
+    final response = await patchRequest(
       "/profile",
-      data: data,
+      data,
     );
 
     try {

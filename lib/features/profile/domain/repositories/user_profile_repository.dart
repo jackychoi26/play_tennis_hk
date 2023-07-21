@@ -6,6 +6,6 @@ abstract class UserProfileRepository {
   Future<void> register(UserProfile userProfile);
   Future<void> storeUserProfile(UserProfile userProfile);
   Future<UserProfile> getUserProfile();
-  Future<void> updateUserProfile(UserProfile userProfile);
+  Future<UserProfile> updateUserProfile(UserProfile userProfile);
   Future<void> removeUserProfile();
 }
