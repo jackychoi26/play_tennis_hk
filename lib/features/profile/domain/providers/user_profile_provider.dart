@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/features/profile/data/user_profile_repository_impl.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
@@ -48,7 +46,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
 
     userProfileRepository.storeUserProfile(updatedUserProfile);
 
-    state = userProfile;
+    state = updatedUserProfile;
   }
 }
 
