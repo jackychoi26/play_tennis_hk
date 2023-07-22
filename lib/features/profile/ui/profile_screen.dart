@@ -49,7 +49,21 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
     if (isRegistration) {
       Navigator.of(context).popUntil((route) => route.isFirst);
-      ref.read(userProfileProvider.notifier).register;
+      ref.read(userProfileProvider.notifier).register(
+            UserProfile(
+              username: usernameController.text,
+              email: emailController.text,
+              password: passwordController.text,
+              ntrpLevel: ntrpLevelValue,
+              age: int.tryParse(ageController.text),
+              description: descriptionController.text,
+              districts: selectedDistricts,
+              telegram: telegramController.text,
+              signal: signalController.text,
+              whatsapp: whatsappController.text,
+              isProfilePublic: isProfilePublic,
+            ),
+          );
     } else {
       ref.read(userProfileProvider.notifier).logout();
     }

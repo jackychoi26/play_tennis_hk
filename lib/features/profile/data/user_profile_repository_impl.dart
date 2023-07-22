@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:play_tennis_hk/features/profile/data/webservices/edit_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/login_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/profile_webservice.dart';
+import 'package:play_tennis_hk/features/profile/data/webservices/register_webservice.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 import 'package:play_tennis_hk/features/profile/domain/repositories/user_profile_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,14 +13,17 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   LoginWebservice loginWebservice;
   EditWebservice editWebservice;
   ProfileWebservice profileWebservice;
+  RegisterWebservice registerWebservice;
 
   UserProfileRepositoryImpl({
     LoginWebservice? loginWebservice,
     EditWebservice? editWebservice,
+    ProfileWebservice? profileWebservice,
+    RegisterWebservice? registerWebservice,
   })  : loginWebservice = loginWebservice ?? LoginWebservice(),
         editWebservice = editWebservice ?? EditWebservice(),
-        profileWebservice = ProfileWebservice();
-
+        profileWebservice = profileWebservice ?? ProfileWebservice(),
+        registerWebservice = registerWebservice ?? RegisterWebservice();
 
   @override
   Future<(UserProfile, String)> getAuthenticationSession(
@@ -37,9 +41,16 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<void> register(UserProfile userProfile) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<(UserProfile, String)> register(UserProfile userProfile) async {
+    final registerData = userProfile.toJson();
+
+    final registerResponse =
+        await registerWebservice.performRequest(registerData);
+
+    final userProfileResponse = registerResponse.userProfile;
+    final accessToken = registerResponse.accessToken;
+
+    return (userProfileResponse, accessToken);
   }
 
   @override

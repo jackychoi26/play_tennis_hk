@@ -3,7 +3,7 @@ import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dar
 abstract class UserProfileRepository {
   Future<(UserProfile, String)> getAuthenticationSession(
       String username, String password);
-  Future<void> register(UserProfile userProfile);
+  Future<(UserProfile, String)> register(UserProfile userProfile);
   Future<void> storeUserProfile(UserProfile userProfile);
   Future<UserProfile> getUserProfile();
   Future<UserProfile> updateUserProfile(UserProfile userProfile);
