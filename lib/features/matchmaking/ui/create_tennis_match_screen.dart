@@ -41,6 +41,8 @@ class CreateTennisMatchScreenState
 
   List<District> selectedDistricts = [];
 
+  num selectedNtrpLevel = 1;
+
   void onSaveSelectDistrict(List<District> newSelectedDistricts) {
     selectedDistricts = newSelectedDistricts;
   }
@@ -195,7 +197,7 @@ class CreateTennisMatchScreenState
             ),
             NTRPLevelDropdownSelection(
               onValueChanged: (double value) {
-                print(value);
+                selectedNtrpLevel = value;
               },
             ),
             Container(
@@ -232,14 +234,12 @@ class CreateTennisMatchScreenState
                             startDateTime: startDateTime!,
                             endDateTime: endDateTime!,
                             matchType: dropdownValue,
-                            ntrpLevel: 1,
+                            ntrpLevel: selectedNtrpLevel,
                             court: courtController.text,
                             remarks: remarksController.text,
                             district: selectedDistricts.first,
                           ),
                         );
-
-                    Navigator.of(context).pop();
                   }
                 },
                 style: const ButtonStyle(
