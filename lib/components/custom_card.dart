@@ -5,10 +5,14 @@ class CustomCard extends StatelessWidget {
     super.key,
     required this.child,
     this.color,
+    this.isShowCloseIcon = false,
+    this.onCloseIconPressed,
   });
 
   final Widget child;
   final Color? color;
+  final bool isShowCloseIcon;
+  final Function? onCloseIconPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +30,33 @@ class CustomCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          child,
-          Container(
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              child,
+              Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                  ),
+                ),
+                padding: const EdgeInsets.all(12),
+              ),
+            ],
+          ),
+          if (isShowCloseIcon)
+            Positioned(
+              top: 0,
+              right: 0,
+              child: IconButton(
+                icon: const Icon(Icons.close_sharp),
+                onPressed: () => onCloseIconPressed?.call(),
               ),
             ),
-            padding: const EdgeInsets.all(12),
-          ),
         ],
       ),
     );
