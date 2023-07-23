@@ -4,6 +4,7 @@ import 'package:play_tennis_hk/domain/extensions/string_to_district.dart';
 class UserProfile {
   final int? id;
   final String username;
+  final String? password;
   final String? email;
   final String? imageUrl;
   final num ntrpLevel;
@@ -13,11 +14,13 @@ class UserProfile {
   final String? telegram;
   final String? signal;
   final String? whatsapp;
+  final bool? isProfilePublic;
 
   const UserProfile({
     required this.username,
     required this.ntrpLevel,
     this.email,
+    this.password,
     this.id,
     this.imageUrl,
     this.age,
@@ -26,16 +29,16 @@ class UserProfile {
     this.telegram,
     this.signal,
     this.whatsapp,
+    this.isProfilePublic,
   });
 
   Map<String, dynamic> toJson() {
-    final districtsList = districts
-        ?.map((district) => district.toString().split('.').last)
-        .toList();
+    final districtsList = districts?.map((e) => e.toJson()).toList();
 
     return {
       'id': id,
       'username': username,
+      'password': password,
       'email': email,
       'imageUrl': imageUrl,
       'ntrpLevel': ntrpLevel,
@@ -45,6 +48,7 @@ class UserProfile {
       'telegram': telegram,
       'signal': signal,
       'whatsapp': whatsapp,
+      'isProfilePublic': isProfilePublic,
     };
   }
 
@@ -65,6 +69,7 @@ class UserProfile {
       telegram: json['telegram'],
       signal: json['signal'],
       whatsapp: json['whatsapp'],
+      isProfilePublic: json['isProfilePublic'],
     );
   }
 }

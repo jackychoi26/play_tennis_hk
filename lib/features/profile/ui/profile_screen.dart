@@ -5,7 +5,9 @@ import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/domain/district.dart';
+import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
+import 'package:play_tennis_hk/features/profile/domain/providers/user_profile_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/districts_list.dart';
 import 'package:play_tennis_hk/features/profile/ui/ntrp_level_dropdown_selection.dart';
 
@@ -40,14 +42,30 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   List<District> selectedDistricts = [];
 
+  num ntrpLevelValue = ntrpLevelData.first;
+
   void onPrimaryButtonPress(BuildContext context) {
     final isRegistration = ref.read(tokenProvider) == null;
 
     if (isRegistration) {
       Navigator.of(context).popUntil((route) => route.isFirst);
-      ref.read(tokenProvider.notifier).storeAccessToken("Hello");
+      ref.read(userProfileProvider.notifier).register(
+            UserProfile(
+              username: usernameController.text,
+              email: emailController.text,
+              password: passwordController.text,
+              ntrpLevel: ntrpLevelValue,
+              age: int.tryParse(ageController.text),
+              description: descriptionController.text,
+              districts: selectedDistricts,
+              telegram: telegramController.text,
+              signal: signalController.text,
+              whatsapp: whatsappController.text,
+              isProfilePublic: isProfilePublic,
+            ),
+          );
     } else {
-      ref.read(tokenProvider.notifier).removeAccessToken();
+      ref.read(userProfileProvider.notifier).logout();
     }
 
     Navigator.pop(context);
@@ -158,6 +176,18 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final isRegistration = ref.watch(tokenProvider) == null;
+    final userProfile = ref.watch(userProfileProvider);
+
+    usernameController.text = userProfile?.username ?? "";
+    emailController.text = userProfile?.email ?? "";
+    ageController.text = userProfile?.age?.toString() ?? "";
+    descriptionController.text = userProfile?.description ?? "";
+    telegramController.text = userProfile?.telegram ?? "";
+    signalController.text = userProfile?.signal ?? "";
+    whatsappController.text = userProfile?.whatsapp ?? "";
+    isProfilePublic = userProfile?.isProfilePublic ?? false;
+    selectedDistricts = userProfile?.districts ?? [];
+    ntrpLevelValue = userProfile?.ntrpLevel ?? ntrpLevelData.first;
 
     return Scaffold(
       appBar: AppBar(
@@ -169,7 +199,22 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
           if (!isRegistration) ...[
             TextButton(
                 style: TextButton.styleFrom(foregroundColor: Colors.white),
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(userProfileProvider.notifier).editProfile(
+                        UserProfile(
+                          username: usernameController.text,
+                          email: emailController.text,
+                          ntrpLevel: ntrpLevelValue,
+                          age: int.tryParse(ageController.text),
+                          description: descriptionController.text,
+                          districts: selectedDistricts,
+                          telegram: telegramController.text,
+                          signal: signalController.text,
+                          whatsapp: whatsappController.text,
+                          isProfilePublic: isProfilePublic,
+                        ),
+                      );
+                },
                 child: CustomText(
                   AppLocalizations.of(context)?.save,
                 ))
@@ -344,7 +389,11 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                 }
               },
             ),
-            const NTRPLevelDropdownSelection(),
+            NTRPLevelDropdownSelection(
+              onValueChanged: (value) {
+                ntrpLevelValue = value;
+              },
+            ),
             CustomTextFormField(
               controller: telegramController,
               textInputType: TextInputType.text,
@@ -405,7 +454,6 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                       onPrimaryButtonPress(context);
                     }
                   } else {
-                    ref.read(tokenProvider.notifier).removeAccessToken();
                     onPrimaryButtonPress(context);
                   }
                 },

@@ -4,7 +4,26 @@ import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dar
 
 final partnersRepositoryProvider = Provider((ref) => PartnersRepositoryImpl());
 
-final partnersProvider = FutureProvider<List<UserProfile>>((ref) async {
-  final repository = ref.read(partnersRepositoryProvider);
-  return await repository.getPublicProfiles();
+class PartnersNotifier extends StateNotifier<AsyncValue<List<UserProfile>>> {
+  PartnersNotifier(this.repository) : super(const AsyncLoading()) {
+    getPublicProfiles();
+  }
+
+  PartnersRepositoryImpl repository;
+
+  void getPublicProfiles() async {
+    state = const AsyncLoading();
+
+    final partners = await repository.getPublicProfiles();
+
+    state = AsyncData(partners);
+  }
+
+}
+
+final partnersProvider =
+    StateNotifierProvider<PartnersNotifier, AsyncValue<List<UserProfile>>>(
+        (ref) {
+  final repository = ref.watch(partnersRepositoryProvider);
+  return PartnersNotifier(repository);
 });

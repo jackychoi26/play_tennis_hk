@@ -1,12 +1,30 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:play_tennis_hk/features/profile/data/webservices/edit_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/login_webservice.dart';
+import 'package:play_tennis_hk/features/profile/data/webservices/profile_webservice.dart';
+import 'package:play_tennis_hk/features/profile/data/webservices/register_webservice.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 import 'package:play_tennis_hk/features/profile/domain/repositories/user_profile_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileRepositoryImpl implements UserProfileRepository {
-  UserProfileRepositoryImpl();
+  LoginWebservice loginWebservice;
+  EditWebservice editWebservice;
+  ProfileWebservice profileWebservice;
+  RegisterWebservice registerWebservice;
+
+  UserProfileRepositoryImpl({
+    LoginWebservice? loginWebservice,
+    EditWebservice? editWebservice,
+    ProfileWebservice? profileWebservice,
+    RegisterWebservice? registerWebservice,
+  })  : loginWebservice = loginWebservice ?? LoginWebservice(),
+        editWebservice = editWebservice ?? EditWebservice(),
+        profileWebservice = profileWebservice ?? ProfileWebservice(),
+        registerWebservice = registerWebservice ?? RegisterWebservice();
+
   @override
   Future<(UserProfile, String)> getAuthenticationSession(
       String username, String password) async {
@@ -14,8 +32,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       "username": username,
       "password": password,
     };
-
-    final loginWebservice = LoginWebservice();
 
     final loginResponse = await loginWebservice.performRequest(loginData);
     final userProfile = loginResponse.userProfile;
@@ -25,9 +41,16 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<void> register(UserProfile userProfile) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<(UserProfile, String)> register(UserProfile userProfile) async {
+    final registerData = userProfile.toJson();
+
+    final registerResponse =
+        await registerWebservice.performRequest(registerData);
+
+    final userProfileResponse = registerResponse.userProfile;
+    final accessToken = registerResponse.accessToken;
+
+    return (userProfileResponse, accessToken);
   }
 
   @override
@@ -43,13 +66,16 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   Future<UserProfile> getUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
 
-    final userProfileCache = await prefs.getString("userProfile");
+    final userProfileCache = prefs.getString("userProfile");
 
     final UserProfile userProfile;
 
     if (userProfileCache == null) {
-      //TODO: get from server
-      throw Exception("No user profile found");
+      final profileResponse = await profileWebservice.performRequest();
+
+      userProfile = profileResponse.userProfile;
+
+      await storeUserProfile(userProfile);
     } else {
       userProfile = UserProfile.fromJson(jsonDecode(userProfileCache));
     }
@@ -58,9 +84,21 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
+  Future<UserProfile> updateUserProfile(UserProfile userProfile) async {
+    final editResponse =
+        await editWebservice.performRequest(userProfile.toJson());
+
+    return editResponse.userProfile;
+  }
+
+  @override
   Future<void> removeUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.remove("userProfile");
+
+    log("removeUserProfile");
+
+    return;
   }
 }

@@ -137,4 +137,45 @@ extension DistrictMapper on District {
         return Region.newTerritories;
     }
   }
+
+  String toJson() {
+    switch (this) {
+      case District.centralAndWestern:
+        return 'CENTRAL_AND_WESTERN';
+      case District.eastern:
+        return 'EASTERN';
+      case District.southern:
+        return 'SOUTHERN';
+      case District.wanChai:
+        return 'WAN_CHAI';
+      case District.shamShuiPo:
+        return 'SHAM_SHUI_PO';
+      case District.kowloonCity:
+        return 'KOWLOON_CITY';
+      case District.kwunTong:
+        return 'KWUN_TONG';
+      case District.wongTaiSin:
+        return 'WONG_TAI_SIN';
+      case District.yauTsimMong:
+        return 'YAU_TSIM_MONG';
+      case District.islands:
+        return 'ISLANDS';
+      case District.kwaiTsing:
+        return 'KWAI_TSING';
+      case District.north:
+        return 'NORTH';
+      case District.saiKung:
+        return 'SAI_KUNG';
+      case District.shaTin:
+        return 'SHA_TIN';
+      case District.taiPo:
+        return 'TAI_PO';
+      case District.tsuenWan:
+        return 'TSUEN_WAN';
+      case District.tuenMun:
+        return 'TUEN_MUN';
+      case District.yuenLong:
+        return 'YUEN_LONG';
+    }
+  }
 }

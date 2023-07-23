@@ -17,7 +17,9 @@ class PartnerListScreen extends ConsumerStatefulWidget {
 }
 
 class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
-  Future refresh() async {}
+  Future refresh() async {
+    ref.read(partnersProvider.notifier).getPublicProfiles();
+  }
 
   @override
   Widget build(BuildContext context) {

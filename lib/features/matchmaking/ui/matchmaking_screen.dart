@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/create_tennis_match_screen.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_list.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
 
-class MatchmakingScreen extends StatefulWidget {
+class MatchmakingScreen extends ConsumerStatefulWidget {
   const MatchmakingScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _MatchmakingScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _MatchmakingScreenState();
 }
 
-class _MatchmakingScreenState extends State<MatchmakingScreen> {
+class _MatchmakingScreenState extends ConsumerState<MatchmakingScreen> {
   @override
   Widget build(BuildContext context) {
+    final isLogin = ref.watch(tokenProvider) != null;
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -36,17 +40,20 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
       ),
       body: const TennisMatchList(),
       drawer: const CustomDrawer(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.add,
+      floatingActionButton: Visibility(
+        visible: isLogin,
+        child: FloatingActionButton(
+          child: const Icon(
+            Icons.add,
+          ),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const CreateTennisMatchScreen(),
+              ),
+            );
+          },
         ),
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const CreateTennisMatchScreen(),
-            ),
-          );
-        },
       ),
     );
   }

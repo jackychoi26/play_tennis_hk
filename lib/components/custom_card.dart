@@ -5,10 +5,12 @@ class CustomCard extends StatelessWidget {
     super.key,
     required this.child,
     this.color,
+    this.positionedChild,
   });
 
   final Widget child;
   final Color? color;
+  final Widget? positionedChild;
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +28,25 @@ class CustomCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          child,
-          Container(
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              child,
+              Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                  ),
+                ),
+                padding: const EdgeInsets.all(12),
               ),
-            ),
-            padding: const EdgeInsets.all(12),
+            ],
           ),
+          positionedChild ?? const SizedBox(),
         ],
       ),
     );

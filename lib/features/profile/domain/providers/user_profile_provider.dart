@@ -14,7 +14,18 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
 
   TokenNotifier tokenNotifier;
 
-  void register(UserProfile userProfile) {}
+  void register(UserProfile userProfile) async {
+    final (newUserProfile, accessToken) =
+        await userProfileRepository.register(userProfile);
+
+    final bearerAccessToken = "Bearer $accessToken";
+
+    tokenNotifier.storeAccessToken(bearerAccessToken);
+
+    userProfileRepository.storeUserProfile(userProfile);
+
+    state = newUserProfile;
+  }
 
   void login(String username, String password) async {
     final (userProfile, accessToken) = await userProfileRepository
@@ -36,13 +47,22 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
   }
 
   void loadUserProfile() async {
+    await tokenNotifier.getAccessToken();
+
+    if (tokenNotifier.state == null) {
+      return;
+    }
     final userProfile = await userProfileRepository.getUserProfile();
     state = userProfile;
   }
 
-  void updateProfile(UserProfile userProfile) async {
-    await userProfileRepository.storeUserProfile(userProfile);
-    state = userProfile;
+  void editProfile(UserProfile userProfile) async {
+    final updatedUserProfile =
+        await userProfileRepository.updateUserProfile(userProfile);
+
+    userProfileRepository.storeUserProfile(updatedUserProfile);
+
+    state = updatedUserProfile;
   }
 }
 

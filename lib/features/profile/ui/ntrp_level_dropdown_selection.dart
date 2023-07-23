@@ -3,7 +3,10 @@ import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NTRPLevelDropdownSelection extends StatefulWidget {
-  const NTRPLevelDropdownSelection({super.key});
+  final ValueChanged<num> onValueChanged;
+
+  const NTRPLevelDropdownSelection({Key? key, required this.onValueChanged})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _NTRPLevelDropdownSelectionState();
@@ -11,7 +14,7 @@ class NTRPLevelDropdownSelection extends StatefulWidget {
 
 class _NTRPLevelDropdownSelectionState
     extends State<NTRPLevelDropdownSelection> {
-  double dropdownValue = ntrpLevelData.first;
+  num dropdownValue = ntrpLevelData.first;
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +25,21 @@ class _NTRPLevelDropdownSelectionState
           padding: const EdgeInsets.only(right: 30),
           child: CustomText(AppLocalizations.of(context)?.ntrpLevel),
         ),
-        DropdownButton<double>(
+        DropdownButton<num>(
           value: dropdownValue,
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
           style: const TextStyle(color: Colors.deepPurple),
-          onChanged: (double? value) {
-            setState(() {
-              dropdownValue = value!;
-            });
+          onChanged: (num? value) {
+            if (value != null) {
+              setState(() {
+                dropdownValue = value;
+              });
+              widget.onValueChanged(value);
+            }
           },
-          items: ntrpLevelData.map<DropdownMenuItem<double>>((double value) {
-            return DropdownMenuItem<double>(
+          items: ntrpLevelData.map<DropdownMenuItem<num>>((num value) {
+            return DropdownMenuItem<num>(
               value: value,
               child: CustomText(value.toString()),
             );
@@ -44,7 +50,7 @@ class _NTRPLevelDropdownSelectionState
   }
 }
 
-const List<double> ntrpLevelData = <double>[
+const List<num> ntrpLevelData = <num>[
   1.0,
   1.5,
   2.0,

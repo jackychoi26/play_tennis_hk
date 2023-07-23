@@ -9,8 +9,9 @@ class TokenNotifier extends StateNotifier<String?> {
 
   TokenRepository repository;
 
-  void getAccessToken() async {
-    state = await repository.getAccessToken();
+  Future<void> getAccessToken() async {
+    final token = await repository.getAccessToken();
+    state = token;
   }
 
   void storeAccessToken(String token) async {

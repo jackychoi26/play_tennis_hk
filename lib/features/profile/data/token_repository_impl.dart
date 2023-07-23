@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:play_tennis_hk/features/profile/domain/repositories/token_repository.dart';
 
@@ -6,6 +8,8 @@ class TokenRepositoryImpl implements TokenRepository {
 
   @override
   Future<String?> getAccessToken() async {
+    final token = await secureStorage.read(key: "accessToken");
+    log("getAccessToken: $token");
     return await secureStorage.read(key: "accessToken");
   }
 
