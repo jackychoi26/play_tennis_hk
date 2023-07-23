@@ -196,7 +196,7 @@ class CreateTennisMatchScreenState
                   }).toList()),
             ),
             NTRPLevelDropdownSelection(
-              onValueChanged: (double value) {
+              onValueChanged: (num value) {
                 selectedNtrpLevel = value;
               },
             ),
