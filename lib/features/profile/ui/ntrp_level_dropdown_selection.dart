@@ -32,7 +32,9 @@ class _NTRPLevelDropdownSelectionState
           style: const TextStyle(color: Colors.deepPurple),
           onChanged: (double? value) {
             setState(() {
-              dropdownValue = value!;
+              if (value != null) {
+                dropdownValue = value;
+              }
             });
 
             widget.onValueChanged(value!);
