@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/match_type.dart';
@@ -75,13 +75,24 @@ class TennisMatchDetailCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localName = AppLocalizations.of(context)?.localeName;
     final currentUserId = ref.watch(userProfileProvider)?.id;
+    final matchId = _matchId;
 
     return CustomCard(
       color: _getBackgroundColor(),
-      isShowCloseIcon: _isCreatedByCurrentUser(currentUserId),
-      onCloseIconPressed: () {
-        ref.read(matchesProvider.notifier).deleteMatch(_matchId!);
-      },
+      positionedChild: Visibility(
+        visible: _isCreatedByCurrentUser(currentUserId),
+        child: Positioned(
+          top: 0,
+          right: 0,
+          child: IconButton(
+              icon: const Icon(Icons.close_sharp),
+              onPressed: () {
+                if (matchId != null) {
+                  ref.read(matchesProvider.notifier).deleteMatch(matchId);
+                }
+              }),
+        ),
+      ),
       child: Container(
         padding: const EdgeInsets.all(14),
         margin: const EdgeInsets.only(top: 12),
