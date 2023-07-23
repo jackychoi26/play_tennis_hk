@@ -42,7 +42,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   List<District> selectedDistricts = [];
 
-  double ntrpLevelValue = ntrpLevelData.first;
+  num ntrpLevelValue = ntrpLevelData.first;
 
   void onPrimaryButtonPress(BuildContext context) {
     final isRegistration = ref.read(tokenProvider) == null;
@@ -180,6 +180,14 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
     usernameController.text = userProfile?.username ?? "";
     emailController.text = userProfile?.email ?? "";
+    ageController.text = userProfile?.age?.toString() ?? "";
+    descriptionController.text = userProfile?.description ?? "";
+    telegramController.text = userProfile?.telegram ?? "";
+    signalController.text = userProfile?.signal ?? "";
+    whatsappController.text = userProfile?.whatsapp ?? "";
+    isProfilePublic = userProfile?.isProfilePublic ?? false;
+    selectedDistricts = userProfile?.districts ?? [];
+    ntrpLevelValue = userProfile?.ntrpLevel ?? ntrpLevelData.first;
 
     return Scaffold(
       appBar: AppBar(
