@@ -3,8 +3,6 @@ import 'package:play_tennis_hk/core/dio.dart';
 import 'package:play_tennis_hk/features/profile/data/token_repository_impl.dart';
 import 'package:play_tennis_hk/features/profile/domain/repositories/token_repository.dart';
 
-
-
 class Webservice {
   Dio dio;
 
@@ -27,8 +25,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;
@@ -50,8 +48,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;
@@ -73,8 +71,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;
@@ -96,8 +94,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;

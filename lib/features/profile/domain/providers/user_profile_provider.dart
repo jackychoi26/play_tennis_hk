@@ -14,7 +14,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
 
   TokenNotifier tokenNotifier;
 
-  void register(UserProfile userProfile) async {
+  Future<void> register(UserProfile userProfile) async {
     final (newUserProfile, accessToken) =
         await userProfileRepository.register(userProfile);
 
@@ -27,7 +27,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
     state = newUserProfile;
   }
 
-  void login(String username, String password) async {
+  Future<void> login(String username, String password) async {
     final (userProfile, accessToken) = await userProfileRepository
         .getAuthenticationSession(username, password);
 
@@ -46,7 +46,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
     state = null;
   }
 
-  void loadUserProfile() async {
+  Future<void> loadUserProfile() async {
     await tokenNotifier.getAccessToken();
 
     if (tokenNotifier.state == null) {
@@ -57,7 +57,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
     state = userProfile;
   }
 
-  void editProfile(UserProfile userProfile) async {
+  Future<void> editProfile(UserProfile userProfile) async {
     final updatedUserProfile =
         await userProfileRepository.updateUserProfile(userProfile);
 
