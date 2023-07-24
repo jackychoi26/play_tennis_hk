@@ -10,10 +10,13 @@ class DistrictsList extends StatefulWidget {
     super.key,
     required this.onSaveSelect,
     required this.maxSelection,
+    this.selectedDistricts,
   });
 
   final void Function(List<District> newSelectedDistricts) onSaveSelect;
   final int maxSelection;
+
+  final List<District>? selectedDistricts;
 
   @override
   State<StatefulWidget> createState() {
@@ -24,8 +27,13 @@ class DistrictsList extends StatefulWidget {
 class DistrictsListState extends State<DistrictsList> {
   // TODO: performance issue because we are looping it uncessarily many times
   final districts = District.values.toList();
-
   List<District> selectedDistricts = [];
+
+  @override
+  void initState() {
+    selectedDistricts = widget.selectedDistricts ?? [];
+    super.initState();
+  }
 
   void _onSaveSelect(List<District> newSelectedDistricts) {
     setState(() {

@@ -186,7 +186,12 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     signalController.text = userProfile?.signal ?? "";
     whatsappController.text = userProfile?.whatsapp ?? "";
     isProfilePublic = userProfile?.isProfilePublic ?? false;
-    selectedDistricts = userProfile?.districts ?? [];
+
+    if (userProfile?.districts?.isNotEmpty == true) {
+      setState(() {
+        selectedDistricts = userProfile?.districts ?? [];
+      });
+    }
     ntrpLevelValue = userProfile?.ntrpLevel ?? ntrpLevelData.first;
 
     return Scaffold(
@@ -320,6 +325,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             Container(
               margin: const EdgeInsets.all(16),
               child: DistrictsList(
+                selectedDistricts: selectedDistricts,
                 onSaveSelect: onSaveSelectDistrict,
                 maxSelection: 5,
               ),
