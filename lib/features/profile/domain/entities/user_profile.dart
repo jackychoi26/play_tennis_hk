@@ -18,9 +18,9 @@ class UserProfile {
 
   const UserProfile({
     required this.username,
-    this.password,
-    this.email,
     required this.ntrpLevel,
+    this.email,
+    this.password,
     this.id,
     this.imageUrl,
     this.age,
