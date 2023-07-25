@@ -1,25 +1,31 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/features/matchmaking/data/repositories/tennis_matches_repository_impl.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 
 class TennisMatchesNotifier
     extends StateNotifier<AsyncValue<List<TennisMatch>>> {
   TennisMatchesNotifier(this.repository) : super(const AsyncLoading()) {
-    _getMatches();
+    getMatches();
   }
 
   TennisMatchesRepositoryImpl repository;
 
   Future<void> updateMatches() async {
-    final matches = await repository.getTennisMatches();
-
-    state = AsyncData(matches);
+    //TODO: implement updateMatches
   }
 
-  Future<void> _getMatches() async {
-    final matches = await repository.getTennisMatches();
+  Future<void> getMatches() async {
+    try {
+      final matches = await repository.getTennisMatches();
 
-    state = AsyncData(matches);
+      state = AsyncData(matches);
+    } catch (err) {
+      if (ErrorResolver().notTimeoutException(err)) rethrow;
+
+      state = AsyncError(err, StackTrace.current);
+    }
   }
 
   Future<void> createMatch(TennisMatch tennisMatch) async {

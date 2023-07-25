@@ -24,4 +24,9 @@ class ErrorResolver {
       ),
     );
   }
+
+  bool notTimeoutException(err) {
+    return err.type != DioExceptionType.sendTimeout ||
+        err.type != DioExceptionType.receiveTimeout;
+  }
 }

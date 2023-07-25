@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/components/custom_text.dart';
+import 'package:play_tennis_hk/components/custom_error_text.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/providers/tennis_matches_provider.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_info_cell.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TennisMatchList extends ConsumerWidget {
   const TennisMatchList({super.key});
@@ -11,7 +10,7 @@ class TennisMatchList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future refresh() async {
-      ref.read(matchesProvider.notifier).updateMatches();
+      ref.read(matchesProvider.notifier).getMatches();
     }
 
     final tennisMatches = ref.watch(matchesProvider);
@@ -29,9 +28,7 @@ class TennisMatchList extends ConsumerWidget {
             },
           );
         },
-        error: (err, st) => Center(
-          child: CustomText(AppLocalizations.of(context)?.somethingWentWrong),
-        ),
+        error: (err, st) => const CustomErrorText(),
       ),
     );
   }
