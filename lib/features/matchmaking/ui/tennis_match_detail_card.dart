@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
+import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/match_type.dart';
@@ -86,9 +87,17 @@ class TennisMatchDetailCard extends ConsumerWidget {
           right: 0,
           child: IconButton(
               icon: const Icon(Icons.close_sharp),
-              onPressed: () {
+              onPressed: () async {
                 if (matchId != null) {
-                  ref.read(matchesProvider.notifier).deleteMatch(matchId);
+                  try {
+                    await ref
+                        .read(matchesProvider.notifier)
+                        .deleteMatch(matchId);
+                  } catch (e) {
+                    if (context.mounted) {
+                      ErrorResolver().resolveError(e, context);
+                    }
+                  }
                 }
               }),
         ),

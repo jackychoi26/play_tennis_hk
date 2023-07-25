@@ -4,6 +4,7 @@ import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
+import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
@@ -44,31 +45,39 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   num ntrpLevelValue = ntrpLevelData.first;
 
-  void onPrimaryButtonPress(BuildContext context) {
+  Future<void> onPrimaryButtonPress(BuildContext context) async {
     final isRegistration = ref.read(tokenProvider) == null;
 
     if (isRegistration) {
       Navigator.of(context).popUntil((route) => route.isFirst);
-      ref.read(userProfileProvider.notifier).register(
-            UserProfile(
-              username: usernameController.text,
-              email: emailController.text,
-              password: passwordController.text,
-              ntrpLevel: ntrpLevelValue,
-              age: int.tryParse(ageController.text),
-              description: descriptionController.text,
-              districts: selectedDistricts,
-              telegram: telegramController.text,
-              signal: signalController.text,
-              whatsapp: whatsappController.text,
-              isProfilePublic: isProfilePublic,
-            ),
-          );
+      try {
+        await ref.read(userProfileProvider.notifier).register(
+              UserProfile(
+                username: usernameController.text,
+                email: emailController.text,
+                password: passwordController.text,
+                ntrpLevel: ntrpLevelValue,
+                age: int.tryParse(ageController.text),
+                description: descriptionController.text,
+                districts: selectedDistricts,
+                telegram: telegramController.text,
+                signal: signalController.text,
+                whatsapp: whatsappController.text,
+                isProfilePublic: isProfilePublic,
+              ),
+            );
+      } catch (e) {
+        if (context.mounted) {
+          ErrorResolver().resolveError(e, context);
+        }
+      }
     } else {
       ref.read(userProfileProvider.notifier).logout();
     }
 
-    Navigator.pop(context);
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
   }
 
   String? _getAppBarTitle() {
@@ -204,21 +213,27 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
           if (!isRegistration) ...[
             TextButton(
                 style: TextButton.styleFrom(foregroundColor: Colors.white),
-                onPressed: () {
-                  ref.read(userProfileProvider.notifier).editProfile(
-                        UserProfile(
-                          username: usernameController.text,
-                          email: emailController.text,
-                          ntrpLevel: ntrpLevelValue,
-                          age: int.tryParse(ageController.text),
-                          description: descriptionController.text,
-                          districts: selectedDistricts,
-                          telegram: telegramController.text,
-                          signal: signalController.text,
-                          whatsapp: whatsappController.text,
-                          isProfilePublic: isProfilePublic,
-                        ),
-                      );
+                onPressed: () async {
+                  try {
+                    await ref.read(userProfileProvider.notifier).editProfile(
+                          UserProfile(
+                            username: usernameController.text,
+                            email: emailController.text,
+                            ntrpLevel: ntrpLevelValue,
+                            age: int.tryParse(ageController.text),
+                            description: descriptionController.text,
+                            districts: selectedDistricts,
+                            telegram: telegramController.text,
+                            signal: signalController.text,
+                            whatsapp: whatsappController.text,
+                            isProfilePublic: isProfilePublic,
+                          ),
+                        );
+                  } catch (e) {
+                    if (context.mounted) {
+                      ErrorResolver().resolveError(e, context);
+                    }
+                  }
                 },
                 child: CustomText(
                   AppLocalizations.of(context)?.save,

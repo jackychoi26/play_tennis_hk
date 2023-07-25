@@ -25,8 +25,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;
@@ -48,8 +48,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;
@@ -71,8 +71,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;
@@ -94,8 +94,8 @@ class Webservice {
           },
         ),
       );
-    } on DioException catch (e) {
-      throw Exception(e.message);
+    } on DioException {
+      rethrow;
     }
 
     return response;

@@ -1,15 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:play_tennis_hk/features/profile/data/token_repository_impl.dart';
-import 'package:play_tennis_hk/features/profile/domain/repositories/token_repository.dart';
+import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
+
+// final dioProvider = Provider<DioSingleton>((ref) {
+//   final token = ref.watch(tokenProvider.notifier);
+//   return DioSingleton._internal(tokenNotifier: token);
+// });
 
 class DioSingleton {
   static final DioSingleton _instance = DioSingleton._internal(
-    tokenRepository: TokenRepositoryImpl(),
+    tokenNotifier: TokenNotifier(TokenRepositoryImpl()),
   );
 
   factory DioSingleton() => _instance;
   DioSingleton._internal({
-    required TokenRepository tokenRepository,
+    required TokenNotifier tokenNotifier,
   }) {
     _client.interceptors.add(LogInterceptor(responseBody: true));
 
@@ -31,7 +36,7 @@ class DioSingleton {
     }, onError: (DioException e, handler) async {
       if (e.response?.statusCode == 401) {
         // If the request fails with a 401 status code, log the user out
-        // tokenRepository.removeAccessToken();
+        tokenNotifier.removeAccessToken();
       }
       return handler.next(e); //continue
       // If you want to resolve the request with some custom data，

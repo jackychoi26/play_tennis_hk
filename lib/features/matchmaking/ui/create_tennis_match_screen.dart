@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/components/show_date_time_picker.dart';
+import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/match_type.dart';
@@ -227,19 +228,25 @@ class CreateTennisMatchScreenState
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_validateForm(context)) {
-                    ref.read(matchesProvider.notifier).createMatch(
-                          TennisMatch(
-                            startDateTime: startDateTime!,
-                            endDateTime: endDateTime!,
-                            matchType: dropdownValue,
-                            ntrpLevel: selectedNtrpLevel,
-                            court: courtController.text,
-                            remarks: remarksController.text,
-                            district: selectedDistricts.first,
-                          ),
-                        );
+                    try {
+                      await ref.read(matchesProvider.notifier).createMatch(
+                            TennisMatch(
+                              startDateTime: startDateTime!,
+                              endDateTime: endDateTime!,
+                              matchType: dropdownValue,
+                              ntrpLevel: selectedNtrpLevel,
+                              court: courtController.text,
+                              remarks: remarksController.text,
+                              district: selectedDistricts.first,
+                            ),
+                          );
+                    } catch (e) {
+                      if (context.mounted) {
+                        ErrorResolver().resolveError(e, context);
+                      }
+                    }
                   }
                 },
                 style: const ButtonStyle(

@@ -20,7 +20,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(userProfileProvider.notifier).loadUserProfile();
+    ref.watch(userProfileProvider.notifier).loadUserProfile();
 
     return const MaterialApp(
       localizationsDelegates: [
