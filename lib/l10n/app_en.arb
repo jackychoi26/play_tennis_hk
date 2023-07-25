@@ -134,5 +134,8 @@
   "missingEmail": "Missing email",
   "missingDistricts": "Missing districts",
   "missingIsProfilePublic": "Missing is profile public",
-  "internalServerError": "Server error, please inform us via our telegram channel"
+  "internalServerError": "Server error, please inform us via our telegram channel",
+  "cancel": "Cancel",
+  "deleteMatchConfirm": "Do you confirm delete this match? ",
+  "warning": "Warning"
 }

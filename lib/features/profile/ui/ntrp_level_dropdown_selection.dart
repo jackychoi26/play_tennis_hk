@@ -4,9 +4,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NTRPLevelDropdownSelection extends StatefulWidget {
   final ValueChanged<num> onValueChanged;
+  final num initialValue;
 
-  const NTRPLevelDropdownSelection({Key? key, required this.onValueChanged})
-      : super(key: key);
+  const NTRPLevelDropdownSelection({
+    Key? key,
+    required this.onValueChanged,
+    this.initialValue = 1.0,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _NTRPLevelDropdownSelectionState();
@@ -14,7 +18,13 @@ class NTRPLevelDropdownSelection extends StatefulWidget {
 
 class _NTRPLevelDropdownSelectionState
     extends State<NTRPLevelDropdownSelection> {
-  num dropdownValue = ntrpLevelData.first;
+  late num dropdownValue;
+
+  @override
+  void initState() {
+    super.initState();
+    dropdownValue = widget.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {
