@@ -16,6 +16,7 @@ Future<DateTime?> sheetDateTimePicker({required context}) async {
             children: [
               Expanded(
                 child: CupertinoDatePicker(
+                  minimumDate: DateTime.now(),
                   mode: CupertinoDatePickerMode.dateAndTime,
                   use24hFormat: true,
                   minuteInterval: 60,
