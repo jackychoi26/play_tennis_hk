@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/components/custom_alert_dialog.dart';
 import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/core/error_resolver.dart';
@@ -87,18 +88,29 @@ class TennisMatchDetailCard extends ConsumerWidget {
           right: 0,
           child: IconButton(
               icon: const Icon(Icons.close_sharp),
-              onPressed: () async {
-                if (matchId != null) {
-                  try {
-                    await ref
-                        .read(matchesProvider.notifier)
-                        .deleteMatch(matchId);
-                  } catch (e) {
-                    if (context.mounted) {
-                      ErrorResolver().resolveError(e, context);
-                    }
-                  }
-                }
+              onPressed: () {
+                if (matchId == null) return;
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CustomAlertDialog(
+                      title: AppLocalizations.of(context)?.warning,
+                      content: AppLocalizations.of(context)?.deleteMatchConfirm,
+                      onConfirm: () async {
+                        try {
+                          await ref
+                              .read(matchesProvider.notifier)
+                              .deleteMatch(matchId);
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        } catch (e) {
+                          ErrorResolver().resolveError(context, context);
+                        }
+                      },
+                    );
+                  },
+                );
               }),
         ),
       ),

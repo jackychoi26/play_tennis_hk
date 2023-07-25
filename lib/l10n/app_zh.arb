@@ -134,5 +134,8 @@
   "missingEmail": "缺少了電郵",
   "missingDistricts": "缺少了地區",
   "missingIsProfilePublic": "缺少了個人資料公開選擇",
-  "internalServerError": "伺服器出錯，請在Telegram頻道告訴我們"
+  "internalServerError": "伺服器出錯，請在Telegram頻道告訴我們",
+  "cancel": "取消",
+  "deleteMatchConfirm": "是否要刪除這個比賽？",
+  "warning": "警告"
 }
