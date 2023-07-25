@@ -46,6 +46,9 @@ class DioSingleton {
 
   final _client = Dio(BaseOptions(
     baseUrl: "http://localhost:3000",
+    receiveDataWhenStatusError: true,
+    connectTimeout: const Duration(seconds: 120),
+    receiveTimeout: const Duration(seconds: 120),
   ));
 
   Dio get client => _client;
