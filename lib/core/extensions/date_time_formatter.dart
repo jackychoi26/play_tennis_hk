@@ -33,7 +33,7 @@ extension DateFormatter on DateTime {
   }
 
   String getAmOrPm() {
-    return hour > 12 ? "pm" : "am";
+    return hour >= 12 ? "pm" : "am";
   }
 }
 
