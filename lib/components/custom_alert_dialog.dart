@@ -8,6 +8,7 @@ class CustomAlertDialog extends StatelessWidget {
   final VoidCallback? onCancel;
   final Future<void> Function()? onConfirm;
   final IconData? icon;
+  final bool isCancellable;
 
   const CustomAlertDialog({
     Key? key,
@@ -16,6 +17,7 @@ class CustomAlertDialog extends StatelessWidget {
     this.onCancel,
     this.onConfirm,
     this.icon = Icons.warning,
+    this.isCancellable = true,
   }) : super(key: key);
 
   @override
@@ -43,10 +45,12 @@ class CustomAlertDialog extends StatelessWidget {
       ),
       content: CustomText(content ?? ''),
       actions: <Widget>[
-        TextButton(
-          onPressed: onCancel ?? () => Navigator.of(context).pop(),
-          child: CustomText(AppLocalizations.of(context)?.cancel),
-        ),
+        if (isCancellable) ...[
+          TextButton(
+            onPressed: onCancel ?? () => Navigator.of(context).pop(),
+            child: CustomText(AppLocalizations.of(context)?.cancel),
+          ),
+        ],
         TextButton(
           onPressed: () async {
             if (onConfirm != null) {

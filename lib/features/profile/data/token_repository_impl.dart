@@ -8,8 +8,6 @@ class TokenRepositoryImpl implements TokenRepository {
 
   @override
   Future<String?> getAccessToken() async {
-    final token = await secureStorage.read(key: "accessToken");
-    log("getAccessToken: $token");
     return await secureStorage.read(key: "accessToken");
   }
 
