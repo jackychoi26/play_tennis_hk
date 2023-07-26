@@ -137,5 +137,8 @@
   "internalServerError": "伺服器出錯，請在Telegram頻道告訴我們",
   "cancel": "取消",
   "deleteMatchConfirm": "是否要刪除這個比賽？",
-  "warning": "警告"
+  "warning": "警告",
+  "reminder": "提示",
+  "updateNeeded": "請更新程式版本以獲取更好的體驗",
+  "inMaintenance": "伺服器正在維護，請稍後再回來"
 }
