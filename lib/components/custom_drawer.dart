@@ -28,9 +28,6 @@ class CustomDrawer extends ConsumerWidget {
                       color: Color.fromARGB(255, 116, 73, 185)),
                   accountName: CustomText(userProfile.username),
                   accountEmail: CustomText(userProfile.email),
-                  currentAccountPicture: const CircleAvatar(
-                    backgroundImage: NetworkImage("https://picsum.photos/200"),
-                  ),
                   onDetailsPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

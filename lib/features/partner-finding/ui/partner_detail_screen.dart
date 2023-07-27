@@ -82,19 +82,19 @@ class PartnerDetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  if (userProfile.telegram != null) ...[
+                  if (userProfile.telegram?.isNotEmpty == true) ...[
                     ListTile(
                       title: CustomText(AppLocalizations.of(context)?.telegram),
                       subtitle: CustomText(userProfile.telegram),
                     ),
                   ],
-                  if (userProfile.whatsapp != null) ...[
+                  if (userProfile.whatsapp?.isNotEmpty == true) ...[
                     ListTile(
                       title: CustomText(AppLocalizations.of(context)?.whatsapp),
                       subtitle: CustomText(userProfile.whatsapp),
                     ),
                   ],
-                  if (userProfile.signal != null) ...[
+                  if (userProfile.signal?.isNotEmpty == true) ...[
                     ListTile(
                       title: CustomText(AppLocalizations.of(context)?.signal),
                       subtitle: CustomText(userProfile.signal),
