@@ -229,8 +229,8 @@ class CreateTennisMatchScreenState
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: ElevatedButton(
                 onPressed: () async {
-                  if (_validateForm(context)) {
-                    try {
+                  try {
+                    if (_validateForm(context)) {
                       await ref.read(matchesProvider.notifier).createMatch(
                             TennisMatch(
                               startDateTime: startDateTime!,
@@ -242,10 +242,13 @@ class CreateTennisMatchScreenState
                               district: selectedDistricts.first,
                             ),
                           );
-                    } catch (e) {
                       if (context.mounted) {
-                        ErrorResolver().resolveError(e, context);
+                        Navigator.pop(context);
                       }
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ErrorResolver().resolveError(e, context);
                     }
                   }
                 },
