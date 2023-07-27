@@ -25,6 +25,21 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    final isRegistration = ref.read(tokenProvider) == null;
+    final userProfile = ref.read(userProfileProvider);
+
+    if (userProfile != null && !isRegistration) {
+      usernameController.text = userProfile.username;
+      emailController.text = userProfile.email ?? "";
+      ageController.text = userProfile.age?.toString() ?? "";
+      descriptionController.text = userProfile.description ?? "";
+      telegramController.text = userProfile.telegram ?? "";
+      signalController.text = userProfile.signal ?? "";
+      whatsappController.text = userProfile.whatsapp ?? "";
+      isProfilePublic = userProfile.isProfilePublic ?? false;
+      ntrpLevelValue = userProfile.ntrpLevel;
+      selectedDistricts = userProfile.districts ?? [];
+    }
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -51,21 +66,23 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     if (isRegistration) {
       Navigator.of(context).popUntil((route) => route.isFirst);
       try {
-        await ref.read(userProfileProvider.notifier).register(
-              UserProfile(
-                username: usernameController.text,
-                email: emailController.text,
-                password: passwordController.text,
-                ntrpLevel: ntrpLevelValue,
-                age: int.tryParse(ageController.text),
-                description: descriptionController.text,
-                districts: selectedDistricts,
-                telegram: telegramController.text,
-                signal: signalController.text,
-                whatsapp: whatsappController.text,
-                isProfilePublic: isProfilePublic,
-              ),
-            );
+        if (_validateForm(context)) {
+          await ref.read(userProfileProvider.notifier).register(
+                UserProfile(
+                  username: usernameController.text,
+                  email: emailController.text,
+                  password: passwordController.text,
+                  ntrpLevel: ntrpLevelValue,
+                  age: int.tryParse(ageController.text),
+                  description: descriptionController.text,
+                  districts: selectedDistricts,
+                  telegram: telegramController.text,
+                  signal: signalController.text,
+                  whatsapp: whatsappController.text,
+                  isProfilePublic: isProfilePublic,
+                ),
+              );
+        }
       } catch (e) {
         if (context.mounted) {
           ErrorResolver().resolveError(e, context);
@@ -103,6 +120,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   bool _validateForm(BuildContext context) {
     final isTextFormFieldValid = _formKey.currentState?.validate();
     final atLeastOneDistrict = selectedDistricts.isNotEmpty;
+    final isRegistration = ref.read(tokenProvider) == null;
 
     // Username not validated
     if (!RegExp(r'^[a-zA-Z0-9_]{4,12}$').hasMatch(usernameController.text)) {
@@ -124,8 +142,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     // Password not validated
-    if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$')
-        .hasMatch(passwordController.text)) {
+    if (isRegistration &&
+        !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$')
+            .hasMatch(passwordController.text)) {
       _showSnackBar(
         AppLocalizations.of(context)?.passwordValidationError,
         context,
@@ -185,23 +204,6 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final isRegistration = ref.watch(tokenProvider) == null;
-    final userProfile = ref.watch(userProfileProvider);
-
-    usernameController.text = userProfile?.username ?? "";
-    emailController.text = userProfile?.email ?? "";
-    ageController.text = userProfile?.age?.toString() ?? "";
-    descriptionController.text = userProfile?.description ?? "";
-    telegramController.text = userProfile?.telegram ?? "";
-    signalController.text = userProfile?.signal ?? "";
-    whatsappController.text = userProfile?.whatsapp ?? "";
-    isProfilePublic = userProfile?.isProfilePublic ?? false;
-
-    if (userProfile?.districts?.isNotEmpty == true) {
-      setState(() {
-        selectedDistricts = userProfile?.districts ?? [];
-      });
-    }
-    ntrpLevelValue = userProfile?.ntrpLevel ?? ntrpLevelData.first;
 
     return Scaffold(
       appBar: AppBar(
@@ -215,20 +217,22 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                 style: TextButton.styleFrom(foregroundColor: Colors.white),
                 onPressed: () async {
                   try {
-                    await ref.read(userProfileProvider.notifier).editProfile(
-                          UserProfile(
-                            username: usernameController.text,
-                            email: emailController.text,
-                            ntrpLevel: ntrpLevelValue,
-                            age: int.tryParse(ageController.text),
-                            description: descriptionController.text,
-                            districts: selectedDistricts,
-                            telegram: telegramController.text,
-                            signal: signalController.text,
-                            whatsapp: whatsappController.text,
-                            isProfilePublic: isProfilePublic,
-                          ),
-                        );
+                    if (_validateForm(context)) {
+                      await ref.read(userProfileProvider.notifier).editProfile(
+                            UserProfile(
+                              username: usernameController.text,
+                              email: emailController.text,
+                              ntrpLevel: ntrpLevelValue,
+                              age: int.tryParse(ageController.text),
+                              description: descriptionController.text,
+                              districts: selectedDistricts,
+                              telegram: telegramController.text,
+                              signal: signalController.text,
+                              whatsapp: whatsappController.text,
+                              isProfilePublic: isProfilePublic,
+                            ),
+                          );
+                    }
                   } catch (e) {
                     if (context.mounted) {
                       ErrorResolver().resolveError(e, context);
@@ -476,7 +480,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                       onPrimaryButtonPress(context);
                     }
                   } else {
-                    onPrimaryButtonPress(context);
+                    if (_validateForm(context)) {
+                      onPrimaryButtonPress(context);
+                    }
                   }
                 },
                 style: const ButtonStyle(
