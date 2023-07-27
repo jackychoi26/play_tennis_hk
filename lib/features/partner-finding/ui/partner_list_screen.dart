@@ -40,7 +40,12 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
           loading: () => const Center(child: CircularProgressIndicator()),
           data: (value) {
             return ListView.builder(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.only(
+                left: 8,
+                top: 8,
+                right: 8,
+                bottom: 100,
+              ),
               itemCount: value.length,
               scrollDirection: Axis.vertical,
               // shrinkWrap: true,
