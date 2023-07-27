@@ -94,11 +94,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   @override
   Future<void> removeUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
-
     prefs.remove("userProfile");
-
-    log("removeUserProfile");
-
     return;
   }
 }

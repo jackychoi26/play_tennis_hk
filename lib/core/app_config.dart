@@ -1,3 +1,3 @@
 class AppConfig {
-  static const String baseUrl = "http://localhost:3000/";
+  static const String baseUrl = "https://api.playtennishk.com/";
 }
