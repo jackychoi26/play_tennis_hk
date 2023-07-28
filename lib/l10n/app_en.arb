@@ -136,7 +136,7 @@
   "missingIsProfilePublic": "Missing is profile public",
   "internalServerError": "Server error, please inform us via our telegram channel",
   "cancel": "Cancel",
-  "deleteMatchConfirm": "Do you confirm delete this match? ",
+  "confirmDeleteMatch": "Do you confirm to delete this tennis match?",
   "warning": "Warning",
   "reminder": "Reminder",
   "updateNeeded": "Please go to app store to update a newer app version for better user experience",

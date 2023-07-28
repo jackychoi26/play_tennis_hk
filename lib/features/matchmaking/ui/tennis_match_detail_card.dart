@@ -95,7 +95,7 @@ class TennisMatchDetailCard extends ConsumerWidget {
                   builder: (BuildContext context) {
                     return CustomAlertDialog(
                       title: AppLocalizations.of(context)?.warning,
-                      content: AppLocalizations.of(context)?.deleteMatchConfirm,
+                      content: AppLocalizations.of(context)?.confirmDeleteMatch,
                       onConfirm: () async {
                         try {
                           await ref
