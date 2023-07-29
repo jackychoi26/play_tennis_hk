@@ -78,7 +78,7 @@ class Webservice {
     return response;
   }
 
-  Future<Response> deleteRequest(String endPoint, Object data) async {
+  Future<Response> deleteRequest(String endPoint, Object? data) async {
     Response response;
 
     final token = await tokenRepository.getAccessToken();
@@ -86,7 +86,7 @@ class Webservice {
     try {
       response = await dio.delete(
         endPoint,
-        data: data,
+        data: data ?? {},
         options: Options(
           headers: {
             "Content-Type": "application/json",

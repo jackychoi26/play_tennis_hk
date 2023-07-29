@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:play_tennis_hk/features/profile/data/webservices/delete_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/edit_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/login_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/profile_webservice.dart';
@@ -13,16 +14,19 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   EditWebservice editWebservice;
   ProfileWebservice profileWebservice;
   RegisterWebservice registerWebservice;
+  DeleteWebservice deleteWebservice;
 
   UserProfileRepositoryImpl({
     LoginWebservice? loginWebservice,
     EditWebservice? editWebservice,
     ProfileWebservice? profileWebservice,
     RegisterWebservice? registerWebservice,
+    DeleteWebservice? deleteWebservice,
   })  : loginWebservice = loginWebservice ?? LoginWebservice(),
         editWebservice = editWebservice ?? EditWebservice(),
         profileWebservice = profileWebservice ?? ProfileWebservice(),
-        registerWebservice = registerWebservice ?? RegisterWebservice();
+        registerWebservice = registerWebservice ?? RegisterWebservice(),
+        deleteWebservice = deleteWebservice ?? DeleteWebservice();
 
   @override
   Future<(UserProfile, String)> getAuthenticationSession(
@@ -50,6 +54,13 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     final accessToken = registerResponse.accessToken;
 
     return (userProfileResponse, accessToken);
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    await deleteWebservice.performRequest();
+
+    return;
   }
 
   @override

@@ -546,7 +546,6 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 textType: CustomTextType.subContent,
                               ),
                               onTap: () {
-                                //show dialog
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -556,7 +555,24 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                                       content: AppLocalizations.of(context)
                                           ?.deleteAccountConfirmation,
                                       isCancellable: true,
-                                      onConfirm: null,
+                                      onConfirm: () async {
+                                        try {
+                                          await ref
+                                              .read(
+                                                  userProfileProvider.notifier)
+                                              .deleteAccount();
+                                          if (context.mounted) {
+                                            Navigator.of(context).popUntil(
+                                              (route) => route.isFirst,
+                                            );
+                                          }
+                                        } catch (e) {
+                                          if (context.mounted) {
+                                            ErrorResolver()
+                                                .resolveError(e, context);
+                                          }
+                                        }
+                                      },
                                     );
                                   },
                                 );
