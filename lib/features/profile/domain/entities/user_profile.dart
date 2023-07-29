@@ -35,21 +35,57 @@ class UserProfile {
   Map<String, dynamic> toJson() {
     final districtsList = districts?.map((e) => e.toJson()).toList();
 
-    return {
-      'id': id,
-      'username': username,
-      'password': password,
-      'email': email,
-      'imageUrl': imageUrl,
-      'ntrpLevel': ntrpLevel,
-      'age': age,
-      'districts': districtsList,
-      'description': description,
-      'telegram': telegram,
-      'signal': signal,
-      'whatsapp': whatsapp,
-      'isProfilePublic': isProfilePublic,
-    };
+    Map<String, dynamic> jsonMap = {};
+
+    if (id != null) {
+      jsonMap['id'] = id;
+    }
+
+    jsonMap['username'] = username;
+
+    if (email != null) {
+      jsonMap['email'] = email;
+    }
+
+    if (password != null) {
+      jsonMap['password'] = password;
+    }
+
+    if (imageUrl != null) {
+      jsonMap['imageUrl'] = imageUrl;
+    }
+
+    jsonMap['ntrpLevel'] = ntrpLevel;
+
+    if (age != null) {
+      jsonMap['age'] = age;
+    }
+
+    if (districtsList != null) {
+      jsonMap['districts'] = districtsList;
+    }
+
+    if (description != null) {
+      jsonMap['description'] = description;
+    }
+
+    if (telegram != null) {
+      jsonMap['telegram'] = telegram;
+    }
+
+    if (signal != null) {
+      jsonMap['signal'] = signal;
+    }
+
+    if (whatsapp != null) {
+      jsonMap['whatsapp'] = whatsapp;
+    }
+
+    if (isProfilePublic != null) {
+      jsonMap['isProfilePublic'] = isProfilePublic;
+    }
+
+    return jsonMap;
   }
 
   @override

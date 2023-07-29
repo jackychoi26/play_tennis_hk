@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/components/custom_alert_dialog.dart';
 import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -121,6 +122,11 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     final isTextFormFieldValid = _formKey.currentState?.validate();
     final atLeastOneDistrict = selectedDistricts.isNotEmpty;
     final isRegistration = ref.read(tokenProvider) == null;
+    final contactMethods = [
+      telegramController.text,
+      signalController.text,
+      whatsappController.text
+    ];
 
     // Username not validated
     if (!RegExp(r'^[a-zA-Z0-9_]{4,12}$').hasMatch(usernameController.text)) {
@@ -162,7 +168,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     // Age is not valid
-    if (!_isValidAge(ageController.text)) {
+    if (isProfilePublic && !_isValidAge(ageController.text)) {
       _showSnackBar(AppLocalizations.of(context)?.ageValidationError, context);
       return false;
     }
@@ -171,6 +177,17 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     if (!atLeastOneDistrict) {
       _showSnackBar(AppLocalizations.of(context)?.atLeastOneDistrict, context);
       return false;
+    }
+
+    if (isProfilePublic) {
+      // At least one contact method is provided
+      if (contactMethods.every((element) => element.isEmpty)) {
+        _showSnackBar(
+          AppLocalizations.of(context)?.atLeastOneContactMethod,
+          context,
+        );
+        return false;
+      }
     }
 
     return (isTextFormFieldValid == true && atLeastOneDistrict);
@@ -247,256 +264,311 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
       ),
       body: Form(
         key: _formKey,
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomTextFormField(
-              enabled: isRegistration,
-              controller: usernameController,
-              textInputType: TextInputType.name,
-              labelText: "${AppLocalizations.of(context)?.username}",
-              validator: (String? value) {
-                if (!isRegistration) return null;
-                if (value == "" || value == null) {
-                  return AppLocalizations.of(context)?.usernameValidationError;
-                }
-
-                final RegExp usernameRegex = RegExp(
-                  r'^[a-zA-Z0-9_]{4,12}$',
-                );
-
-                if (usernameRegex.hasMatch(value)) {
-                  return null;
-                } else {
-                  return AppLocalizations.of(context)?.usernameValidationError;
-                }
-              },
-            ),
-            CustomTextFormField(
-              enabled: isRegistration,
-              controller: emailController,
-              textInputType: TextInputType.emailAddress,
-              labelText: "${AppLocalizations.of(context)?.email}",
-              validator: (value) {
-                if (!isRegistration) return null;
-                if (value == "" || value == null) {
-                  return AppLocalizations.of(context)?.email;
-                }
-                final RegExp emailRegex = RegExp(
-                  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                );
-
-                if (emailRegex.hasMatch(value)) {
-                  return null;
-                } else {
-                  return AppLocalizations.of(context)?.emailValidationError;
-                }
-              },
-            ),
-            Visibility(
-              visible: isRegistration,
-              child: CustomTextFormField(
-                isPassword: true,
-                controller: passwordController,
-                textInputType: TextInputType.visiblePassword,
-                labelText: "${AppLocalizations.of(context)?.password}",
-                validator: (value) {
-                  if (!isRegistration) return null;
-                  if (value == "" || value == null) {
-                    return AppLocalizations.of(context)
-                        ?.passwordValidationError;
-                  }
-
-                  final RegExp passwordRegex = RegExp(
-                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$',
-                  );
-
-                  if (passwordRegex.hasMatch(value)) {
-                    return null;
-                  } else {
-                    return AppLocalizations.of(context)
-                        ?.passwordValidationError;
-                  }
-                },
-              ),
-            ),
-            Visibility(
-              visible: isRegistration,
-              child: CustomTextFormField(
-                isPassword: true,
-                controller: confirmPasswordController,
-                textInputType: TextInputType.visiblePassword,
-                labelText: "${AppLocalizations.of(context)?.confirmPassword}",
-                validator: (value) {
-                  if (!isRegistration) return null;
-                  if (value == "" || value == null) {
-                    return AppLocalizations.of(context)?.confirmPassword;
-                  }
-
-                  if (value == passwordController.text) {
-                    return null;
-                  } else {
-                    return AppLocalizations.of(context)
-                        ?.confirmPasswordValidationError;
-                  }
-                },
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(16),
-              child: DistrictsList(
-                selectedDistricts: selectedDistricts,
-                onSaveSelect: onSaveSelectDistrict,
-                maxSelection: 5,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Flexible(
+              child: ListView(
+                shrinkWrap: true,
                 children: [
-                  Expanded(
-                    child: CustomText(
-                      AppLocalizations.of(context)?.isProfilePublic,
-                      overflow: TextOverflow.ellipsis,
+                  CustomTextFormField(
+                    enabled: isRegistration,
+                    controller: usernameController,
+                    textInputType: TextInputType.name,
+                    labelText: "${AppLocalizations.of(context)?.username}",
+                    validator: (String? value) {
+                      if (!isRegistration) return null;
+                      if (value == "" || value == null) {
+                        return AppLocalizations.of(context)
+                            ?.usernameValidationError;
+                      }
+
+                      final RegExp usernameRegex = RegExp(
+                        r'^[a-zA-Z0-9_]{4,12}$',
+                      );
+
+                      if (usernameRegex.hasMatch(value)) {
+                        return null;
+                      } else {
+                        return AppLocalizations.of(context)
+                            ?.usernameValidationError;
+                      }
+                    },
+                  ),
+                  CustomTextFormField(
+                    enabled: isRegistration,
+                    controller: emailController,
+                    textInputType: TextInputType.emailAddress,
+                    labelText: "${AppLocalizations.of(context)?.email}",
+                    validator: (value) {
+                      if (!isRegistration) return null;
+                      if (value == "" || value == null) {
+                        return AppLocalizations.of(context)?.email;
+                      }
+                      final RegExp emailRegex = RegExp(
+                        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                      );
+
+                      if (emailRegex.hasMatch(value)) {
+                        return null;
+                      } else {
+                        return AppLocalizations.of(context)
+                            ?.emailValidationError;
+                      }
+                    },
+                  ),
+                  Visibility(
+                    visible: isRegistration,
+                    child: CustomTextFormField(
+                      isPassword: true,
+                      controller: passwordController,
+                      textInputType: TextInputType.visiblePassword,
+                      labelText: "${AppLocalizations.of(context)?.password}",
+                      validator: (value) {
+                        if (!isRegistration) return null;
+                        if (value == "" || value == null) {
+                          return AppLocalizations.of(context)
+                              ?.passwordValidationError;
+                        }
+
+                        final RegExp passwordRegex = RegExp(
+                          r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$',
+                        );
+
+                        if (passwordRegex.hasMatch(value)) {
+                          return null;
+                        } else {
+                          return AppLocalizations.of(context)
+                              ?.passwordValidationError;
+                        }
+                      },
                     ),
                   ),
-                  Switch(
-                    // This bool value toggles the switch.
-                    value: isProfilePublic,
-                    activeColor: Colors.red,
-                    onChanged: (bool value) {
-                      // This is called when the user toggles the switch.
-                      setState(() {
-                        isProfilePublic = value;
-                      });
+                  Visibility(
+                    visible: isRegistration,
+                    child: CustomTextFormField(
+                      isPassword: true,
+                      controller: confirmPasswordController,
+                      textInputType: TextInputType.visiblePassword,
+                      labelText:
+                          "${AppLocalizations.of(context)?.confirmPassword}",
+                      validator: (value) {
+                        if (!isRegistration) return null;
+                        if (value == "" || value == null) {
+                          return AppLocalizations.of(context)?.confirmPassword;
+                        }
+
+                        if (value == passwordController.text) {
+                          return null;
+                        } else {
+                          return AppLocalizations.of(context)
+                              ?.confirmPasswordValidationError;
+                        }
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    child: DistrictsList(
+                      selectedDistricts: selectedDistricts,
+                      onSaveSelect: onSaveSelectDistrict,
+                      maxSelection: 5,
+                    ),
+                  ),
+                  NTRPLevelDropdownSelection(
+                    initialValue: ntrpLevelValue,
+                    onValueChanged: (value) {
+                      ntrpLevelValue = value;
                     },
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: CustomText(
+                            AppLocalizations.of(context)?.isProfilePublic,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Switch(
+                          // This bool value toggles the switch.
+                          value: isProfilePublic,
+                          activeColor: Colors.red,
+                          onChanged: (bool value) {
+                            // This is called when the user toggles the switch.
+                            setState(() {
+                              isProfilePublic = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: isProfilePublic,
+                    child: Column(
+                      children: [
+                        CustomTextFormField(
+                          controller: ageController,
+                          textInputType: TextInputType.number,
+                          labelText:
+                              "${AppLocalizations.of(context)?.age}${AppLocalizations.of(context)?.optional}",
+                          validator: (value) {
+                            if (value == "" || value == null) return null;
+                            num age = 0;
+
+                            try {
+                              age = int.parse(value);
+                            } catch (err) {
+                              return AppLocalizations.of(context)
+                                  ?.ageValidationError;
+                            }
+
+                            if (age > 0 || age < 100) {
+                              return null;
+                            } else {
+                              return AppLocalizations.of(context)
+                                  ?.ageValidationError;
+                            }
+                          },
+                        ),
+                        CustomTextFormField(
+                          controller: descriptionController,
+                          textInputType: TextInputType.text,
+                          labelText:
+                              "${AppLocalizations.of(context)?.personalDescription}${AppLocalizations.of(context)?.optional}",
+                          hintText: AppLocalizations.of(context)
+                              ?.personalDescriptionHint,
+                          maxLines: 3,
+                          validator: (value) {
+                            final personalDescription = value as String;
+
+                            if (personalDescription.length < 100) {
+                              return null;
+                            } else {
+                              return AppLocalizations.of(context)
+                                  ?.personalDescriptionValidationError;
+                            }
+                          },
+                        ),
+                        CustomTextFormField(
+                          controller: telegramController,
+                          textInputType: TextInputType.text,
+                          labelText:
+                              "${AppLocalizations.of(context)?.telegram}${AppLocalizations.of(context)?.optional}",
+                          hintText: AppLocalizations.of(context)?.leaveContact,
+                          validator: (value) {
+                            final telegram = value as String;
+
+                            if (telegram.length < 20) {
+                              return null;
+                            } else {
+                              return AppLocalizations.of(context)
+                                  ?.telegramValidationError;
+                            }
+                          },
+                        ),
+                        CustomTextFormField(
+                          controller: whatsappController,
+                          textInputType: TextInputType.text,
+                          labelText:
+                              "${AppLocalizations.of(context)?.whatsapp}${AppLocalizations.of(context)?.optional}",
+                          hintText: AppLocalizations.of(context)?.leaveContact,
+                          validator: (value) {
+                            final whatsapp = value as String;
+
+                            if (whatsapp.length < 20) {
+                              return null;
+                            } else {
+                              return AppLocalizations.of(context)
+                                  ?.telegramValidationError;
+                            }
+                          },
+                        ),
+                        CustomTextFormField(
+                          controller: signalController,
+                          textInputType: TextInputType.text,
+                          labelText:
+                              "${AppLocalizations.of(context)?.signal}${AppLocalizations.of(context)?.optional}",
+                          hintText: AppLocalizations.of(context)?.leaveContact,
+                          validator: (value) {
+                            final signal = value as String;
+
+                            if (signal.length < 20) {
+                              return null;
+                            } else {
+                              return AppLocalizations.of(context)
+                                  ?.telegramValidationError;
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (isRegistration) {
+                                if (_validateForm(context)) {
+                                  onPrimaryButtonPress(context);
+                                }
+                              } else {
+                                if (_validateForm(context)) {
+                                  onPrimaryButtonPress(context);
+                                }
+                              }
+                            },
+                            style: const ButtonStyle(
+                              padding: MaterialStatePropertyAll(
+                                EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 165),
+                              ),
+                            ),
+                            child: CustomText(_getPrimaryButtonTitle()),
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: !isRegistration,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 40, top: 10),
+                            child: GestureDetector(
+                              child: CustomText(
+                                AppLocalizations.of(context)?.deleteAccount,
+                                textType: CustomTextType.subContent,
+                              ),
+                              onTap: () {
+                                //show dialog
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return CustomAlertDialog(
+                                      title: AppLocalizations.of(context)
+                                          ?.deleteAccount,
+                                      content: AppLocalizations.of(context)
+                                          ?.deleteAccountConfirmation,
+                                      isCancellable: true,
+                                      onConfirm: null,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-            CustomTextFormField(
-              controller: ageController,
-              textInputType: TextInputType.number,
-              labelText:
-                  "${AppLocalizations.of(context)?.age}${AppLocalizations.of(context)?.optional}",
-              validator: (value) {
-                if (value == "" || value == null) return null;
-                num age = 0;
-
-                try {
-                  age = int.parse(value);
-                } catch (err) {
-                  return AppLocalizations.of(context)?.ageValidationError;
-                }
-
-                if (age > 0 || age < 100) {
-                  return null;
-                } else {
-                  return AppLocalizations.of(context)?.ageValidationError;
-                }
-              },
-            ),
-            CustomTextFormField(
-              controller: descriptionController,
-              textInputType: TextInputType.text,
-              labelText:
-                  "${AppLocalizations.of(context)?.personalDescription}${AppLocalizations.of(context)?.optional}",
-              hintText: AppLocalizations.of(context)?.personalDescriptionHint,
-              maxLines: 3,
-              validator: (value) {
-                final personalDescription = value as String;
-
-                if (personalDescription.length < 100) {
-                  return null;
-                } else {
-                  return AppLocalizations.of(context)
-                      ?.personalDescriptionValidationError;
-                }
-              },
-            ),
-            NTRPLevelDropdownSelection(
-              initialValue: ntrpLevelValue,
-              onValueChanged: (value) {
-                ntrpLevelValue = value;
-              },
-            ),
-            CustomTextFormField(
-              controller: telegramController,
-              textInputType: TextInputType.text,
-              labelText:
-                  "${AppLocalizations.of(context)?.telegram}${AppLocalizations.of(context)?.optional}",
-              hintText: AppLocalizations.of(context)?.leaveContact,
-              validator: (value) {
-                final telegram = value as String;
-
-                if (telegram.length < 20) {
-                  return null;
-                } else {
-                  return AppLocalizations.of(context)?.telegramValidationError;
-                }
-              },
-            ),
-            CustomTextFormField(
-              controller: whatsappController,
-              textInputType: TextInputType.text,
-              labelText:
-                  "${AppLocalizations.of(context)?.whatsapp}${AppLocalizations.of(context)?.optional}",
-              hintText: AppLocalizations.of(context)?.leaveContact,
-              validator: (value) {
-                final whatsapp = value as String;
-
-                if (whatsapp.length < 20) {
-                  return null;
-                } else {
-                  return AppLocalizations.of(context)?.telegramValidationError;
-                }
-              },
-            ),
-            CustomTextFormField(
-              controller: signalController,
-              textInputType: TextInputType.text,
-              labelText:
-                  "${AppLocalizations.of(context)?.signal}${AppLocalizations.of(context)?.optional}",
-              hintText: AppLocalizations.of(context)?.leaveContact,
-              validator: (value) {
-                final signal = value as String;
-
-                if (signal.length < 20) {
-                  return null;
-                } else {
-                  return AppLocalizations.of(context)?.telegramValidationError;
-                }
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (isRegistration) {
-                    if (_validateForm(context)) {
-                      onPrimaryButtonPress(context);
-                    }
-                  } else {
-                    if (_validateForm(context)) {
-                      onPrimaryButtonPress(context);
-                    }
-                  }
-                },
-                style: const ButtonStyle(
-                  padding: MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(
-                      vertical: 20,
-                    ),
-                  ),
-                ),
-                child: CustomText(_getPrimaryButtonTitle()),
-              ),
-            ),
-            const SizedBox(
-              height: 40,
             ),
           ],
         ),

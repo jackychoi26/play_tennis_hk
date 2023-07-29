@@ -140,5 +140,8 @@
   "warning": "Warning",
   "reminder": "Reminder",
   "updateNeeded": "Please go to app store to update a newer app version for better user experience",
-  "inMaintenance": "Server is in maintenance, please come back later"
+  "inMaintenance": "Server is in maintenance, please come back later",
+  "atLeastOneContactMethod": "Please provide at least one contact method",
+  "deleteAccount": "Delete Account",
+  "deleteAccountConfirmation": "Are you sure you want to delete your account?"
 }
