@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:play_tennis_hk/features/profile/data/webservices/delete_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/edit_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/login_webservice.dart';
 import 'package:play_tennis_hk/features/profile/data/webservices/profile_webservice.dart';
@@ -13,16 +14,19 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   EditWebservice editWebservice;
   ProfileWebservice profileWebservice;
   RegisterWebservice registerWebservice;
+  DeleteWebservice deleteWebservice;
 
   UserProfileRepositoryImpl({
     LoginWebservice? loginWebservice,
     EditWebservice? editWebservice,
     ProfileWebservice? profileWebservice,
     RegisterWebservice? registerWebservice,
+    DeleteWebservice? deleteWebservice,
   })  : loginWebservice = loginWebservice ?? LoginWebservice(),
         editWebservice = editWebservice ?? EditWebservice(),
         profileWebservice = profileWebservice ?? ProfileWebservice(),
-        registerWebservice = registerWebservice ?? RegisterWebservice();
+        registerWebservice = registerWebservice ?? RegisterWebservice(),
+        deleteWebservice = deleteWebservice ?? DeleteWebservice();
 
   @override
   Future<(UserProfile, String)> getAuthenticationSession(
@@ -53,12 +57,15 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
+  Future<void> deleteAccount() async {
+    await deleteWebservice.performRequest();
+  }
+
+  @override
   Future<void> storeUserProfile(UserProfile userProfile) async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString("userProfile", jsonEncode(userProfile.toJson()));
-
-    return;
   }
 
   @override
@@ -94,6 +101,5 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   Future<void> removeUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("userProfile");
-    return;
   }
 }

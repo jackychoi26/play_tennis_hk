@@ -140,5 +140,8 @@
   "warning": "警告",
   "reminder": "提示",
   "updateNeeded": "請更新程式版本以獲取更好的體驗",
-  "inMaintenance": "伺服器正在維護，請稍後再回來"
+  "inMaintenance": "伺服器正在維護，請稍後再回來",
+  "atLeastOneContactMethod": "請至少提供一種聯絡方法",
+  "deleteAccount": "刪除帳號",
+  "deleteAccountConfirmation": "確認刪除帳戶？"
 }

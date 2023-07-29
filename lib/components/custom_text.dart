@@ -35,7 +35,12 @@ class CustomText extends StatelessWidget {
   }
 }
 
-enum CustomTextType { title, subtitle, content }
+enum CustomTextType {
+  title,
+  subtitle,
+  content,
+  footnote,
+}
 
 extension CustomTextTypeStyle on CustomTextType {
   TextStyle toTextStyle({
@@ -68,6 +73,12 @@ extension CustomTextTypeStyle on CustomTextType {
       case CustomTextType.content:
         return GoogleFonts.notoSans(
           fontSize: 16,
+          color: getColor(),
+          fontWeight: getFontWeight(),
+        );
+      case CustomTextType.footnote:
+        return GoogleFonts.notoSans(
+          fontSize: 14,
           color: getColor(),
           fontWeight: getFontWeight(),
         );

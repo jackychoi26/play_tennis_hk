@@ -65,6 +65,12 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
 
     state = updatedUserProfile;
   }
+
+  Future<void> deleteAccount() async {
+    await userProfileRepository.deleteAccount();
+
+    logout();
+  }
 }
 
 final userProfileProvider =
