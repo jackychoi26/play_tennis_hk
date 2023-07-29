@@ -179,15 +179,13 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
       return false;
     }
 
-    if (isProfilePublic) {
-      // At least one contact method is provided
-      if (contactMethods.every((element) => element.isEmpty)) {
-        _showSnackBar(
-          AppLocalizations.of(context)?.atLeastOneContactMethod,
-          context,
-        );
-        return false;
-      }
+    // At least one contact method is provided
+    if (contactMethods.every((element) => element.isEmpty)) {
+      _showSnackBar(
+        AppLocalizations.of(context)?.atLeastOneContactMethod,
+        context,
+      );
+      return false;
     }
 
     return (isTextFormFieldValid == true && atLeastOneDistrict);
@@ -407,106 +405,103 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ],
                     ),
                   ),
-                  Visibility(
-                    visible: isProfilePublic,
-                    child: Column(
-                      children: [
-                        CustomTextFormField(
-                          controller: ageController,
-                          textInputType: TextInputType.number,
-                          labelText:
-                              "${AppLocalizations.of(context)?.age}${AppLocalizations.of(context)?.optional}",
-                          validator: (value) {
-                            if (value == "" || value == null) return null;
-                            num age = 0;
+                  Column(
+                    children: [
+                      CustomTextFormField(
+                        controller: ageController,
+                        textInputType: TextInputType.number,
+                        labelText:
+                            "${AppLocalizations.of(context)?.age}${AppLocalizations.of(context)?.optional}",
+                        validator: (value) {
+                          if (value == "" || value == null) return null;
+                          num age = 0;
 
-                            try {
-                              age = int.parse(value);
-                            } catch (err) {
-                              return AppLocalizations.of(context)
-                                  ?.ageValidationError;
-                            }
+                          try {
+                            age = int.parse(value);
+                          } catch (err) {
+                            return AppLocalizations.of(context)
+                                ?.ageValidationError;
+                          }
 
-                            if (age > 0 || age < 100) {
-                              return null;
-                            } else {
-                              return AppLocalizations.of(context)
-                                  ?.ageValidationError;
-                            }
-                          },
-                        ),
-                        CustomTextFormField(
-                          controller: descriptionController,
-                          textInputType: TextInputType.text,
-                          labelText:
-                              "${AppLocalizations.of(context)?.personalDescription}${AppLocalizations.of(context)?.optional}",
-                          hintText: AppLocalizations.of(context)
-                              ?.personalDescriptionHint,
-                          maxLines: 3,
-                          validator: (value) {
-                            final personalDescription = value as String;
+                          if (age > 0 || age < 100) {
+                            return null;
+                          } else {
+                            return AppLocalizations.of(context)
+                                ?.ageValidationError;
+                          }
+                        },
+                      ),
+                      CustomTextFormField(
+                        controller: descriptionController,
+                        textInputType: TextInputType.text,
+                        labelText:
+                            "${AppLocalizations.of(context)?.personalDescription}${AppLocalizations.of(context)?.optional}",
+                        hintText: AppLocalizations.of(context)
+                            ?.personalDescriptionHint,
+                        maxLines: 3,
+                        validator: (value) {
+                          final personalDescription = value as String;
 
-                            if (personalDescription.length < 100) {
-                              return null;
-                            } else {
-                              return AppLocalizations.of(context)
-                                  ?.personalDescriptionValidationError;
-                            }
-                          },
-                        ),
-                        CustomTextFormField(
-                          controller: telegramController,
-                          textInputType: TextInputType.text,
-                          labelText:
-                              "${AppLocalizations.of(context)?.telegram}${AppLocalizations.of(context)?.optional}",
-                          hintText: AppLocalizations.of(context)?.leaveContact,
-                          validator: (value) {
-                            final telegram = value as String;
+                          if (personalDescription.length < 100) {
+                            return null;
+                          } else {
+                            return AppLocalizations.of(context)
+                                ?.personalDescriptionValidationError;
+                          }
+                        },
+                      ),
+                      CustomTextFormField(
+                        controller: telegramController,
+                        textInputType: TextInputType.text,
+                        labelText:
+                            "${AppLocalizations.of(context)?.telegram}${AppLocalizations.of(context)?.optional}",
+                        hintText: AppLocalizations.of(context)?.leaveContact,
+                        validator: (value) {
+                          final telegram = value as String;
 
-                            if (telegram.length < 20) {
-                              return null;
-                            } else {
-                              return AppLocalizations.of(context)
-                                  ?.telegramValidationError;
-                            }
-                          },
-                        ),
-                        CustomTextFormField(
-                          controller: whatsappController,
-                          textInputType: TextInputType.text,
-                          labelText:
-                              "${AppLocalizations.of(context)?.whatsapp}${AppLocalizations.of(context)?.optional}",
-                          hintText: AppLocalizations.of(context)?.leaveContact,
-                          validator: (value) {
-                            final whatsapp = value as String;
+                          if (telegram.length < 20) {
+                            return null;
+                          } else {
+                            return AppLocalizations.of(context)
+                                ?.telegramValidationError;
+                          }
+                        },
+                      ),
+                      CustomTextFormField(
+                        controller: whatsappController,
+                        textInputType: TextInputType.text,
+                        labelText:
+                            "${AppLocalizations.of(context)?.whatsapp}${AppLocalizations.of(context)?.optional}",
+                        hintText: AppLocalizations.of(context)?.leaveContact,
+                        validator: (value) {
+                          final whatsapp = value as String;
 
-                            if (whatsapp.length < 20) {
-                              return null;
-                            } else {
-                              return AppLocalizations.of(context)
-                                  ?.telegramValidationError;
-                            }
-                          },
-                        ),
-                        CustomTextFormField(
-                          controller: signalController,
-                          textInputType: TextInputType.text,
-                          labelText:
-                              "${AppLocalizations.of(context)?.signal}${AppLocalizations.of(context)?.optional}",
-                          hintText: AppLocalizations.of(context)?.leaveContact,
-                          validator: (value) {
-                            final signal = value as String;
+                          if (whatsapp.length < 20) {
+                            return null;
+                          } else {
+                            return AppLocalizations.of(context)
+                                ?.telegramValidationError;
+                          }
+                        },
+                      ),
+                      CustomTextFormField(
+                        controller: signalController,
+                        textInputType: TextInputType.text,
+                        labelText:
+                            "${AppLocalizations.of(context)?.signal}${AppLocalizations.of(context)?.optional}",
+                        hintText: AppLocalizations.of(context)?.leaveContact,
+                        validator: (value) {
+                          final signal = value as String;
 
-                            if (signal.length < 20) {
-                              return null;
-                            } else {
-                              return AppLocalizations.of(context)
-                                  ?.telegramValidationError;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
+                          if (signal.length < 20) {
+                            return null;
+                          } else {
+                            return AppLocalizations.of(context)
+                                ?.telegramValidationError;
+                          }
+                        },
+                      ),
+                    ],
                   ),
                   Column(
                     children: [
