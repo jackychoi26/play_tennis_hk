@@ -59,8 +59,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   @override
   Future<void> deleteAccount() async {
     await deleteWebservice.performRequest();
-
-    return;
   }
 
   @override
@@ -68,8 +66,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString("userProfile", jsonEncode(userProfile.toJson()));
-
-    return;
   }
 
   @override
@@ -105,6 +101,5 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   Future<void> removeUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("userProfile");
-    return;
   }
 }

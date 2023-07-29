@@ -538,7 +538,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                             child: GestureDetector(
                               child: CustomText(
                                 AppLocalizations.of(context)?.deleteAccount,
-                                textType: CustomTextType.subContent,
+                                textType: CustomTextType.footnote,
                               ),
                               onTap: () {
                                 showDialog(

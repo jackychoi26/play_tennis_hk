@@ -39,7 +39,7 @@ enum CustomTextType {
   title,
   subtitle,
   content,
-  subContent,
+  footnote,
 }
 
 extension CustomTextTypeStyle on CustomTextType {
@@ -76,7 +76,7 @@ extension CustomTextTypeStyle on CustomTextType {
           color: getColor(),
           fontWeight: getFontWeight(),
         );
-      case CustomTextType.subContent:
+      case CustomTextType.footnote:
         return GoogleFonts.notoSans(
           fontSize: 14,
           color: getColor(),
