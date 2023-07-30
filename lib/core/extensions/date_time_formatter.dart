@@ -5,7 +5,12 @@ extension DateFormatter on DateTime {
     }
 
     final monthIndex = month - 1;
-    return "$day, ${Month.values[monthIndex].toString().split(".").last}";
+    final monthValue = Month.values[monthIndex].toString().split(".").last;
+
+    final capitalizedFirstLetterMonthValue =
+        monthValue[0].toUpperCase() + monthValue.substring(1);
+
+    return "$day, $capitalizedFirstLetterMonthValue";
   }
 
   String _getChineseMonthDayValue() {

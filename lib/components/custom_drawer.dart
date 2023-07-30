@@ -26,8 +26,14 @@ class CustomDrawer extends ConsumerWidget {
               ? UserAccountsDrawerHeader(
                   decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 116, 73, 185)),
-                  accountName: CustomText(userProfile.username),
-                  accountEmail: CustomText(userProfile.email),
+                  accountName: CustomText(
+                    userProfile.username,
+                    textColor: Colors.white,
+                  ),
+                  accountEmail: CustomText(
+                    userProfile.email,
+                    textColor: Colors.white,
+                  ),
                   onDetailsPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -41,8 +47,10 @@ class CustomDrawer extends ConsumerWidget {
                     color: Color.fromARGB(255, 128, 112, 153),
                   ),
                   accountName: const CustomText(""),
-                  accountEmail:
-                      CustomText(AppLocalizations.of(context)?.loginAccount),
+                  accountEmail: CustomText(
+                    AppLocalizations.of(context)?.loginAccount,
+                    textColor: Colors.white,
+                  ),
                   onDetailsPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
