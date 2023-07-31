@@ -143,5 +143,6 @@
   "inMaintenance": "Server is in maintenance, please come back later",
   "atLeastOneContactMethod": "Please provide at least one contact method",
   "deleteAccount": "Delete account",
-  "deleteAccountConfirmation": "Are you sure you want to delete your account?"
+  "deleteAccountConfirmation": "Are you sure you want to delete your account?",
+  "weatherRadarImage": "Weather radar image"
 }
