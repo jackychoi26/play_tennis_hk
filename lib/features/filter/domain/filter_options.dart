@@ -1,10 +1,10 @@
 import 'package:play_tennis_hk/domain/district.dart';
 
-class Filters {
+class FilterOptions {
   final List<num> ntrpLevelRange;
   final List<District> selectedDistricts;
 
-  const Filters({
+  const FilterOptions({
     required this.ntrpLevelRange,
     required this.selectedDistricts,
   });
