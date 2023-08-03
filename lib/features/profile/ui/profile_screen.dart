@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
 import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/domain/district.dart';
+import 'package:play_tennis_hk/features/profile/domain/entities/ntrp_level.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/user_profile_provider.dart';
@@ -59,7 +60,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   List<District> selectedDistricts = [];
 
-  num ntrpLevelValue = ntrpLevelData.first;
+  num ntrpLevelValue = ntrpLevel.first;
 
   Future<void> onPrimaryButtonPress(BuildContext context) async {
     final isRegistration = ref.read(tokenProvider) == null;

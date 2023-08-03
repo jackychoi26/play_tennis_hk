@@ -87,8 +87,7 @@ class DistrictsListState extends State<DistrictsList> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: CustomText(
-                    district.toLocalizedName(
-                        AppLocalizations.of(context)?.localeName),
+                    district.toLocalizedName(context),
                   ),
                 ),
               )

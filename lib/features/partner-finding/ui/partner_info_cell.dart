@@ -26,8 +26,7 @@ class PartnerInfoCell extends StatelessWidget {
           CustomText(
             "${AppLocalizations.of(context)?.district}:  ${userProfile.districts?.map(
                   (district) {
-                    return district.toLocalizedName(
-                        AppLocalizations.of(context)?.localeName);
+                    return district.toLocalizedName(context);
                   },
                 ).toList().join(", ") ?? ""}",
             textColor: Colors.black,
