@@ -73,8 +73,8 @@ class PartnerDetailScreen extends StatelessWidget {
                       CustomText(
                         userProfile.districts
                                 ?.map(
-                                  (district) => district.toLocalizedName(
-                                      AppLocalizations.of(context)?.localeName),
+                                  (district) =>
+                                      district.toLocalizedName(context),
                                 )
                                 .toList()
                                 .join(", ") ??

@@ -124,7 +124,7 @@ class TennisMatchDetailCard extends ConsumerWidget {
                 "${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
             CustomText("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
             CustomText(
-                "${AppLocalizations.of(context)?.location}: ${_district.toLocalizedName(localName)} $_court"),
+                "${AppLocalizations.of(context)?.location}: ${_district.toLocalizedName(context)} $_court"),
             CustomText(
                 "${AppLocalizations.of(context)?.matchType}: ${_matchType.toLocalizedName(context)}"),
             CustomText(

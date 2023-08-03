@@ -15,9 +15,6 @@ enum MatchType {
 extension MatchTypeTranslator on MatchType {
   // TODO: how to do dynamic look up in i10n
   String? toLocalizedName(BuildContext context) {
-    final localeName = AppLocalizations.of(context)?.localeName;
-    if (localeName == null) return null;
-
     switch (this) {
       case MatchType.training:
         return AppLocalizations.of(context)?.training;

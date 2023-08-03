@@ -47,8 +47,6 @@ class DistrictsSelectionScreenState extends State<DistrictsSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final localeName = AppLocalizations.of(context)?.localeName;
-
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -86,7 +84,7 @@ class DistrictsSelectionScreenState extends State<DistrictsSelectionScreen> {
         children: [
           for (var district in districts) ...[
             CheckboxListTile(
-              title: CustomText(district.toLocalizedName(localeName)),
+              title: CustomText(district.toLocalizedName(context)),
               value: _isSelected(district),
               onChanged: (bool? value) {
                 if (value != null) {
