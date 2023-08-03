@@ -7,15 +7,14 @@ import 'package:play_tennis_hk/domain/region.dart';
 import 'package:play_tennis_hk/features/filter/ui/ntrp_level_range.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/ntrp_level.dart';
 
-class FilteringScreen extends ConsumerStatefulWidget {
-  const FilteringScreen({Key? key}) : super(key: key);
+class FilterScreen extends ConsumerStatefulWidget {
+  const FilterScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _FilteringScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _FilterScreenState();
 }
 
-class _FilteringScreenState extends ConsumerState<FilteringScreen> {
+class _FilterScreenState extends ConsumerState<FilterScreen> {
   final List<Region> regions = Region.values.toList();
   Map<Region, List<District>> regionsDictionary = {};
 
