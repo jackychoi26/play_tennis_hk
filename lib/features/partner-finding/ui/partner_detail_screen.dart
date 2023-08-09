@@ -31,8 +31,7 @@ class PartnerDetailScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             child: CustomCard(
-              child: ListView(
-                shrinkWrap: true,
+              child: Column(
                 children: [
                   Row(
                     children: [
@@ -70,15 +69,17 @@ class PartnerDetailScreen extends StatelessWidget {
                           Icons.place,
                         ),
                       ),
-                      CustomText(
-                        userProfile.districts
-                                ?.map(
-                                  (district) =>
-                                      district.toLocalizedName(context),
-                                )
-                                .toList()
-                                .join(", ") ??
-                            "",
+                      Expanded(
+                        child: CustomText(
+                          userProfile.districts
+                                  ?.map(
+                                    (district) =>
+                                        district.toLocalizedName(context),
+                                  )
+                                  .toList()
+                                  .join(", ") ??
+                              "",
+                        ),
                       ),
                     ],
                   ),
