@@ -375,7 +375,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                       maxSelection: 5,
                     ),
                   ),
-                  NTRPLevelDropdownSelection(
+                  NtrpLevelDropdownSelection(
                     initialValue: ntrpLevelValue,
                     onValueChanged: (value) {
                       ntrpLevelValue = value;

@@ -23,7 +23,7 @@ class NtrpLevelRange extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        NTRPLevelDropdownSelection(
+        NtrpLevelDropdownSelection(
           initialValue: lowerNtrpLevel,
           onValueChanged: (num value) {
             onLowerNtrpLevelChange(value);

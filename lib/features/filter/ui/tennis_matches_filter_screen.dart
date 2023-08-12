@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/region.dart';
 import 'package:play_tennis_hk/features/filter/ui/ntrp_level_range.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/ntrp_level.dart';
+import 'package:play_tennis_hk/features/filter/domain/providers/tennis_matches_filter_options_provider.dart';
 
-class FilterScreen extends ConsumerStatefulWidget {
-  const FilterScreen({Key? key}) : super(key: key);
+class TennisMatchesFilterScreen extends ConsumerStatefulWidget {
+  const TennisMatchesFilterScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _FilterScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _TennisMatchesFilterScreenState();
 }
 
-class _FilterScreenState extends ConsumerState<FilterScreen> {
+class _TennisMatchesFilterScreenState
+    extends ConsumerState<TennisMatchesFilterScreen> {
   final List<Region> regions = Region.values.toList();
   Map<Region, List<District>> regionsDictionary = {};
 
@@ -25,17 +29,35 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
   }
 
   num _lowerNtrpLevel = 1.0;
-  num _upperNtrpLevel = 1.0;
+  num _upperNtrpLevel = 7.0;
 
-  void _onLowerNtrpLevelChanged(num value) {
+  void _onLowerNtrpLevelChanged(BuildContext context, num value) {
     if (ntrpLevel.contains(value)) {
-      _lowerNtrpLevel = value;
+      if (value > _upperNtrpLevel) {
+        CustomSnackBar(
+          message: AppLocalizations.of(context)?.invalidNtrpLevel,
+          type: SnackBarType.error,
+        ).display(context);
+      } else {
+        setState(() {
+          _lowerNtrpLevel = value;
+        });
+      }
     }
   }
 
-  void _onUpperNtrpLevelChanged(num value) {
+  void _onUpperNtrpLevelChanged(BuildContext context, num value) {
     if (ntrpLevel.contains(value)) {
-      _upperNtrpLevel = value;
+      if (value < _lowerNtrpLevel) {
+        CustomSnackBar(
+          message: AppLocalizations.of(context)?.invalidNtrpLevel,
+          type: SnackBarType.error,
+        ).display(context);
+      } else {
+        setState(() {
+          _upperNtrpLevel = value;
+        });
+      }
     }
   }
 
@@ -92,8 +114,12 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                 NtrpLevelRange(
                   lowerNtrpLevel: _lowerNtrpLevel,
                   upperNtrpLevel: _upperNtrpLevel,
-                  onLowerNtrpLevelChange: _onLowerNtrpLevelChanged,
-                  onUpperNtrpLevelChange: _onUpperNtrpLevelChanged,
+                  onLowerNtrpLevelChange: (num value) {
+                    _onLowerNtrpLevelChanged(context, value);
+                  },
+                  onUpperNtrpLevelChange: (num value) {
+                    _onUpperNtrpLevelChanged(context, value);
+                  },
                 ),
               ],
               ExpansionTile(
