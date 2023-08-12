@@ -9,10 +9,13 @@ class TennisMatchesFilterOptionsNotifier
     return null;
   }
 
-  void storeFilterOptions(TennisMatchesFilterOptions filterOption) {}
+  void storeTennisMatchesFilterOptions(
+      TennisMatchesFilterOptions tennisMatchesFilterOptions) {
+    state = tennisMatchesFilterOptions;
+  }
 }
 
-final filterOptionsProvider = StateNotifierProvider<
+final tennisMatchesFilterOptionsProvider = StateNotifierProvider<
     TennisMatchesFilterOptionsNotifier, TennisMatchesFilterOptions?>((ref) {
   return TennisMatchesFilterOptionsNotifier();
 });

@@ -5,6 +5,7 @@ import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/domain/region.dart';
+import 'package:play_tennis_hk/features/filter/domain/entities/tennis_matches_filter_options.dart';
 import 'package:play_tennis_hk/features/filter/ui/ntrp_level_range.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/ntrp_level.dart';
 import 'package:play_tennis_hk/features/filter/domain/providers/tennis_matches_filter_options_provider.dart';
@@ -20,12 +21,24 @@ class TennisMatchesFilterScreen extends ConsumerStatefulWidget {
 class _TennisMatchesFilterScreenState
     extends ConsumerState<TennisMatchesFilterScreen> {
   final List<Region> regions = Region.values.toList();
+  @override
+  void initState() {
+    Region.values.toList().forEach((element) {
+      regionsDictionary[element] = [];
+    });
+    District.values.toList().forEach((element) {
+      (regionsDictionary[element.toRegion()] as List<District>).add(element);
+    });
+
+    super.initState();
+  }
+
   Map<Region, List<District>> regionsDictionary = {};
 
-  List<District> selectedDistricts = [];
+  List<District> _selectedDistricts = [];
 
   bool _isSelected(District district) {
-    return selectedDistricts.contains(district);
+    return _selectedDistricts.contains(district);
   }
 
   num _lowerNtrpLevel = 1.0;
@@ -62,19 +75,16 @@ class _TennisMatchesFilterScreenState
   }
 
   @override
-  void initState() {
-    Region.values.toList().forEach((element) {
-      regionsDictionary[element] = [];
-    });
-    District.values.toList().forEach((element) {
-      (regionsDictionary[element.toRegion()] as List<District>).add(element);
-    });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final tennisMatchesFilterOptions =
+        ref.watch(tennisMatchesFilterOptionsProvider);
+
+    if (tennisMatchesFilterOptions != null) {
+      _lowerNtrpLevel = tennisMatchesFilterOptions.lowerNtrpLevel;
+      _upperNtrpLevel = tennisMatchesFilterOptions.upperNtrpLevel;
+      _selectedDistricts = tennisMatchesFilterOptions.selectedDistricts;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -89,10 +99,17 @@ class _TennisMatchesFilterScreenState
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  selectedDistricts;
-                  [_lowerNtrpLevel, _upperNtrpLevel];
+                  ref
+                      .read(tennisMatchesFilterOptionsProvider.notifier)
+                      .storeTennisMatchesFilterOptions(
+                        TennisMatchesFilterOptions(
+                          lowerNtrpLevel: _lowerNtrpLevel,
+                          upperNtrpLevel: _upperNtrpLevel,
+                          selectedDistricts: _selectedDistricts,
+                        ),
+                      );
+
                   Navigator.of(context).pop();
-                  // TODO: back to API call
                 },
                 child: CustomText(
                   AppLocalizations.of(context)?.save,
@@ -136,9 +153,9 @@ class _TennisMatchesFilterScreenState
                         if (value != null) {
                           setState(() {
                             if (value) {
-                              selectedDistricts.add(district);
+                              _selectedDistricts.add(district);
                             } else {
-                              selectedDistricts.remove(district);
+                              _selectedDistricts.remove(district);
                             }
                           });
                         }
@@ -154,7 +171,7 @@ class _TennisMatchesFilterScreenState
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          selectedDistricts = [];
+                          _selectedDistricts = [];
                           _lowerNtrpLevel = 1.0;
                           _upperNtrpLevel = 7.0;
                         });
