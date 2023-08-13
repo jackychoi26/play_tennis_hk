@@ -37,7 +37,7 @@ extension MatchTypeTranslator on MatchType {
 }
 
 extension MatchTypeMapper on MatchType {
-  String toJson() {
+  String toKey() {
     switch (this) {
       case MatchType.training:
         return 'TRAINING';

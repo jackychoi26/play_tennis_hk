@@ -375,7 +375,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                       maxSelection: 5,
                     ),
                   ),
-                  NTRPLevelDropdownSelection(
+                  NtrpLevelDropdownSelection(
                     initialValue: ntrpLevelValue,
                     onValueChanged: (value) {
                       ntrpLevelValue = value;
@@ -547,10 +547,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   builder: (BuildContext context) {
                                     return CustomAlertDialog(
                                       title: AppLocalizations.of(context)
-                                          ?.deleteAccount,
-                                      content: AppLocalizations.of(context)
                                           ?.deleteAccountConfirmation,
-                                      isCancellable: true,
                                       onConfirm: () async {
                                         try {
                                           await ref

@@ -76,8 +76,8 @@ extension ServerMessageTranslator on String {
         return AppLocalizations.of(context)?.invalidIsProfilePublic;
       case ServerMessage.invalidMatchType:
         return AppLocalizations.of(context)?.invalidMatchType;
-      case ServerMessage.invalidNTRPLevel:
-        return AppLocalizations.of(context)?.invalidNTRPLevel;
+      case ServerMessage.invalidNtrpLevel:
+        return AppLocalizations.of(context)?.invalidNtrpLevel;
       case ServerMessage.invalidPassword:
         return AppLocalizations.of(context)?.invalidPassword;
       case ServerMessage.invalidSignal:
@@ -90,8 +90,8 @@ extension ServerMessageTranslator on String {
         return AppLocalizations.of(context)?.invalidWhatsapp;
       case ServerMessage.invalidDescription:
         return AppLocalizations.of(context)?.invalidDescription;
-      case ServerMessage.missingNTRPLevel:
-        return AppLocalizations.of(context)?.missingNTRPLevel;
+      case ServerMessage.missingNtrpLevel:
+        return AppLocalizations.of(context)?.missingNtrpLevel;
       case ServerMessage.missingTennisMatchID:
         return AppLocalizations.of(context)?.missingTennisMatchId;
       case ServerMessage.missingUsername:

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/components/custom_text_form_field.dart';
-import 'package:play_tennis_hk/components/show_date_time_picker.dart';
+import 'package:play_tennis_hk/components/date_time_picker.dart';
 import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/core/extensions/date_time_formatter.dart';
 import 'package:play_tennis_hk/domain/district.dart';
@@ -54,6 +54,19 @@ class CreateTennisMatchScreenState
     }
 
     return "${dateTime.getLocalizedMonthDayValue(localeName)} ${dateTime.getHourIn12HoursFormat()}${dateTime.getAmOrPm()}";
+  }
+
+  void _onStartDateTimeChanged(DateTime dateTime) {
+    setState(() {
+      startDateTime = dateTime;
+      endDateTime = dateTime;
+    });
+  }
+
+  void _onEndDateTimeChanged(DateTime dateTime) {
+    setState(() {
+      endDateTime = dateTime;
+    });
   }
 
   // Returns true if they are valid
@@ -114,14 +127,22 @@ class CreateTennisMatchScreenState
     ).display(context);
   }
 
+  DateTime? _toElevenPM(DateTime? dateTime) {
+    if (dateTime == null) return null;
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     final localeName = AppLocalizations.of(context)?.localeName;
 
+    print(startDateTime);
+    print(endDateTime);
+
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          AppLocalizations.of(context)?.createMatch,
+          AppLocalizations.of(context)?.createTennisMatch,
           textType: CustomTextType.subtitle,
         ),
       ),
@@ -135,13 +156,16 @@ class CreateTennisMatchScreenState
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: GestureDetector(
                 onTap: () async {
-                  final DateTime? selectedDate =
-                      await sheetDateTimePicker(context: context);
-                  if (selectedDate == null) return;
-
-                  setState(() {
-                    startDateTime = selectedDate;
-                  });
+                  final dateTimePicker = DateTimePicker(
+                    minimumDateTime: DateTime.now(),
+                    maximumDateTime: null,
+                    initialDateTime: startDateTime ??
+                        DateTime.now().add(
+                          Duration(minutes: 60 - DateTime.now().minute % 60),
+                        ),
+                    onDateTimeChanged: _onStartDateTimeChanged,
+                  );
+                  dateTimePicker.present(context: context);
                 },
                 child: Row(
                   children: [
@@ -158,13 +182,18 @@ class CreateTennisMatchScreenState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: GestureDetector(
                 onTap: () async {
-                  final DateTime? selectedDate =
-                      await sheetDateTimePicker(context: context);
-                  if (selectedDate == null) return;
-
-                  setState(() {
-                    endDateTime = selectedDate;
-                  });
+                  final dateTimePicker = DateTimePicker(
+                    minimumDateTime: startDateTime ?? DateTime.now(),
+                    maximumDateTime: startDateTime == null
+                        ? null
+                        : _toElevenPM(startDateTime),
+                    initialDateTime: startDateTime ??
+                        DateTime.now().add(
+                          Duration(minutes: 60 - DateTime.now().minute % 60),
+                        ),
+                    onDateTimeChanged: _onEndDateTimeChanged,
+                  );
+                  dateTimePicker.present(context: context);
                 },
                 child: Row(
                   children: [
@@ -196,7 +225,7 @@ class CreateTennisMatchScreenState
                     );
                   }).toList()),
             ),
-            NTRPLevelDropdownSelection(
+            NtrpLevelDropdownSelection(
               onValueChanged: (num value) {
                 selectedNtrpLevel = value;
               },
@@ -231,7 +260,9 @@ class CreateTennisMatchScreenState
                 onPressed: () async {
                   try {
                     if (_validateForm(context)) {
-                      await ref.read(matchesProvider.notifier).createMatch(
+                      await ref
+                          .read(tennisMatchesProvider.notifier)
+                          .createTennisMatch(
                             TennisMatch(
                               startDateTime: startDateTime!,
                               endDateTime: endDateTime!,

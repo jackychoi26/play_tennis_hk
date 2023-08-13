@@ -10,23 +10,16 @@ class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
   void _showSystemDialog(
     BuildContext context,
-    bool dismissable,
     String? title,
-    String? content,
-    bool isCancellable,
   ) {
     showDialog(
-      barrierDismissible: dismissable,
       context: context,
       builder: (BuildContext context) {
         return CustomAlertDialog(
-          icon: Icons.info,
           title: title,
-          content: content,
           onConfirm: () async {
             Navigator.of(context).pop();
           },
-          isCancellable: isCancellable,
         );
       },
     );
@@ -61,28 +54,19 @@ class HomeScreen extends ConsumerWidget {
       if (systemConfig.isInMaintenance) {
         _showSystemDialog(
           context,
-          false,
-          AppLocalizations.of(context)?.reminder,
           AppLocalizations.of(context)?.inMaintenance,
-          false,
         );
       } else if (systemConfig.forcedUpdate &&
           _isVersionGreater(latestAppVersion, localAppVersion)) {
         _showSystemDialog(
           context,
-          false,
-          AppLocalizations.of(context)?.reminder,
           AppLocalizations.of(context)?.updateNeeded,
-          false,
         );
       } else if (systemConfig.softUpdate &&
           _isVersionGreater(latestAppVersion, localAppVersion)) {
         _showSystemDialog(
           context,
-          false,
-          AppLocalizations.of(context)?.reminder,
           AppLocalizations.of(context)?.updateNeeded,
-          false,
         );
       }
     }

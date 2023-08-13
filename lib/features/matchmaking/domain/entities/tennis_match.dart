@@ -29,17 +29,15 @@ class TennisMatch {
     this.remarks,
   });
 
-
-
   @override
   factory TennisMatch.fromJson(Map<String, dynamic> json) {
     return TennisMatch(
       id: json['id'],
-      createdAt: DateTime.parse(json['createdAt'] as String).toLocal(),
+      createdAt: DateTime.parse(json['createdAt'] as String),
       poster: UserProfile.fromJson(json['poster']),
       ntrpLevel: json['ntrpLevel'],
-      startDateTime: DateTime.parse(json['startDateTime'] as String).toLocal(),
-      endDateTime: DateTime.parse(json['endDateTime'] as String).toLocal(),
+      startDateTime: DateTime.parse(json['startDateTime'] as String),
+      endDateTime: DateTime.parse(json['endDateTime'] as String),
       district: (json['district'] as String).toDistrict(),
       court: json['court'],
       matchType: (json['matchType'] as String).toMatchType(),
@@ -51,9 +49,9 @@ class TennisMatch {
     return {
       'startDateTime': startDateTime.toString(),
       'endDateTime': endDateTime.toString(),
-      'matchType': matchType.toJson(),
+      'matchType': matchType.toKey(),
       'ntrpLevel': ntrpLevel,
-      'district': district.toJson(),
+      'district': district.toKey(),
       'court': court,
       'remarks': remarks,
     };
