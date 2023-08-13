@@ -32,30 +32,24 @@ class _TennisMatchesFilterScreenState
 
     super.initState();
 
-    final tennisMatchesFilterOptionsData =
-        ref.read(tennisMatchesFilterOptionsProvider);
-
-    tennisMatchesFilterOptionsData.when(
-      data: (tennisMatchesFilterOptions) {
-        if (tennisMatchesFilterOptions != null) {
-          _lowerNtrpLevel = tennisMatchesFilterOptions.lowerNtrpLevel;
-          _upperNtrpLevel = tennisMatchesFilterOptions.upperNtrpLevel;
-          _selectedDistricts = tennisMatchesFilterOptions.selectedDistricts;
-        }
-      },
-      error: (error, st) {},
-      loading: () => {},
+    final tennisMatchesFilterOptions = ref.read(
+      tennisMatchesFilterOptionsProvider,
     );
+
+    setState(() {
+      _lowerNtrpLevel = tennisMatchesFilterOptions.lowerNtrpLevel;
+      _upperNtrpLevel = tennisMatchesFilterOptions.upperNtrpLevel;
+      _selectedDistricts = [...tennisMatchesFilterOptions.selectedDistricts];
+    });
   }
 
   Map<Region, List<District>> regionsDictionary = {};
-
-  List<District> _selectedDistricts = [];
 
   bool _isSelected(District district) {
     return _selectedDistricts.contains(district);
   }
 
+  List<District> _selectedDistricts = [];
   num _lowerNtrpLevel = 1.0;
   num _upperNtrpLevel = 7.0;
 

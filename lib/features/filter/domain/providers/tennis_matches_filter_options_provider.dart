@@ -1,13 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/domain/district.dart';
 import 'package:play_tennis_hk/features/filter/data/tennis_matches_filter_options_repository_impl.dart';
 import 'package:play_tennis_hk/features/filter/domain/entities/tennis_matches_filter_options.dart';
 import 'package:play_tennis_hk/features/filter/domain/repositories/tennis_matches_filter_options_repository.dart';
 
 class TennisMatchesFilterOptionsNotifier
-    extends StateNotifier<AsyncValue<TennisMatchesFilterOptions?>> {
+    extends StateNotifier<TennisMatchesFilterOptions> {
   TennisMatchesFilterOptionsNotifier(this.repository)
-      : super(const AsyncLoading()) {
+      : super(
+          const TennisMatchesFilterOptions(
+              lowerNtrpLevel: 1.0, upperNtrpLevel: 7.0, selectedDistricts: []),
+        ) {
     getTennisMatchesFilterOptions();
   }
 
@@ -15,7 +17,9 @@ class TennisMatchesFilterOptionsNotifier
 
   Future<void> getTennisMatchesFilterOptions() async {
     final filterOptions = await repository.getTennisMatchesFilterOptions();
-    state = AsyncData(filterOptions);
+    if (filterOptions != null) {
+      state = filterOptions;
+    }
   }
 
   Future<void> storeTennisMatchesFilterOptions(
@@ -24,13 +28,12 @@ class TennisMatchesFilterOptionsNotifier
     await repository.storeTennisMatchesFilterOptions(
       tennisMatchesFilterOptions,
     );
-    state = AsyncData(tennisMatchesFilterOptions);
+    state = tennisMatchesFilterOptions;
   }
 }
 
 final tennisMatchesFilterOptionsProvider = StateNotifierProvider<
-    TennisMatchesFilterOptionsNotifier,
-    AsyncValue<TennisMatchesFilterOptions?>>(
+    TennisMatchesFilterOptionsNotifier, TennisMatchesFilterOptions>(
   (ref) {
     return TennisMatchesFilterOptionsNotifier(
       TennisMatchesFilterOptionsRepositoryImpl(),

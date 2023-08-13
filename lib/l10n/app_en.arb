@@ -80,7 +80,7 @@
   "mensDoubles": "Men's doubles",
   "womensDoubles": "Women's doubles",
   "mixedDoubles": "Mixed doubles",
-  "createMatch": "Create match",
+  "createTennisMatch": "Create tennis match",
   "aboutUs": "About us",
   "appVersion": "App version",
   "joinUs": "Join us",
@@ -138,7 +138,7 @@
   "missingIsProfilePublic": "Missing is profile public",
   "internalServerError": "Server error, please inform us via our telegram channel",
   "cancel": "Cancel",
-  "confirmDeleteMatch": "Do you confirm to delete this tennis match?",
+  "confirmdeleteTennisMatch": "Do you confirm to delete this tennis match?",
   "warning": "Warning",
   "reminder": "Reminder",
   "updateNeeded": "Please go to app store to update a newer app version for better user experience",
@@ -168,5 +168,6 @@
   "tsuenWan": "Tsuen Wan",
   "tuenMun": "Tuen Mun",
   "yuenLong": "Yuen Long",
-  "filterOptionsSaved": "Filter options have been saved"
+  "filterOptionsSaved": "Filter options have been saved",
+  "noTennisMatchesNow": "No tennis matches now"
 }
