@@ -121,7 +121,7 @@ class CreateTennisMatchScreenState
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          AppLocalizations.of(context)?.createMatch,
+          AppLocalizations.of(context)?.createTennisMatch,
           textType: CustomTextType.subtitle,
         ),
       ),
@@ -231,7 +231,9 @@ class CreateTennisMatchScreenState
                 onPressed: () async {
                   try {
                     if (_validateForm(context)) {
-                      await ref.read(matchesProvider.notifier).createMatch(
+                      await ref
+                          .read(tennisMatchesProvider.notifier)
+                          .createTennisMatch(
                             TennisMatch(
                               startDateTime: startDateTime!,
                               endDateTime: endDateTime!,

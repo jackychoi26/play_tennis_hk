@@ -1,7 +1,7 @@
 import 'package:play_tennis_hk/core/webservice.dart';
 import 'package:play_tennis_hk/features/matchmaking/data/webservices/create_tennis_matches_response.dart';
 
-class CreateTennisMatchesWebservice extends Webservice {
+class CreateTennisMatchWebservice extends Webservice {
   Future<CreateTennisMatchesResponse> performRequest(Object data) async {
     final response = await postRequest("/matchmaking", data);
 

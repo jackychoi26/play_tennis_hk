@@ -1,3 +1,4 @@
+import 'package:play_tennis_hk/features/filter/domain/entities/tennis_matches_filter_options.dart';
 import 'package:play_tennis_hk/features/matchmaking/data/webservices/create_tennis_matches_webservice.dart';
 import 'package:play_tennis_hk/features/matchmaking/data/webservices/delete_tennis_match_webservice.dart';
 import 'package:play_tennis_hk/features/matchmaking/data/webservices/tennis_matches_webservice.dart';
@@ -5,24 +6,30 @@ import 'package:play_tennis_hk/features/matchmaking/domain/repositories/tennis_m
 import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
 
 class TennisMatchesRepositoryImpl implements TennisMatchesRepository {
-  TennisMatchesRepositoryImpl();
+  TennisMatchesRepositoryImpl(
+    TennisMatchesFilterOptions tennisMatchesFilterOptions,
+  )   : _tennisMatchesWebservice = TennisMatchesWebservice(
+          tennisMatchesFilterOptions,
+        ),
+        _createTennisMatchWebservice = CreateTennisMatchWebservice(),
+        _deleteTennisMatchWebservice = DeleteTennisMatchWebservice();
 
-  final tennisMatchesWebservice = TennisMatchesWebservice();
-  final createTennisMatchWebservice = CreateTennisMatchesWebservice();
-  final deleteTennisMatchWebservice = DeleteTennisMatchesWebservice();
+  final TennisMatchesWebservice _tennisMatchesWebservice;
+  final CreateTennisMatchWebservice _createTennisMatchWebservice;
+  final DeleteTennisMatchWebservice _deleteTennisMatchWebservice;
 
   @override
   Future<List<TennisMatch>> getTennisMatches() async {
     final tennisMatchesResponse =
-        await tennisMatchesWebservice.performRequest();
-        
+        await _tennisMatchesWebservice.performRequest();
+
     return tennisMatchesResponse.tennisMatches;
   }
 
   @override
   Future<TennisMatch> createTennisMatch(TennisMatch tennisMatch) async {
     final createTennisMatchResponse =
-        await createTennisMatchWebservice.performRequest(tennisMatch);
+        await _createTennisMatchWebservice.performRequest(tennisMatch);
     return createTennisMatchResponse.tennisMatch;
   }
 
@@ -32,6 +39,6 @@ class TennisMatchesRepositoryImpl implements TennisMatchesRepository {
       "tennisMatchId": matchId,
     };
 
-    await deleteTennisMatchWebservice.performRequest(data);
+    await _deleteTennisMatchWebservice.performRequest(data);
   }
 }

@@ -99,8 +99,8 @@ class TennisMatchDetailCard extends ConsumerWidget {
                       onConfirm: () async {
                         try {
                           await ref
-                              .read(matchesProvider.notifier)
-                              .deleteMatch(matchId);
+                              .read(tennisMatchesProvider.notifier)
+                              .deleteTennisMatch(matchId);
                           if (context.mounted) {
                             Navigator.of(context).pop();
                           }

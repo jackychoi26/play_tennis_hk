@@ -11,28 +11,43 @@ class TennisMatchList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future refresh() async {
-      ref.read(matchesProvider.notifier).updateMatches();
+      ref.read(tennisMatchesProvider.notifier).getTennisMatches();
     }
 
-    final tennisMatches = ref.watch(matchesProvider);
+    final tennisMatches = ref.watch(tennisMatchesProvider);
 
     return RefreshIndicator(
       onRefresh: refresh,
       child: tennisMatches.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         data: (value) {
-          return ListView.builder(
-            padding: const EdgeInsets.only(
-              left: 8,
-              top: 8,
-              right: 8,
-              bottom: 100,
-            ),
-            itemCount: value.length,
-            itemBuilder: (BuildContext context, int index) {
-              return TennisMatchInfoCell(tennisMatch: value[index]);
-            },
-          );
+          if (value.isEmpty) {
+            return Center(
+                child: ListView(
+              children: [
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 250),
+                    child: CustomText(
+                        AppLocalizations.of(context)?.noTennisMatchesNow),
+                  ),
+                ),
+              ],
+            ));
+          } else {
+            return ListView.builder(
+              padding: const EdgeInsets.only(
+                left: 8,
+                top: 8,
+                right: 8,
+                bottom: 100,
+              ),
+              itemCount: value.length,
+              itemBuilder: (BuildContext context, int index) {
+                return TennisMatchInfoCell(tennisMatch: value[index]);
+              },
+            );
+          }
         },
         error: (err, st) => Center(
           child: CustomText(AppLocalizations.of(context)?.somethingWentWrong),
