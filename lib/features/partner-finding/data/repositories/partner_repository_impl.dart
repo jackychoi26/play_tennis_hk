@@ -9,22 +9,5 @@ class PartnersRepositoryImpl implements PartnerRepository {
   Future<List<UserProfile>> getPublicProfiles() async {
     final partnerResponse = await partnersWebservice.performRequest();
     return partnerResponse.userProfiles;
-
-    // await Future.delayed(const Duration(seconds: 2));
-    // return [
-    //   const UserProfile(
-    //     username: "Hemingway",
-    //     email: "hemingway@gmail.com",
-    //     districts: [District.centralAndWestern],
-    //     ntrpLevel: 3.5,
-    //   ),
-    //   const UserProfile(
-    //     username: "SteveJobs",
-    //     email: "SteveJobs@apple.com",
-    //     districts: [District.north],
-    //     ntrpLevel: 4,
-    //     description: "Hello Testing",
-    //   ),
-    // ];
   }
 }

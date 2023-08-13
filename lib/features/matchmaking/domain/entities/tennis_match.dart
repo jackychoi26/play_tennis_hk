@@ -49,9 +49,9 @@ class TennisMatch {
     return {
       'startDateTime': startDateTime.toString(),
       'endDateTime': endDateTime.toString(),
-      'matchType': matchType.toJson(),
+      'matchType': matchType.toKey(),
       'ntrpLevel': ntrpLevel,
-      'district': district.toJson(),
+      'district': district.toKey(),
       'court': court,
       'remarks': remarks,
     };

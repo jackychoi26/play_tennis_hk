@@ -8,6 +8,7 @@ class Webservice {
 
   Webservice() : dio = DioSingleton().client;
 
+  // TODO: restructure this as this should not depend on the repository
   TokenRepository tokenRepository = TokenRepositoryImpl();
 
   Future<Response> getRequest(String endPoint) async {

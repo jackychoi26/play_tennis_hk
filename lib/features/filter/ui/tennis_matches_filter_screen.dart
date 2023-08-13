@@ -31,6 +31,21 @@ class _TennisMatchesFilterScreenState
     });
 
     super.initState();
+
+    final tennisMatchesFilterOptionsData =
+        ref.read(tennisMatchesFilterOptionsProvider);
+
+    tennisMatchesFilterOptionsData.when(
+      data: (tennisMatchesFilterOptions) {
+        if (tennisMatchesFilterOptions != null) {
+          _lowerNtrpLevel = tennisMatchesFilterOptions.lowerNtrpLevel;
+          _upperNtrpLevel = tennisMatchesFilterOptions.upperNtrpLevel;
+          _selectedDistricts = tennisMatchesFilterOptions.selectedDistricts;
+        }
+      },
+      error: (error, st) {},
+      loading: () => {},
+    );
   }
 
   Map<Region, List<District>> regionsDictionary = {};
@@ -76,15 +91,6 @@ class _TennisMatchesFilterScreenState
 
   @override
   Widget build(BuildContext context) {
-    final tennisMatchesFilterOptions =
-        ref.watch(tennisMatchesFilterOptionsProvider);
-
-    if (tennisMatchesFilterOptions != null) {
-      _lowerNtrpLevel = tennisMatchesFilterOptions.lowerNtrpLevel;
-      _upperNtrpLevel = tennisMatchesFilterOptions.upperNtrpLevel;
-      _selectedDistricts = tennisMatchesFilterOptions.selectedDistricts;
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -98,8 +104,8 @@ class _TennisMatchesFilterScreenState
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.white,
                 ),
-                onPressed: () {
-                  ref
+                onPressed: () async {
+                  await ref
                       .read(tennisMatchesFilterOptionsProvider.notifier)
                       .storeTennisMatchesFilterOptions(
                         TennisMatchesFilterOptions(
@@ -109,7 +115,14 @@ class _TennisMatchesFilterScreenState
                         ),
                       );
 
-                  Navigator.of(context).pop();
+                  if (context.mounted) {
+                    CustomSnackBar(
+                      message: AppLocalizations.of(context)?.filterOptionsSaved,
+                      type: SnackBarType.info,
+                    ).display(context);
+
+                    Navigator.of(context).pop();
+                  }
                 },
                 child: CustomText(
                   AppLocalizations.of(context)?.save,
