@@ -33,7 +33,7 @@ class UserProfile {
   });
 
   Map<String, dynamic> toJson() {
-    final districtsList = districts?.map((e) => e.toJson()).toList();
+    final districtsList = districts?.map((e) => e.toKey()).toList();
 
     Map<String, dynamic> jsonMap = {};
 

@@ -196,7 +196,7 @@ class CreateTennisMatchScreenState
                     );
                   }).toList()),
             ),
-            NTRPLevelDropdownSelection(
+            NtrpLevelDropdownSelection(
               onValueChanged: (num value) {
                 selectedNtrpLevel = value;
               },

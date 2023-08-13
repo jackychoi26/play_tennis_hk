@@ -97,7 +97,7 @@ extension DistrictMapper on District {
     }
   }
 
-  String toJson() {
+  String toKey() {
     switch (this) {
       case District.centralAndWestern:
         return 'CENTRAL_AND_WESTERN';

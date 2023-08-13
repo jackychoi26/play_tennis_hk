@@ -13,6 +13,8 @@ class CustomSnackBar {
         return Colors.red;
       case SnackBarType.warning:
         return Colors.yellow;
+      case SnackBarType.info:
+        return Colors.blue;
     }
   }
 
@@ -21,6 +23,8 @@ class CustomSnackBar {
       case SnackBarType.error:
       case SnackBarType.warning:
         return Colors.white;
+      case SnackBarType.info:
+        return Colors.black;
     }
   }
 
@@ -41,4 +45,8 @@ class CustomSnackBar {
   }
 }
 
-enum SnackBarType { warning, error }
+enum SnackBarType {
+  warning,
+  error,
+  info,
+}
