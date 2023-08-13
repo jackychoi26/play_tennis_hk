@@ -94,8 +94,8 @@ class TennisMatchDetailCard extends ConsumerWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return CustomAlertDialog(
-                      title: AppLocalizations.of(context)?.warning,
-                      content: AppLocalizations.of(context)?.warning,
+                      title: AppLocalizations.of(context)
+                          ?.confirmdeleteTennisMatch,
                       onConfirm: () async {
                         try {
                           await ref
@@ -129,10 +129,12 @@ class TennisMatchDetailCard extends ConsumerWidget {
                 "${AppLocalizations.of(context)?.matchType}: ${_matchType.toLocalizedName(context)}"),
             CustomText(
                 "${AppLocalizations.of(context)?.ntrpLevel}: ${_getNtrpLevelRange()}"),
-            CustomText(
-              "${AppLocalizations.of(context)?.remarks}: ${_remarks ?? ""}",
-              maxLines: shouldShowAllRemarks ? 10 : 1,
-            ),
+            if (_remarks != null && _remarks?.isNotEmpty == true) ...[
+              CustomText(
+                "${AppLocalizations.of(context)?.remarks}: ${_remarks ?? ""}",
+                maxLines: shouldShowAllRemarks ? 10 : 1,
+              ),
+            ]
           ],
         ),
       ),
