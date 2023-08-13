@@ -3,11 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 
-Future<DateTime?> sheetDateTimePicker({required context}) async {
-  DateTime? pickedTime =
-      DateTime.now().add(Duration(minutes: 60 - DateTime.now().minute % 60));
+class DateTimePicker {
+  final DateTime? minimumDateTime;
+  final DateTime? maximumDateTime;
+  final DateTime? initialDateTime;
+  final Function(DateTime) onDateTimeChanged;
 
-  await showModalBottomSheet(
+  DateTimePicker({
+    required this.minimumDateTime,
+    required this.maximumDateTime,
+    required this.initialDateTime,
+    required this.onDateTimeChanged,
+  });
+
+  Future<void> present({required BuildContext context}) async {
+    await showModalBottomSheet(
       context: context,
       builder: (BuildContext builder) {
         return SizedBox(
@@ -16,13 +26,14 @@ Future<DateTime?> sheetDateTimePicker({required context}) async {
             children: [
               Expanded(
                 child: CupertinoDatePicker(
-                  minimumDate: DateTime.now(),
+                  minimumDate: minimumDateTime,
+                  maximumDate: maximumDateTime,
                   mode: CupertinoDatePickerMode.dateAndTime,
                   use24hFormat: true,
                   minuteInterval: 60,
-                  initialDateTime: pickedTime,
+                  initialDateTime: initialDateTime,
                   onDateTimeChanged: (DateTime newdate) {
-                    pickedTime = newdate;
+                    onDateTimeChanged(newdate);
                   },
                 ),
               ),
@@ -36,9 +47,7 @@ Future<DateTime?> sheetDateTimePicker({required context}) async {
             ],
           ),
         );
-      });
-
-  return pickedTime;
+      },
+    );
+  }
 }
-
-
