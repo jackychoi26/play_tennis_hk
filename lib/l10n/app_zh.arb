@@ -19,7 +19,7 @@
   "personalDescriptionHint": "介紹一下你自己吧！",
   "optional": "（非必須）",
   "leaveContact": "留下聯繫方法",
-  "systemSetting": "系統設定",
+  "settings": "設定",
   "usernameValidationError": "用戶名稱只能是4-12個字符",
   "emailValidationError": "請輸入正確電郵",
   "passwordValidationError": "密碼必須是8-16位，大細階英文字及數字各1個",

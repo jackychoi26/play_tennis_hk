@@ -126,6 +126,25 @@ class CustomDrawer extends ConsumerWidget {
           ListTile(
             title: Row(
               children: [
+                CustomText("${AppLocalizations.of(context)?.settings}  "),
+                const Icon(Icons.settings),
+              ],
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const AboutUsScreen(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    }),
+              );
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
                 CustomText("${AppLocalizations.of(context)?.aboutUs}  "),
                 const Icon(Icons.info),
               ],
