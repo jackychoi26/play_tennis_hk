@@ -19,7 +19,7 @@ class TennisMatchList extends ConsumerWidget {
       ref.read(tennisMatchesProvider.notifier).getTennisMatches(offset: offset);
     }
 
-    void loadMore(currentValueLength) {
+    void loadMore() {
       ref.read(tennisMatchesOffsetProvider.notifier).incrementOffset();
       final offset = ref.read(tennisMatchesOffsetProvider);
       ref.read(tennisMatchesProvider.notifier).getTennisMatches(offset: offset);
@@ -60,7 +60,7 @@ class TennisMatchList extends ConsumerWidget {
                     return const SizedBox();
                   }
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    loadMore(value.length);
+                    loadMore();
                   });
                   return const Padding(
                     padding: EdgeInsets.all(8.0),
