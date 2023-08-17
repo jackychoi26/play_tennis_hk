@@ -8,9 +8,8 @@ import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match
 class TennisMatchesRepositoryImpl implements TennisMatchesRepository {
   TennisMatchesRepositoryImpl(
     TennisMatchesFilterOptions tennisMatchesFilterOptions,
-  )   : _tennisMatchesWebservice = TennisMatchesWebservice(
-          tennisMatchesFilterOptions,
-        ),
+  )   : _tennisMatchesWebservice =
+            TennisMatchesWebservice(tennisMatchesFilterOptions),
         _createTennisMatchWebservice = CreateTennisMatchWebservice(),
         _deleteTennisMatchWebservice = DeleteTennisMatchWebservice();
 
@@ -19,9 +18,9 @@ class TennisMatchesRepositoryImpl implements TennisMatchesRepository {
   final DeleteTennisMatchWebservice _deleteTennisMatchWebservice;
 
   @override
-  Future<List<TennisMatch>> getTennisMatches() async {
+  Future<List<TennisMatch>> getTennisMatches(num offset) async {
     final tennisMatchesResponse =
-        await _tennisMatchesWebservice.performRequest();
+        await _tennisMatchesWebservice.performRequest(offset: offset);
 
     return tennisMatchesResponse.tennisMatches;
   }
