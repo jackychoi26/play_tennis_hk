@@ -12,8 +12,9 @@ class TennisMatchesWebservice extends Webservice {
 
   final TennisMatchesFilterOptions _tennisMatchesFilterOptions;
 
-  Future<TennisMatchesResponse> performRequest() async {
-    final response = await dio.get(_getEndpoint(_tennisMatchesFilterOptions));
+  Future<TennisMatchesResponse> performRequest({required num offset}) async {
+    final response =
+        await dio.get(_getEndpoint(_tennisMatchesFilterOptions, offset));
 
     try {
       final tennisMatches = TennisMatchesResponse.fromJson(response.data);
@@ -23,13 +24,14 @@ class TennisMatchesWebservice extends Webservice {
     }
   }
 
-  String _getEndpoint(TennisMatchesFilterOptions tennisMatchesFilterOptions) {
+  String _getEndpoint(
+      TennisMatchesFilterOptions tennisMatchesFilterOptions, num offset) {
     final lowerNtrpLevel = tennisMatchesFilterOptions.lowerNtrpLevel;
     final upperNtrpLevel = tennisMatchesFilterOptions.upperNtrpLevel;
     final selectedDistricts = tennisMatchesFilterOptions.selectedDistricts
         .map((e) => e.toKey())
         .toList();
 
-    return "/matchmaking/all?lowerNtrpLevel=$lowerNtrpLevel&upperNtrpLevel=$upperNtrpLevel&selectedDistricts=$selectedDistricts";
+    return "/matchmaking/all?lowerNtrpLevel=$lowerNtrpLevel&upperNtrpLevel=$upperNtrpLevel&selectedDistricts=$selectedDistricts&offset=$offset";
   }
 }

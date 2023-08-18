@@ -9,16 +9,24 @@ class TennisMatchesNotifier
   TennisMatchesNotifier(
     this.repository,
   ) : super(const AsyncLoading()) {
-    getTennisMatches();
+    getTennisMatches(offset: 0);
   }
 
   TennisMatchesRepositoryImpl repository;
 
-  Future<void> getTennisMatches() async {
-    try {
-      final matches = await repository.getTennisMatches();
+  Future<void> clearMatches() async {
+    state = const AsyncData([]);
+  }
 
-      state = AsyncData(matches);
+  Future<void> getTennisMatches({required int offset}) async {
+    try {
+      final newMatches = await repository.getTennisMatches(offset);
+
+      final currentMatches = state.maybeWhen(
+        data: (matches) => matches,
+        orElse: () => [],
+      );
+      state = AsyncData([...currentMatches, ...newMatches]);
     } catch (err) {
       if (ErrorResolver().notTimeoutException(err)) rethrow;
 
@@ -29,7 +37,7 @@ class TennisMatchesNotifier
   Future<void> createTennisMatch(TennisMatch tennisMatch) async {
     await repository.createTennisMatch(tennisMatch);
 
-    final matches = await repository.getTennisMatches();
+    final matches = await repository.getTennisMatches(0);
 
     state = AsyncData(matches);
   }
@@ -37,7 +45,7 @@ class TennisMatchesNotifier
   Future<void> deleteTennisMatch(int matchId) async {
     await repository.deleteTennisMatch(matchId);
 
-    final matches = await repository.getTennisMatches();
+    final matches = await repository.getTennisMatches(0);
 
     state = AsyncData(matches);
   }
@@ -46,11 +54,8 @@ class TennisMatchesNotifier
 final tennisMatchesProvider =
     StateNotifierProvider<TennisMatchesNotifier, AsyncValue<List<TennisMatch>>>(
         (ref) {
-  final tennisMatchesFilterOptions = ref.watch(
-    tennisMatchesFilterOptionsProvider,
-  );
-
+  final tennisMatchesFilterOptions =
+      ref.watch(tennisMatchesFilterOptionsProvider);
   return TennisMatchesNotifier(
-    TennisMatchesRepositoryImpl(tennisMatchesFilterOptions),
-  );
+      TennisMatchesRepositoryImpl(tennisMatchesFilterOptions));
 });
