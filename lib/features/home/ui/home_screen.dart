@@ -86,18 +86,16 @@ class HomeScreen extends ConsumerWidget {
         options: DefaultFirebaseOptions.currentPlatform,
       ),
       builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return const Text("Something went wrong");
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
+        // Once complete or error, show your application
+        if (snapshot.hasError ||
+            snapshot.connectionState == ConnectionState.done) {
           return const MatchmakingScreen();
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return const Text("Loading");
+        return const Center(
+          child: Text("Splashscreen"),
+        );
       },
     );
   }

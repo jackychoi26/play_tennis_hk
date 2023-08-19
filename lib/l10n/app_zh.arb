@@ -169,5 +169,6 @@
   "tuenMun": "屯門區",
   "yuenLong": "元朗區",
   "filterOptionsSaved": "篩選條件已被保存",
-  "noTennisMatchesNow": "現時沒有網球比賽"
+  "noTennisMatchesNow": "現時沒有網球比賽",
+  "receivePushNotificationForBadWeather": "當你創造的比賽可能遇上壞天氣時，將會收到推送通知"
 }

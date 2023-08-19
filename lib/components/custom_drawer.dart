@@ -9,6 +9,7 @@ import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.
 import 'package:play_tennis_hk/features/profile/domain/providers/user_profile_provider.dart';
 import 'package:play_tennis_hk/features/profile/ui/login_screen.dart';
 import 'package:play_tennis_hk/features/profile/ui/profile_screen.dart';
+import 'package:play_tennis_hk/features/settings/ui/settings_screen.dart';
 import 'package:play_tennis_hk/features/weather_radar_image/ui/weather_radar_image_screen.dart';
 
 class CustomDrawer extends ConsumerWidget {
@@ -134,7 +135,7 @@ class CustomDrawer extends ConsumerWidget {
               Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        const AboutUsScreen(),
+                        const SettingsScreen(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return child;

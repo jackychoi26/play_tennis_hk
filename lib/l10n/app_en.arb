@@ -169,5 +169,6 @@
   "tuenMun": "Tuen Mun",
   "yuenLong": "Yuen Long",
   "filterOptionsSaved": "Filter options have been saved",
-  "noTennisMatchesNow": "No tennis matches now"
+  "noTennisMatchesNow": "No tennis matches now",
+  "receivePushNotificationForBadWeather": "Receive push notification for the tennis match you created might have bad weather"
 }
