@@ -90,10 +90,8 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<UserProfile> updateUserProfile(UserProfile userProfile) async {
-    final editResponse =
-        await editWebservice.performRequest(userProfile.toJson());
-
+  Future<UserProfile> updateUserProfile(Map<String, dynamic> map) async {
+    final editResponse = await editWebservice.performRequest(map);
     return editResponse.userProfile;
   }
 

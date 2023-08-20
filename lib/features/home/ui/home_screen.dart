@@ -5,6 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_alert_dialog.dart';
 import 'package:play_tennis_hk/features/system/data/system_config_webservice.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:play_tennis_hk/firebase_options.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -78,6 +80,23 @@ class HomeScreen extends ConsumerWidget {
       return await _showAlertIfNeeded(context);
     });
 
-    return const MatchmakingScreen();
+    return FutureBuilder(
+      // Initialize FlutterFire
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (context, snapshot) {
+        // Once complete or error, show your application
+        if (snapshot.hasError ||
+            snapshot.connectionState == ConnectionState.done) {
+          return const MatchmakingScreen();
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return const Center(
+          child: Text("Splashscreen"),
+        );
+      },
+    );
   }
 }

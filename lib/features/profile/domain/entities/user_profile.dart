@@ -15,6 +15,7 @@ class UserProfile {
   final String? signal;
   final String? whatsapp;
   final bool? isProfilePublic;
+  final bool? notifyBadWeather;
 
   const UserProfile({
     required this.username,
@@ -30,6 +31,7 @@ class UserProfile {
     this.signal,
     this.whatsapp,
     this.isProfilePublic,
+    this.notifyBadWeather,
   });
 
   Map<String, dynamic> toJson() {
@@ -85,10 +87,13 @@ class UserProfile {
       jsonMap['isProfilePublic'] = isProfilePublic;
     }
 
+    if (notifyBadWeather != null) {
+      jsonMap['notifyBadWeather'] = notifyBadWeather;
+    }
+
     return jsonMap;
   }
 
-  @override
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     final districtsList = (json['districts'] as List<dynamic>).cast<String>();
     final districts = districtsList.map((e) => e.toDistrict()).toList();
@@ -106,6 +111,7 @@ class UserProfile {
       signal: json['signal'],
       whatsapp: json['whatsapp'],
       isProfilePublic: json['isProfilePublic'],
+      notifyBadWeather: json['notifyBadWeather'],
     );
   }
 }

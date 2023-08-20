@@ -13,10 +13,8 @@ class TennisMatchesFilterOptionsRepositoryImpl
     String? value = prefs.getString(_key);
     if (value != null) {
       try {
-        print(value);
         return TennisMatchesFilterOptions.fromJson(json.decode(value));
       } catch (err) {
-        print(err);
         return null;
       }
     } else {

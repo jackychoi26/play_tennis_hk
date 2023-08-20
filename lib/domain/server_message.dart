@@ -44,4 +44,5 @@ enum ServerMessage {
   missingDistricts,
   missingIsProfilePublic,
   internalServerError,
+  updateSettingsError,
 }

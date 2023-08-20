@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "367215107625",
+    "project_id": "play-tennis-hk",
+    "storage_bucket": "play-tennis-hk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367215107625:android:49d9e52589a6c6ff668638",
+        "android_client_info": {
+          "package_name": "com.jackychoi.play_tennis_hk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367215107625-aik0onjei5raarh78amqdntl92h9a7vl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJlTwHMM5NeqwK_FHV4YIiBfIVGuYthvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367215107625-aik0onjei5raarh78amqdntl92h9a7vl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "367215107625-6qhf0arqc827v38p7r4es3vq93nrq816.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jackychoi.playtennishk"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -31,7 +31,7 @@ class _MatchmakingScreenState extends ConsumerState<MatchmakingScreen> {
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
             ),
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const TennisMatchesFilterScreen(),

@@ -19,7 +19,7 @@
   "personalDescriptionHint": "Introduce yourself!",
   "optional": "(Optional)",
   "leaveContact": "Leave your contact",
-  "systemSetting": "System setting",
+  "settings": "Settings",
   "usernameValidationError": "Username must be 4-12 characters",
   "emailValidationError": "Please enter a valid email address",
   "passwordValidationError": "Password must be between 8-16 characters with at least one lowercase one capital character and one number",
@@ -169,5 +169,10 @@
   "tuenMun": "Tuen Mun",
   "yuenLong": "Yuen Long",
   "filterOptionsSaved": "Filter options have been saved",
-  "noTennisMatchesNow": "No tennis matches now"
+  "noTennisMatchesNow": "No tennis matches now",
+  "noPartnersNow": "No players have set their profile public now",
+  "receivePushNotificationForBadWeather": "Receive push notification for the tennis match you created might have bad weather",
+  "loginToReceivePush": "Please login to enable push notification",
+  "updateSettingsFailure": "Failed to update settings",
+  "updateSettingsSuccess": "Settings have been updated"
 }
