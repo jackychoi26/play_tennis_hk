@@ -1,23 +1,19 @@
 class PushNotification {
-  final bool badWeatherPush;
-  final String? fcmToken;
+  final bool notifyBadWeather;
 
   const PushNotification({
-    required this.badWeatherPush,
-    this.fcmToken,
+    required this.notifyBadWeather,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'badWeatherPush': badWeatherPush,
-      'fcmToken': fcmToken,
+      'notifyBadWeather': notifyBadWeather,
     };
   }
 
   factory PushNotification.fromJson(Map<String, dynamic> json) {
     return PushNotification(
-      badWeatherPush: json['badWeatherPush'],
-      fcmToken: json['fcmToken'],
+      notifyBadWeather: json['notifyBadWeather'],
     );
   }
 }

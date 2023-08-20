@@ -1,33 +1,72 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
+import 'package:play_tennis_hk/components/custom_snack_bar.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
+import 'package:play_tennis_hk/core/error_resolver.dart';
+import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
+import 'package:play_tennis_hk/features/profile/domain/providers/user_profile_provider.dart';
+import 'package:play_tennis_hk/features/settings/domain/providers/fcm_token_provider.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class SettingsScreen extends ConsumerStatefulWidget {
+  const SettingsScreen({super.key});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _SettingsScreenState();
+  }
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool receivePushForBadWeather = false;
-  String? fcmToken;
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  late bool notifyBadWeatherState;
 
-  void requestPermission(bool swtichValue) async {
-    if (swtichValue) {
-      final token = await FirebaseMessaging.instance.getToken();
-      if (token != null) {
-        fcmToken = token;
+  @override
+  void initState() {
+    super.initState();
+    notifyBadWeatherState =
+        ref.read(userProfileProvider)?.notifyBadWeather == true;
+  }
+
+  void requestPermission(bool value) async {
+    setState(() {
+      notifyBadWeatherState = value;
+    });
+  }
+
+  Future<void> save(BuildContext context) async {
+    final isLogin = ref.watch(tokenProvider) != null;
+    if (!isLogin) {
+      CustomSnackBar(
+        message: AppLocalizations.of(context)?.loginToReceivePush,
+        type: SnackBarType.info,
+      ).display(context);
+    }
+
+    try {
+      final hasToken =
+          await ref.read(fcmTokenProvider.notifier).canGetFcmToken();
+
+      if (hasToken) {
+        ref.read(fcmTokenProvider.notifier).saveTokenIfNeeded();
+
+        ref.read(userProfileProvider.notifier).editProfile(
+              notifyBadWeather: notifyBadWeatherState,
+            );
+
+        if (context.mounted) {
+          CustomSnackBar(
+            message: AppLocalizations.of(context)?.updateSettingsSuccess,
+            type: SnackBarType.info,
+          ).display(context);
+        }
+      } else {
         setState(() {
-          receivePushForBadWeather = swtichValue;
+          notifyBadWeatherState = false;
         });
       }
-    } else {
-      setState(() {
-        receivePushForBadWeather = swtichValue;
-      });
+    } catch (e) {
+      ErrorResolver().resolveError(e, context);
     }
   }
 
@@ -44,7 +83,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              save(context);
+            },
             child: CustomText(
               AppLocalizations.of(context)?.save,
             ),
@@ -67,7 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
                 Switch(
-                  value: receivePushForBadWeather,
+                  value: notifyBadWeatherState,
                   activeColor: Colors.red,
                   onChanged: (bool value) {
                     requestPermission(value);

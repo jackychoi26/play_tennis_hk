@@ -39,35 +39,51 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
         child: partners.when(
           loading: () => const Center(child: CircularProgressIndicator()),
           data: (value) {
-            return ListView.builder(
-              padding: const EdgeInsets.only(
-                left: 8,
-                top: 8,
-                right: 8,
-                bottom: 100,
-              ),
-              itemCount: value.length,
-              scrollDirection: Axis.vertical,
-              // shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                final userProfile = value[index];
-
-                return InkWell(
-                  child: CustomCard(
-                    child: PartnerInfoCell(userProfile: userProfile),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => PartnerDetailScreen(
-                          userProfile: userProfile,
-                        ),
+            if (value.isEmpty) {
+              return Center(
+                child: ListView(
+                  children: [
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 250),
+                        child: CustomText(
+                            AppLocalizations.of(context)?.noPartnersNow),
                       ),
-                    );
-                  },
-                );
-              },
-            );
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return ListView.builder(
+                padding: const EdgeInsets.only(
+                  left: 8,
+                  top: 8,
+                  right: 8,
+                  bottom: 100,
+                ),
+                itemCount: value.length,
+                scrollDirection: Axis.vertical,
+                // shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  final userProfile = value[index];
+
+                  return InkWell(
+                    child: CustomCard(
+                      child: PartnerInfoCell(userProfile: userProfile),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => PartnerDetailScreen(
+                            userProfile: userProfile,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            }
           },
           error: (err, st) => const CustomErrorText(),
         ),

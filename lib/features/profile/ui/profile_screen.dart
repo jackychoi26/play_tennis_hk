@@ -235,19 +235,24 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                   try {
                     if (_validateForm(context)) {
                       await ref.read(userProfileProvider.notifier).editProfile(
-                            UserProfile(
-                              username: usernameController.text,
-                              email: emailController.text,
-                              ntrpLevel: ntrpLevelValue,
-                              age: int.tryParse(ageController.text),
-                              description: descriptionController.text,
-                              districts: selectedDistricts,
-                              telegram: telegramController.text,
-                              signal: signalController.text,
-                              whatsapp: whatsappController.text,
-                              isProfilePublic: isProfilePublic,
-                            ),
+                            email: emailController.text,
+                            ntrpLevel: ntrpLevelValue,
+                            age: int.tryParse(ageController.text),
+                            description: descriptionController.text,
+                            districts: selectedDistricts,
+                            telegram: telegramController.text,
+                            signal: signalController.text,
+                            whatsapp: whatsappController.text,
+                            isProfilePublic: isProfilePublic,
                           );
+
+                      if (context.mounted) {
+                        CustomSnackBar(
+                          message:
+                              AppLocalizations.of(context)?.editProfileSuccess,
+                          type: SnackBarType.info,
+                        ).display(context);
+                      }
                     }
                   } catch (e) {
                     if (context.mounted) {

@@ -23,17 +23,18 @@ class TennisMatchList extends ConsumerWidget {
         data: (value) {
           if (value.isEmpty) {
             return Center(
-                child: ListView(
-              children: [
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 250),
-                    child: CustomText(
-                        AppLocalizations.of(context)?.noTennisMatchesNow),
+              child: ListView(
+                children: [
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 250),
+                      child: CustomText(
+                          AppLocalizations.of(context)?.noTennisMatchesNow),
+                    ),
                   ),
-                ),
-              ],
-            ));
+                ],
+              ),
+            );
           } else {
             return ListView.builder(
               padding: const EdgeInsets.only(

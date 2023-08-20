@@ -106,6 +106,8 @@ extension ServerMessageTranslator on String {
         return AppLocalizations.of(context)?.missingIsProfilePublic;
       case ServerMessage.internalServerError:
         return AppLocalizations.of(context)?.internalServerError;
+      case ServerMessage.updateSettingsError:
+        return AppLocalizations.of(context)?.updateSettingsFailure;
       default:
         return AppLocalizations.of(context)?.somethingWentWrong;
     }
