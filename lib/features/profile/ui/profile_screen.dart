@@ -56,7 +56,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   var whatsappController = TextEditingController();
   var signalController = TextEditingController();
 
-  bool isProfilePublic = true;
+  bool isProfilePublic = false;
 
   List<District> selectedDistricts = [];
 
