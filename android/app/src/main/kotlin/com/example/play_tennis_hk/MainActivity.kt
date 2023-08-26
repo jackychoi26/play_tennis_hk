@@ -1,4 +1,4 @@
-package com.example.play_tennis_hk
+package com.jackychoi.play_tennis_hk
 
 import io.flutter.embedding.android.FlutterActivity
 

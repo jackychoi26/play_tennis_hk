@@ -6,7 +6,7 @@ abstract class UserProfileRepository {
   Future<(UserProfile, String)> register(UserProfile userProfile);
   Future<void> storeUserProfile(UserProfile userProfile);
   Future<UserProfile> getUserProfile();
-  Future<UserProfile> updateUserProfile(UserProfile userProfile);
+  Future<UserProfile> updateUserProfile(Map<String, dynamic> map);
   Future<void> removeUserProfile();
   Future<void> deleteAccount();
 }

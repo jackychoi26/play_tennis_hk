@@ -19,7 +19,7 @@
   "personalDescriptionHint": "介紹一下你自己吧！",
   "optional": "（非必須）",
   "leaveContact": "留下聯繫方法",
-  "systemSetting": "系統設定",
+  "settings": "設定",
   "usernameValidationError": "用戶名稱只能是4-12個字符",
   "emailValidationError": "請輸入正確電郵",
   "passwordValidationError": "密碼必須是8-16位，大細階英文字及數字各1個",
@@ -169,5 +169,10 @@
   "tuenMun": "屯門區",
   "yuenLong": "元朗區",
   "filterOptionsSaved": "篩選條件已被保存",
-  "noTennisMatchesNow": "現時沒有網球比賽"
+  "noTennisMatchesNow": "現時沒有網球比賽",
+  "noPartnersNow": "現時沒有波友公開個人資訊",
+  "receivePushNotificationForBadWeather": "當你創造的比賽可能遇上壞天氣時，將會收到推送通知",
+  "loginToReceivePush": "請登入以使用推送功能",
+  "updateSettingsFailure": "無法更新設定",
+  "updateSettingsSuccess": "成功更新設定"
 }

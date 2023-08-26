@@ -105,7 +105,7 @@ class TennisMatchDetailCard extends ConsumerWidget {
                             Navigator.of(context).pop();
                           }
                         } catch (e) {
-                          ErrorResolver().resolveError(context, context);
+                          ErrorResolver().resolveError(e, context);
                         }
                       },
                     );
