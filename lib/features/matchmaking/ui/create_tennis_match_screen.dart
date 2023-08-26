@@ -136,9 +136,6 @@ class CreateTennisMatchScreenState
   Widget build(BuildContext context) {
     final localeName = AppLocalizations.of(context)?.localeName;
 
-    print(startDateTime);
-    print(endDateTime);
-
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
@@ -226,8 +223,11 @@ class CreateTennisMatchScreenState
                   }).toList()),
             ),
             NtrpLevelDropdownSelection(
+              initialValue: selectedNtrpLevel,
               onValueChanged: (num value) {
-                selectedNtrpLevel = value;
+                setState(() {
+                  selectedNtrpLevel = value;
+                });
               },
             ),
             Container(

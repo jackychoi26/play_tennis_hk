@@ -181,7 +181,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     // At least one contact method is provided
-    if (contactMethods.every((element) => element.isEmpty)) {
+    if (isProfilePublic && contactMethods.every((element) => element.isEmpty)) {
       _showSnackBar(
         AppLocalizations.of(context)?.atLeastOneContactMethod,
         context,
