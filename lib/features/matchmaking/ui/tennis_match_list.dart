@@ -30,7 +30,7 @@ class TennisMatchList extends ConsumerWidget {
     return RefreshIndicator(
       onRefresh: refresh,
       child: tennisMatches.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: CupertinoActivityIndicator()),
         data: (value) {
           if (value.isEmpty) {
             return Center(

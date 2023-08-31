@@ -16,6 +16,7 @@ class TennisMatchesNotifier
 
   Future<void> clearMatches() async {
     state = const AsyncData([]);
+    state = const AsyncLoading();
   }
 
   Future<void> getTennisMatches({required int offset}) async {
