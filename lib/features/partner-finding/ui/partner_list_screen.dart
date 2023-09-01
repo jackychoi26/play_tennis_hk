@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/components/custom_error_text.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
+import 'package:play_tennis_hk/features/partner-finding/domain/providers/partners_offset_provider.dart';
 import 'package:play_tennis_hk/features/partner-finding/domain/providers/partners_provider.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_detail_screen.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_info_cell.dart';
@@ -19,7 +21,16 @@ class PartnerListScreen extends ConsumerStatefulWidget {
 
 class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
   Future refresh() async {
-    ref.read(partnersProvider.notifier).getPublicProfiles();
+    ref.read(partnersProvider.notifier).clearPartners();
+    ref.read(partnersOffsetProvider.notifier).resetOffset();
+    final offset = ref.read(partnersOffsetProvider);
+    ref.read(partnersProvider.notifier).getPublicProfiles(offset: offset);
+  }
+
+  void loadMore() {
+    ref.read(partnersOffsetProvider.notifier).incrementOffset();
+    final offset = ref.read(partnersOffsetProvider);
+    ref.read(partnersProvider.notifier).getPublicProfiles(offset: offset);
   }
 
   @override
@@ -37,7 +48,7 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
       body: RefreshIndicator(
         onRefresh: refresh,
         child: partners.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: CupertinoActivityIndicator()),
           data: (value) {
             if (value.isEmpty) {
               return Center(
@@ -61,10 +72,23 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
                   right: 8,
                   bottom: 100,
                 ),
-                itemCount: value.length,
+                itemCount: value.length + 1,
                 scrollDirection: Axis.vertical,
-                // shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
+                  if (index == value.length) {
+                    if (value.length % 10 != 0) {
+                      return const SizedBox();
+                    }
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      loadMore();
+                    });
+
+                    return const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(child: CupertinoActivityIndicator()),
+                    );
+                  }
                   final userProfile = value[index];
 
                   return InkWell(
