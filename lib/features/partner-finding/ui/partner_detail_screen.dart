@@ -64,7 +64,10 @@ class PartnerDetailScreen extends StatelessWidget {
                   ),
                   if (userProfile.description?.isNotEmpty == true) ...[
                     Padding(
-                      padding: const EdgeInsets.only(left: 16),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
                       child: CustomText(userProfile.description),
                     ),
                   ],

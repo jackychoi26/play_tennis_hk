@@ -174,5 +174,12 @@
   "receivePushNotificationForBadWeather": "當你創造的比賽可能遇上壞天氣時，將會收到推送通知",
   "loginToReceivePush": "請登入以使用推送功能",
   "updateSettingsFailure": "無法更新設定",
-  "updateSettingsSuccess": "成功更新設定"
+  "updateSettingsSuccess": "成功更新設定",
+  "monday": "星期一",
+  "tuesday": "星期二",
+  "wednesday": "星期三",
+  "thursday": "星期四",
+  "friday": "星期五",
+  "saturday": "星期六",
+  "sunday": "星期日"
 }

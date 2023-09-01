@@ -174,5 +174,12 @@
   "receivePushNotificationForBadWeather": "Receive push notification for the tennis match you created might have bad weather",
   "loginToReceivePush": "Please login to enable push notification",
   "updateSettingsFailure": "Failed to update settings",
-  "updateSettingsSuccess": "Settings have been updated"
+  "updateSettingsSuccess": "Settings have been updated",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }
