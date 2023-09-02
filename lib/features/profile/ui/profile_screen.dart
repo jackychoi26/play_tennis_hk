@@ -529,7 +529,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                             style: const ButtonStyle(
                               padding: MaterialStatePropertyAll(
                                 EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 150),
+                                    vertical: 20, horizontal: 140),
                               ),
                             ),
                             child: CustomText(_getPrimaryButtonTitle()),
