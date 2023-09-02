@@ -94,6 +94,10 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
     } else {
       ref.read(userProfileProvider.notifier).logout();
+
+      if (context.mounted) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
     }
   }
 
