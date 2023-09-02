@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_tennis_hk/components/custom_error_text.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/providers/tennis_matches_offset_provider.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/providers/tennis_matches_provider.dart';
@@ -73,9 +74,7 @@ class TennisMatchList extends ConsumerWidget {
             );
           }
         },
-        error: (err, st) => Center(
-          child: CustomText(AppLocalizations.of(context)?.somethingWentWrong),
-        ),
+        error: (err, st) => const CustomErrorText(),
       ),
     );
   }

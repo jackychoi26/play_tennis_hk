@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/features/filter/domain/providers/tennis_matches_filter_options_provider.dart';
 import 'package:play_tennis_hk/features/matchmaking/data/repositories/tennis_matches_repository_impl.dart';
 import 'package:play_tennis_hk/features/matchmaking/domain/entities/tennis_match.dart';
@@ -29,8 +28,6 @@ class TennisMatchesNotifier
       );
       state = AsyncData([...currentMatches, ...newMatches]);
     } catch (err) {
-      if (ErrorResolver().notTimeoutException(err)) rethrow;
-
       state = AsyncError(err, StackTrace.current);
     }
   }

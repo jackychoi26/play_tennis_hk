@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_tennis_hk/core/error_resolver.dart';
 import 'package:play_tennis_hk/features/partner-finding/data/repositories/partner_repository_impl.dart';
 import 'package:play_tennis_hk/features/profile/domain/entities/user_profile.dart';
 
@@ -28,7 +27,6 @@ class PartnersNotifier extends StateNotifier<AsyncValue<List<UserProfile>>> {
 
       state = AsyncData([...currentProfiles, ...partners]);
     } catch (err) {
-      if (ErrorResolver().notTimeoutException(err)) rethrow;
 
       state = AsyncError(err, StackTrace.current);
     }
