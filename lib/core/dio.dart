@@ -45,10 +45,10 @@ class DioSingleton {
   }
 
   final _client = Dio(BaseOptions(
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://api.playtennishk.com",
     receiveDataWhenStatusError: true,
-    connectTimeout: const Duration(seconds: 60 * 1000),
-    receiveTimeout: const Duration(seconds: 60 * 1000),
+    connectTimeout: const Duration(seconds: 120),
+    receiveTimeout: const Duration(seconds: 120),
   ));
 
   Dio get client => _client;
