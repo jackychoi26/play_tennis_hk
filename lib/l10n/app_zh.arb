@@ -86,7 +86,7 @@
   "joinUs": "加入我們",
   "confirmOk": "確定",
   "atLeastOneDistrict": "你必須最少選擇一個地區",
-  "isProfilePublic": "公開你的聯絡方法（不包括電郵）到『搜尋波友』",
+  "isProfilePublic": "公開你的聯絡方法（不包括電郵）到『搜尋波友』（需要提供最少一個聯絡方法）",
   "dateTimeValidationError": "請選擇正確的比賽時間",
   "dateTimeEmptyError": "請選擇比賽時間",
   "locationValidationError": "請輸入地點",
@@ -174,5 +174,12 @@
   "receivePushNotificationForBadWeather": "當你創造的比賽可能遇上壞天氣時，將會收到推送通知",
   "loginToReceivePush": "請登入以使用推送功能",
   "updateSettingsFailure": "無法更新設定",
-  "updateSettingsSuccess": "成功更新設定"
+  "updateSettingsSuccess": "成功更新設定",
+  "monday": "星期一",
+  "tuesday": "星期二",
+  "wednesday": "星期三",
+  "thursday": "星期四",
+  "friday": "星期五",
+  "saturday": "星期六",
+  "sunday": "星期日"
 }

@@ -3,12 +3,13 @@ import 'package:play_tennis_hk/features/profile/data/webservices/profile_respons
 
 class EditWebservice extends Webservice {
   Future<ProfileResponse> performRequest(Object data) async {
-    final response = await patchRequest(
-      "/profile",
-      data,
-    );
-
+    final profileData = data;
     try {
+      final response = await patchRequest(
+        "/profile",
+        profileData,
+      );
+
       final data = ProfileResponse.fromJson(response.data);
       return data;
     } catch (err) {

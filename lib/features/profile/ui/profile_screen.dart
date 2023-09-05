@@ -56,7 +56,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
   var whatsappController = TextEditingController();
   var signalController = TextEditingController();
 
-  bool isProfilePublic = true;
+  bool isProfilePublic = false;
 
   List<District> selectedDistricts = [];
 
@@ -66,7 +66,6 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     final isRegistration = ref.read(tokenProvider) == null;
 
     if (isRegistration) {
-      Navigator.of(context).popUntil((route) => route.isFirst);
       try {
         if (_validateForm(context)) {
           await ref.read(userProfileProvider.notifier).register(
@@ -84,6 +83,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                   isProfilePublic: isProfilePublic,
                 ),
               );
+          if (context.mounted) {
+            Navigator.popUntil(context, (route) => route.isFirst);
+          }
         }
       } catch (e) {
         if (context.mounted) {
@@ -92,10 +94,10 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
     } else {
       ref.read(userProfileProvider.notifier).logout();
-    }
 
-    if (context.mounted) {
-      Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
     }
   }
 
@@ -181,7 +183,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
     }
 
     // At least one contact method is provided
-    if (contactMethods.every((element) => element.isEmpty)) {
+    if (isProfilePublic && contactMethods.every((element) => element.isEmpty)) {
       _showSnackBar(
         AppLocalizations.of(context)?.atLeastOneContactMethod,
         context,
@@ -531,7 +533,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                             style: const ButtonStyle(
                               padding: MaterialStatePropertyAll(
                                 EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 150),
+                                    vertical: 20, horizontal: 140),
                               ),
                             ),
                             child: CustomText(_getPrimaryButtonTitle()),

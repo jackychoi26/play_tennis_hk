@@ -86,7 +86,7 @@
   "joinUs": "Join us",
   "confirmOk": "OK",
   "atLeastOneDistrict": "You must at least choose 1 district",
-  "isProfilePublic": "Set your contact (not including email) public to \"Find tennis partner\" section",
+  "isProfilePublic": "Set your contact (not including email) public to \"Find tennis partner\" section (You need to provide at least one contact method)",
   "dateTimeValidationError": "Please select match time correctly",
   "dateTimeEmptyError": "Please select match time",
   "locationValidationError": "Please enter a location",
@@ -174,5 +174,12 @@
   "receivePushNotificationForBadWeather": "Receive push notification for the tennis match you created might have bad weather",
   "loginToReceivePush": "Please login to enable push notification",
   "updateSettingsFailure": "Failed to update settings",
-  "updateSettingsSuccess": "Settings have been updated"
+  "updateSettingsSuccess": "Settings have been updated",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }

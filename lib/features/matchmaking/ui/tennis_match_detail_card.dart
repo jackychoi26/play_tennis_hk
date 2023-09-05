@@ -52,6 +52,10 @@ class TennisMatchDetailCard extends ConsumerWidget {
     return _startDateTime.getLocalizedMonthDayValue(localName);
   }
 
+  String? _getDayOfWeek(BuildContext context) {
+    return _startDateTime.getLocalizedDayOfWeekValue(context);
+  }
+
   String _getTime() {
     final startHour = _startDateTime.getHourIn12HoursFormat();
     final endHour = _endDateTime.getHourIn12HoursFormat();
@@ -121,7 +125,7 @@ class TennisMatchDetailCard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-                "${AppLocalizations.of(context)?.date}: ${_getDate(localName)}"),
+                "${AppLocalizations.of(context)?.date}: ${_getDate(localName)} - ${_getDayOfWeek(context)}"),
             CustomText("${AppLocalizations.of(context)?.time}: ${_getTime()}"),
             CustomText(
                 "${AppLocalizations.of(context)?.location}: ${_district.toLocalizedName(context)} $_court"),

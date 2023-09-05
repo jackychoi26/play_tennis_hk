@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 extension DateFormatter on DateTime {
   String _getEnglishMonthDayValue() {
     if (month < 1 || month > 12) {
@@ -22,6 +26,29 @@ extension DateFormatter on DateTime {
       return _getChineseMonthDayValue();
     } else {
       return _getEnglishMonthDayValue();
+    }
+  }
+
+  String? getLocalizedDayOfWeekValue(BuildContext context) {
+    String dayOfWeek = DateFormat('EEEE').format(this);
+
+    switch (dayOfWeek) {
+      case 'Monday':
+        return AppLocalizations.of(context)?.monday;
+      case 'Tuesday':
+        return AppLocalizations.of(context)?.tuesday;
+      case 'Wednesday':
+        return AppLocalizations.of(context)?.wednesday;
+      case 'Thursday':
+        return AppLocalizations.of(context)?.thursday;
+      case 'Friday':
+        return AppLocalizations.of(context)?.friday;
+      case 'Saturday':
+        return AppLocalizations.of(context)?.saturday;
+      case 'Sunday':
+        return AppLocalizations.of(context)?.sunday;
+      default:
+        return null;
     }
   }
 

@@ -6,8 +6,9 @@ class PartnersRepositoryImpl implements PartnerRepository {
   final partnersWebservice = PartnersWebservice();
 
   @override
-  Future<List<UserProfile>> getPublicProfiles() async {
-    final partnerResponse = await partnersWebservice.performRequest();
+  Future<List<UserProfile>> getPublicProfiles(num offset) async {
+    final partnerResponse =
+        await partnersWebservice.performRequest(offset: offset);
     return partnerResponse.userProfiles;
   }
 }

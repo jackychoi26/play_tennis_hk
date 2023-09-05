@@ -32,6 +32,7 @@ class PartnerDetailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             child: CustomCard(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -61,6 +62,15 @@ class PartnerDetailScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  if (userProfile.description?.isNotEmpty == true) ...[
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: CustomText(userProfile.description),
+                    ),
+                  ],
                   Row(
                     children: [
                       Container(

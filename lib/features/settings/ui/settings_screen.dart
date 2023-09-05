@@ -41,32 +41,36 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         message: AppLocalizations.of(context)?.loginToReceivePush,
         type: SnackBarType.info,
       ).display(context);
-    }
 
-    try {
-      final hasToken =
-          await ref.read(fcmTokenProvider.notifier).canGetFcmToken();
+      setState(() {
+        notifyBadWeatherState = false;
+      });
+    } else {
+      try {
+        final hasToken =
+            await ref.read(fcmTokenProvider.notifier).canGetFcmToken();
 
-      if (hasToken) {
-        ref.read(fcmTokenProvider.notifier).saveTokenIfNeeded();
+        if (hasToken) {
+          ref.read(fcmTokenProvider.notifier).saveTokenIfNeeded();
 
-        ref.read(userProfileProvider.notifier).editProfile(
-              notifyBadWeather: notifyBadWeatherState,
-            );
+          ref.read(userProfileProvider.notifier).editProfile(
+                notifyBadWeather: notifyBadWeatherState,
+              );
 
-        if (context.mounted) {
-          CustomSnackBar(
-            message: AppLocalizations.of(context)?.updateSettingsSuccess,
-            type: SnackBarType.info,
-          ).display(context);
+          if (context.mounted) {
+            CustomSnackBar(
+              message: AppLocalizations.of(context)?.updateSettingsSuccess,
+              type: SnackBarType.info,
+            ).display(context);
+          }
+        } else {
+          setState(() {
+            notifyBadWeatherState = false;
+          });
         }
-      } else {
-        setState(() {
-          notifyBadWeatherState = false;
-        });
+      } catch (e) {
+        ErrorResolver().resolveError(e, context);
       }
-    } catch (e) {
-      ErrorResolver().resolveError(e, context);
     }
   }
 
