@@ -20,6 +20,8 @@ class PartnerListScreen extends ConsumerStatefulWidget {
 }
 
 class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
+  num currentValueLength = 0;
+
   Future refresh() async {
     ref.read(partnersProvider.notifier).clearPartners();
     ref.read(partnersOffsetProvider.notifier).resetOffset();
@@ -76,11 +78,14 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
                   if (index == value.length) {
-                    if (value.length % 10 != 0) {
+                    if (value.length == currentValueLength) {
                       return const SizedBox();
                     }
 
                     WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        currentValueLength = value.length;
+                      });
                       loadMore();
                     });
 

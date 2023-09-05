@@ -8,24 +8,32 @@ import 'package:play_tennis_hk/features/matchmaking/domain/providers/tennis_matc
 import 'package:play_tennis_hk/features/matchmaking/ui/tennis_match_info_cell.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class TennisMatchList extends ConsumerWidget {
-  const TennisMatchList({super.key});
+class TennisMatchListScreen extends ConsumerStatefulWidget {
+  const TennisMatchListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    Future refresh() async {
-      ref.read(tennisMatchesProvider.notifier).clearMatches();
-      ref.read(tennisMatchesOffsetProvider.notifier).resetOffset();
-      final offset = ref.read(tennisMatchesOffsetProvider);
-      ref.read(tennisMatchesProvider.notifier).getTennisMatches(offset: offset);
-    }
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      TennisMatchListScreenState();
+}
 
-    void loadMore() {
-      ref.read(tennisMatchesOffsetProvider.notifier).incrementOffset();
-      final offset = ref.read(tennisMatchesOffsetProvider);
-      ref.read(tennisMatchesProvider.notifier).getTennisMatches(offset: offset);
-    }
+class TennisMatchListScreenState extends ConsumerState<TennisMatchListScreen> {
+  num currentValueLength = 0;
 
+  Future refresh() async {
+    ref.read(tennisMatchesProvider.notifier).clearMatches();
+    ref.read(tennisMatchesOffsetProvider.notifier).resetOffset();
+    final offset = ref.read(tennisMatchesOffsetProvider);
+    ref.read(tennisMatchesProvider.notifier).getTennisMatches(offset: offset);
+  }
+
+  void loadMore() {
+    ref.read(tennisMatchesOffsetProvider.notifier).incrementOffset();
+    final offset = ref.read(tennisMatchesOffsetProvider);
+    ref.read(tennisMatchesProvider.notifier).getTennisMatches(offset: offset);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final tennisMatches = ref.watch(tennisMatchesProvider);
 
     return RefreshIndicator(
@@ -58,12 +66,17 @@ class TennisMatchList extends ConsumerWidget {
               itemCount: value.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index == value.length) {
-                  if (value.length % 10 != 0) {
+                  if (value.length == currentValueLength) {
                     return const SizedBox();
                   }
+
                   WidgetsBinding.instance.addPostFrameCallback((_) {
+                    setState(() {
+                      currentValueLength = value.length;
+                    });
                     loadMore();
                   });
+
                   return const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Center(child: CupertinoActivityIndicator()),
