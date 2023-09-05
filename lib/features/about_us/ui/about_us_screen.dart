@@ -1,12 +1,33 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutUsScreen extends StatelessWidget {
+class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _AboutUsScreenState();
+}
+
+class _AboutUsScreenState extends State<AboutUsScreen> {
+  String? appVersion;
+
+  @override
+  void initState() {
+    super.initState();
+    getAppVersion();
+  }
+
+  getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = packageInfo.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +59,7 @@ class AboutUsScreen extends StatelessWidget {
                     textType: CustomTextType.title,
                   ),
                   CustomText(
-                    "${AppLocalizations.of(context)?.appVersion}: 1.0",
+                    "${AppLocalizations.of(context)?.appVersion}: ${appVersion ?? ""}",
                   ),
                   const SizedBox(
                     height: 20,
