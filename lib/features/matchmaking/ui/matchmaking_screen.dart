@@ -44,7 +44,7 @@ class _MatchmakingScreenState extends ConsumerState<MatchmakingScreen> {
           ),
         ],
       ),
-      body: const TennisMatchList(),
+      body: const TennisMatchListScreen(),
       drawer: const CustomDrawer(),
       floatingActionButton: Visibility(
         visible: isLogin,

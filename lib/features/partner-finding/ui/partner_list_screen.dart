@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_card.dart';
 import 'package:play_tennis_hk/components/custom_drawer.dart';
-import 'package:play_tennis_hk/components/custom_error_text.dart';
+import 'package:play_tennis_hk/components/scrollable_error_text.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:play_tennis_hk/features/partner-finding/domain/providers/partners_offset_provider.dart';
 import 'package:play_tennis_hk/features/partner-finding/domain/providers/partners_provider.dart';
@@ -20,6 +20,8 @@ class PartnerListScreen extends ConsumerStatefulWidget {
 }
 
 class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
+  num currentValueLength = 0;
+
   Future refresh() async {
     ref.read(partnersProvider.notifier).clearPartners();
     ref.read(partnersOffsetProvider.notifier).resetOffset();
@@ -76,11 +78,14 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
                   if (index == value.length) {
-                    if (value.length % 10 != 0) {
+                    if (value.length == currentValueLength) {
                       return const SizedBox();
                     }
 
                     WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        currentValueLength = value.length;
+                      });
                       loadMore();
                     });
 
@@ -109,7 +114,7 @@ class PartnerListScreenState extends ConsumerState<PartnerListScreen> {
               );
             }
           },
-          error: (err, st) => const CustomErrorText(),
+          error: (err, st) => const ScrollableErrorText(),
         ),
       ),
     );
