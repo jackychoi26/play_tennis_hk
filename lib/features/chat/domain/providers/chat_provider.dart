@@ -40,3 +40,8 @@ class ChatNotifier extends StateNotifier<AsyncValue<List<Message>>> {
     return await _repository.searchMessages(query);
   }
 }
+
+// final chatNotifierProvider = StateNotifierProvider<ChatNotifier, AsyncValue<List<Message>>>((ref) {
+//   final repository = ref.watch();
+//   return ChatNotifier(repository);
+// });
