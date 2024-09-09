@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/features/chat/domain/entities/message.dart';
 
@@ -37,7 +39,7 @@ class _ChatroomScreenState extends ConsumerState<ChatroomScreen> {
                 return ListView.builder(
                   controller: _scrollController,
                   reverse: true,
-                  itemCount: 10,
+                  itemCount: 1,
                   itemBuilder: (context, index) {
                     return MessageBubble(
                       message: Message(
@@ -67,24 +69,71 @@ class _ChatroomScreenState extends ConsumerState<ChatroomScreen> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: const InputDecoration(
-                      hintText: '輸入訊息...',
-                      border: OutlineInputBorder(),
+          Ink(
+            color: Colors.grey[200],
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        debugPrint('Add button tapped');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(Icons.add),
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: TextField(
+                            controller: _messageController,
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: const InputDecoration(
+                              hintText: 'please input message...',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 18),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    InkWell(
+                      onTap: _sendMessage,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Transform.rotate(
+                            angle: -3.14 / 4,
+                            child: const Icon(Icons.send),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: _sendMessage,
-                ),
-              ],
+              ),
             ),
           ),
         ],

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/components/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:play_tennis_hk/features/about_us/ui/about_us_screen.dart';
+import 'package:play_tennis_hk/features/chat/ui/chatroom.dart';
 import 'package:play_tennis_hk/features/matchmaking/ui/matchmaking_screen.dart';
 import 'package:play_tennis_hk/features/partner-finding/ui/partner_list_screen.dart';
 import 'package:play_tennis_hk/features/profile/domain/providers/token_provider.dart';
@@ -26,8 +27,7 @@ class CustomDrawer extends ConsumerWidget {
         children: [
           isLoggedIn && userProfile != null
               ? UserAccountsDrawerHeader(
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 116, 73, 185)),
+                  decoration: const BoxDecoration(color: Color.fromARGB(255, 116, 73, 185)),
                   accountName: CustomText(
                     userProfile.username,
                     textColor: Colors.white,
@@ -71,10 +71,8 @@ class CustomDrawer extends ConsumerWidget {
             onTap: () {
               Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const MatchmakingScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    pageBuilder: (context, animation, secondaryAnimation) => const MatchmakingScreen(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return child;
                     }),
               );
@@ -82,22 +80,18 @@ class CustomDrawer extends ConsumerWidget {
           ),
           ListTile(
             title: Row(
-              children: [
-                CustomText("${AppLocalizations.of(context)?.findPartner}  "),
-                const Icon(Icons.people)
-              ],
+              children: [CustomText("${AppLocalizations.of(context)?.findPartner}  "), const Icon(Icons.people)],
             ),
             onTap: () {
               Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const PartnerListScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    pageBuilder: (context, animation, secondaryAnimation) => const PartnerListScreen(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return child;
                     }),
               );
             },
+
             // MaterialPageRoute(
             //   builder: (context) {
             //     return const PartnerListScreen();
@@ -107,18 +101,15 @@ class CustomDrawer extends ConsumerWidget {
           ListTile(
             title: Row(
               children: [
-                CustomText(
-                    "${AppLocalizations.of(context)?.weatherRadarImage}  "),
+                CustomText("${AppLocalizations.of(context)?.weatherRadarImage}  "),
                 const Icon(Icons.sunny),
               ],
             ),
             onTap: () {
               Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const WeatherRadarImageScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    pageBuilder: (context, animation, secondaryAnimation) => const WeatherRadarImageScreen(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return child;
                     }),
               );
@@ -134,10 +125,8 @@ class CustomDrawer extends ConsumerWidget {
             onTap: () {
               Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const SettingsScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    pageBuilder: (context, animation, secondaryAnimation) => const SettingsScreen(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return child;
                     }),
               );
@@ -153,10 +142,27 @@ class CustomDrawer extends ConsumerWidget {
             onTap: () {
               Navigator.of(context).pushReplacement(
                 PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const AboutUsScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    pageBuilder: (context, animation, secondaryAnimation) => const AboutUsScreen(),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      return child;
+                    }),
+              );
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
+                CustomText("Test Chat"),
+                const Icon(Icons.info),
+              ],
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => const ChatroomScreen(
+                          conversationId: 'test',
+                        ),
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return child;
                     }),
               );
