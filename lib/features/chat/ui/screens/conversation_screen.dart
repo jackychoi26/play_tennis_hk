@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/features/chat/domain/entities/message.dart';
+import 'package:play_tennis_hk/features/chat/ui/component/message_bubble.dart';
 
-class ChatroomScreen extends ConsumerStatefulWidget {
+class ConversationScreen extends ConsumerStatefulWidget {
   final String conversationId;
 
-  const ChatroomScreen({Key? key, required this.conversationId}) : super(key: key);
+  const ConversationScreen({Key? key, required this.conversationId}) : super(key: key);
 
   @override
-  _ChatroomScreenState createState() => _ChatroomScreenState();
+  _ConversationScreenState createState() => _ConversationScreenState();
 }
 
-class _ChatroomScreenState extends ConsumerState<ChatroomScreen> {
+class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
@@ -165,29 +166,5 @@ class _ChatroomScreenState extends ConsumerState<ChatroomScreen> {
     _messageController.dispose();
     _scrollController.dispose();
     super.dispose();
-  }
-}
-
-class MessageBubble extends StatelessWidget {
-  final Message message;
-
-  const MessageBubble({Key? key, required this.message}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      child: Align(
-        alignment: message.senderId == 'currentUserId' ? Alignment.centerRight : Alignment.centerLeft,
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: message.senderId == 'currentUserId' ? Colors.blue[100] : Colors.grey[300],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(message.content.map((c) => c.value).join(' ')),
-        ),
-      ),
-    );
   }
 }
