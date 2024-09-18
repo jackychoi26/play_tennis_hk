@@ -6,7 +6,7 @@ import 'package:play_tennis_hk/features/profile/domain/repositories/token_reposi
 class Webservice {
   Dio dio;
 
-  Webservice() : dio = DioSingleton().client;
+  Webservice() : dio = DioSingleton.getInstance().dio;
 
   // TODO: restructure this as this should not depend on the repository
   TokenRepository tokenRepository = TokenRepositoryImpl();
