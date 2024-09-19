@@ -65,13 +65,12 @@ class ConversationDetailScreen extends StatelessWidget {
               },
             ),
           ),
-          const Divider(),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: InkWell(
                 onTap: () {
-                  debugPrint('Add button tapped');
+                  _showExitDialog(context);
                 },
                 child: Container(
                   width: double.infinity,
