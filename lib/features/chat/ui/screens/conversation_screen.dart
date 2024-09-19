@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_tennis_hk/features/chat/domain/entities/message.dart';
 import 'package:play_tennis_hk/features/chat/ui/component/message_bubble.dart';
+import 'package:play_tennis_hk/features/chat/ui/screens/conversation_detail_screen.dart';
 
 class ConversationScreen extends ConsumerStatefulWidget {
   final String conversationId;
@@ -18,6 +19,156 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
+  final List<Message> messages = [
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('Hello')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('Hi')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('How are you?')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('I am fine, thank you')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('Good to hear that')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('How about you?')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('I am good too')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('That is great')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('Yes')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('Bye')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('Hello')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('Hi')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('How are you?')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('I am fine, thank you')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('Good to hear that')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('How about you?')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('I am good too')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('That is great')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('Yes')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'receiverId',
+      receiverIds: ['currentUserId'],
+      role: MessageRole.receiver,
+      content: [TextContent('Bye')],
+      messageType: MessageType.text,
+    ),
+    Message(
+      senderId: 'currentUserId',
+      receiverIds: ['receiverId'],
+      role: MessageRole.sender,
+      content: [TextContent('You are welcome')],
+      messageType: MessageType.text,
+    ),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +182,18 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('聊天室'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ConversationDetailScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -39,18 +202,10 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
               builder: (context, ref, child) {
                 return ListView.builder(
                   controller: _scrollController,
-                  reverse: true,
-                  itemCount: 1,
+                  itemCount: messages.length,
                   itemBuilder: (context, index) {
-                    return MessageBubble(
-                      message: Message(
-                        senderId: 'currentUserId',
-                        receiverIds: ['receiverId'],
-                        role: MessageRole.sender,
-                        content: [TextContent('Hello')],
-                        messageType: MessageType.text,
-                      ),
-                    );
+                    final message = messages[index];
+                    return MessageBubble(message: message);
                   },
                 );
                 // final messagesState = ref.watch(chatNotifierProvider);
